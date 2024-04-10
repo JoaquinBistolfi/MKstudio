@@ -8,11 +8,6 @@ body {
     background-color: rgba(143, 186, 157, 0.667);
 }
 
-body, div, ul, nav, header, footer, a, li, label {
-    margin: 0;
-    padding: 0;
-}
-
 /* ------------------------   HEADER   --------------------------- */
 
 header {
@@ -116,10 +111,68 @@ header {
 .img_vaca img {
     width: 100%;
     height: 450px;
-    object-fit: cover; 
+    object-fit: cover;  
 }
+
+.caracteristicas h1{
+    display: flex;
+    justify-content: center;
+    font-size: 50px;
+}
+.card {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background: #000;
+    display: flex;
+    box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
+    overflow: hidden;
+    transition: 0.5s ease-in-out;
+    color: white;
+    padding: auto;
+    margin: auto;
+    margin-bottom: 50px;
+  }
+  .card:hover {
+    width: 800px;
+  }
+  .card .img{
+    position: relative;
+    padding: 0;
+  }
+  .card details{
+    display: flex;
+    margin: auto;
+    justify-items: center;
+    align-items: center;
+  }
+  
+  .card2 img{
+    position: relative;
+    padding: 0;
+  }
+
+  .card2 {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background: #000;
+    display: flex;
+    box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
+    overflow: hidden;
+    transition: 0.5s ease-in-out;
+    color: white;
+    padding: auto;
+    margin: auto;
+    margin-bottom: 50px;
+  }
+  .card2:hover {
+    width: 800px;
+  }
 /*----------------------------- FOOTER------------------------------*/
 .footer{
+    display: flex;
+    position: relative;
     margin: 0;
     background-color: rgb(58, 91, 63);
     bottom: 0px;
@@ -167,16 +220,22 @@ header {
     font-size: 14px;
     border: 1px solid #ccc; 
     border-radius: 4px; 
-    margin-right: 10px; 
+    margin-right: 0px; 
 }
 
 .barra-busqueda button {
-    padding: 5px 10px; 
+    margin-top: 0px;
+    padding: 0 5px; 
     background-color: #4CAF50; 
     color: white; 
     border: none; 
     border-radius: 4px;
     cursor: pointer; 
+}
+
+.barra-busqueda button img {
+    max-width: 100%;
+    max-height: 25px;
 }
 
 .barra-busqueda button:hover {
