@@ -1,0 +1,117 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-image: url(fotofondo.jpg);
+}
+
+header {
+    display: flex;
+    background-color: beige;
+    align-items: center;
+    justify-content: space-between;
+}
+.header_logo {
+    max-width: 100%;
+    max-height: 70px;
+    margin: 10px 20px;
+}
+
+
+.iniciosesion{
+    margin-top: 60px;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 370px;
+    background: beige;
+    border-radius: 20px;
+    border: 1px solid green;
+    box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
+    overflow: hidden;
+    transition: 0.5s ease-in-out;
+}
+
+
+.iniciosesion h1{
+    text-align: center;
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid green;
+}
+
+.usuario label{
+    font-size: 17px;
+    margin-bottom: 20px;
+} 
+
+.usuario input{
+    width: 350px;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+
+.contraseña label{
+    margin-bottom: 20px;
+    font-size: 17px;
+}
+
+.contraseña input{
+    width: 350px;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+input[type="submit"]{
+    width: 370px;
+    height: 40px;
+    border: 1px;
+    background-color: rgb(14, 93, 14);
+    border-radius: 20px;
+    color: azure;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: 20px;
+}
+
+.recordar {
+    font-size: 16px;
+    color: antiquewhite;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+.registrarse  {
+    text-align: center;
+    font-size: 16px;
+    color: antiquewhite;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.recordar a{
+    color: rgb(71, 131, 208);
+    text-decoration: none;
+    left: 5px;
+}
+
+.recordar a:hover{
+    text-decoration: underline;
+}
+
+
+.registrarse a{
+    color: rgb(71, 131, 208);
+    text-decoration: none;
+}
+
+.registrarse a:hover{
+    text-decoration: underline;
+}
+
