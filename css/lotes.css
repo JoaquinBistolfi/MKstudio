@@ -1,0 +1,155 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgba(143, 186, 157, 0.667);
+}
+
+/* ------------------------   HEADER   --------------------------- */
+
+header {
+    display: flex;
+    background-color: beige;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.abrir_menu {
+    color: black;
+    font-size: 3rem;
+    font-weight: 600;
+    position: absolute;
+    right: 10px;
+    z-index: 11;
+}
+
+.header_checkbox {
+    display: none;
+    z-index: 11;
+}
+
+.header_nav {
+    display: none;
+    background-color: beige;
+    position: absolute;
+    height: 80%;
+    width: 100%;
+    top: 0;
+    align-items: center;
+    z-index: 10;
+}
+
+.header_nav_lista {
+    display: flex;
+    flex-direction: column;
+    height: 40vh;
+    margin: auto;
+    justify-content: space-evenly;
+}
+
+.header_checkbox:checked ~ .header_nav {
+    display: flex;
+}
+
+.header_logo {
+    max-width: 100%;
+    max-height: 70px;
+    margin: 10px 20px;
+}
+
+.header_nav_link {
+    list-style: none;
+}
+
+.header_nav_link a {
+    color: black;
+    text-decoration: none;
+    font-size: 23px;
+}
+
+.header_nav_link a:hover {
+    color: rgb(53, 85, 63);
+}
+
+.vaca{
+    display: block;
+}
+/*----------------------------- FOOTER------------------------------*/
+.footer{
+    background-color: rgb(58, 91, 63);
+    color: white;
+    padding: 20px;
+}
+
+.contenido-footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo-footer img {
+    max-width: 100px;
+    margin-bottom: 10px;
+}
+
+.contactos-footer, .links-footer {
+    flex: 1;
+}
+
+.contactos-footer h3, .links-footer h3 {
+    margin-bottom: 10px;
+}
+
+.contactos-footer p {
+    margin: 5px 0;
+}
+
+.links-footer ul {
+    list-style: none;
+    padding: 0;
+    text-align: right;
+}
+
+.links-footer ul li {
+    margin-bottom: 5px;
+}
+
+.footer-links ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-links ul li a:hover {
+    text-decoration: underline;
+}
+/*---------------------------- PANTALLA   -------------------------*/
+@media screen and (min-width: 630px) {
+    .header_nav {
+        display: flex;
+        height: auto;
+        width: auto;
+        justify-content: space-between;
+        position: static;
+        z-index: 1;
+        margin-right: 30px;
+    }
+
+    .header_nav_lista {
+        flex-direction: row;
+        height: auto;
+        width: auto;
+        gap: 20px;
+        z-index: 10;
+    }
+
+    .abrir_menu {
+        display: none;
+    }
+
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da Rosa</title>
+    <link rel="stylesheet" href="/css/lotes.css">
+    <link rel="shortcut icon" href="/imagenes/logoico.ico" type="image/x-icon">
+</head>
+<body>
+    <header>
+        <input type="checkbox"  id="activar" class="header_checkbox" >
+        <label for="activar" class="abrir_menu" role="button">=</label>
+        <img class="header_logo" src="/imagenes/darosa.png" alt="logo de la empresa">
+        <nav class="header_nav">
+            <ul class="header_nav_lista">
+                <li class="header_nav_link"><a href="#">Calendario</a></li>
+                <li class="header_nav_link"><a href="#">Mis ofertas</a></li>
+                <li class="header_nav_link"><a href="#">Lotes</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- lista de lotes dinamica(esto mostrara la cantidad de lotes que hay en la base de datos) -->
+    <div class="lista-columna">
+        <ul>
+            <?php
+            // ejemplo de datos de la base de datos
+            $lotes = [
+                ["numero" => 1, "imagen" => "imagen1.jpg", "cantidad_vacas" => 10],
+                ["numero" => 2, "imagen" => "imagen2.jpg", "cantidad_vacas" => 15],
+                ["numero" => 3, "imagen" => "imagen3.jpg", "cantidad_vacas" => 20],
+            ];
+
+            // Aparece una fila por datos de lotes
+            foreach ($lotes as $lote) {
+                echo "<li>";
+                echo "<img src='imagenes/{$lote["imagen"]}' alt='Imagen del lote {$lote["numero"]}'>";
+                echo "<div>";
+                echo "<h4>Número de lote: {$lote["numero"]}</h4>";
+                echo "<p>Cantidad de vacas: {$lote["cantidad_vacas"]}</p>";
+                // Si agregamos mas cosas las ponemos aca
+                echo "</div>";
+                echo "</li>";
+            }
+            ?>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <div class="contenido-footer">
+            <div class="logo-footer">
+                <img src="/imagenes/darosa.png" alt="Logo de la empresa">
+            </div>
+            <div class="contactos-footer">
+                <h3>Contacto</h3>
+                <p>Teléfono: +598 XXX XXX XXX</p>
+                <p>Correo electrónico: info@empresa.com</p>
+                <p>Dirección: </p>
+            </div>
+            <div class="links-footer">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="#">Sobre Nosotros</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
