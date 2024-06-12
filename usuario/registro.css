@@ -17,7 +17,6 @@ header {
     margin: 10px 20px;
 }
 
-
 .registrarse{
     margin-top: 60px;
     padding: 10px 30px;
@@ -34,66 +33,24 @@ header {
     transition: 0.5s ease-in-out;
 }
 
-
 .registrarse h1{
     text-align: center;
     padding: 0 0 20px 0;
     border-bottom: 1px solid green;
 }
 
-
-.nombrecompleto label{
+form label{
     font-size: 17px;
     margin-bottom: 20px;
 } 
 
-.nombrecompleto input{
+form input{
     width: 350px;
     padding: 0 5px;
     height: 40px;
     font-size: 16px;
     border-radius: 20px;
     margin-bottom: 15px;
-}
-.documento label{
-    font-size: 17px;
-    margin-bottom: 20px;
-} 
-
-.documento input{
-    width: 350px;
-    padding: 0 5px;
-    height: 40px;
-    font-size: 16px;
-    border-radius: 20px;
-    margin-bottom: 15px;
-}
-.domicilio label{
-    font-size: 17px;
-    margin-bottom: 20px;
-} 
-
-.domicilio input{
-    width: 350px;
-    padding: 0 5px;
-    height: 40px;
-    font-size: 16px;
-    border-radius: 20px;
-    margin-bottom: 15px;
-}
-
-.contraseña label{
-    margin-bottom: 20px;
-    font-size: 17px;
-}
-
-.contraseña input{
-    width: 350px;
-    padding: 0 5px;
-    height: 40px;
-    font-size: 16px;
-    border-radius: 20px;
-    margin-bottom: 20px;
 }
 
 .confirmar label{
@@ -101,14 +58,6 @@ header {
     margin-bottom: 20px;
 } 
 
-.confirmar input{
-    width: 350px;
-    padding: 0 5px;
-    height: 40px;
-    font-size: 16px;
-    border-radius: 20px;
-    margin-bottom: 15px;
-}
 
 input[type="submit"]{
     width: 370px;

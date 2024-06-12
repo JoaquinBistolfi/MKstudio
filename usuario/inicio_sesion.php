@@ -1,3 +1,33 @@
+<?php
+session_start();
+
+$conexion = mysqli_connect("localhost", "root", "", "chatajax") or die ("Datos incorrectos");
+mysqli_select_db($conexion, "chatajax") or die ("No se encontró la base de datos");
+
+
+if(isset($_POST['usuario']) && isset($_POST['password'])){
+    if(!empty($_POST["usuario"]) && !empty($_POST["password"])){
+        $usr = $_POST["usuario"];
+        $pass = $_POST["password"];
+        $pass = $_SESSION["usuario"];
+
+        $query = mysqli_query($conexion, "SELECT uid FROM `usuarios` WHERE `usuario`='$usr' AND `contrasena`='$pass'");
+
+        $arreglo = array();
+        while($fila = mysqli_fetch_assoc($query)){
+            $arreglo[] = $fila;
+        }
+        
+        /*if (mysqli_query($conexion, $query)) {
+            $_SESSION['usuario'] = $query;
+        }else{
+            session_destroy();
+        }
+        */
+        
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,7 +40,7 @@
 <body>
     <header>
         <img class="header_logo" src="/imagenes/darosa.png" alt="logo de la empresa">
-        </header>
+    </header>
     <div class= "iniciosesion">
         <h1>Iniciar sesión</h1>
         <form method="post">
