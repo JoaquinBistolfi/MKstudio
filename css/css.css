@@ -35,7 +35,7 @@ header {
     display: none;
     background-color: beige;
     position: absolute;
-    height: 80%;
+    height: 75%;
     width: 100%;
     top: 0;
     align-items: center;
@@ -58,6 +58,7 @@ header {
     max-width: 100%;
     max-height: 70px;
     margin: 10px 20px;
+    z-index: 100;
 }
 
 .header_nav_link {
@@ -91,7 +92,7 @@ header {
     padding: 0;
     margin: 0;
     display: flex;
-    animation: desplazar 30s infinite linear; 
+    animation: desplazar 40s infinite linear; 
 }
 
 @keyframes desplazar {
@@ -123,56 +124,7 @@ header {
     font-size: 50px;
     justify-items: center;
 }
-.card {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    background: #000;
-    display: flex;
-    box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
-    overflow: hidden;
-    transition: 0.5s ease-in-out;
-    color: white;
-    padding: auto;
-    margin: auto;
-    margin-bottom: 50px;
-  }
-  .card:hover {
-    width: 800px;
-  }
-  .card .img{
-    position: relative;
-    padding: 0;
-  }
-  .card details{
-    display: flex;
-    margin: auto;
-    justify-items: center;
-    align-items: center;
-  }
-  
-  .card2 img{
-    position: relative;
-    padding: 0;
-  }
 
-  .card2 {
-    position: relative;
-    width: 300px;
-    height: 300px;
-    background: #000;
-    display: flex;
-    box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
-    overflow: hidden;
-    transition: 0.5s ease-in-out;
-    color: white;
-    padding: auto;
-    margin: auto;
-    margin-bottom: 50px;
-  }
-  .card2:hover {
-    width: 800px;
-  }
 /*----------------------------- FOOTER------------------------------*/
 .footer{
     display: flex;
@@ -211,4 +163,111 @@ header {
         display: none;
     }
 
+    .card {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        background: #000;
+        display: flex;
+        box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
+        overflow: hidden;
+        transition: 0.5s ease-in-out;
+        color: white;
+        padding: auto;
+        margin: auto;
+        margin-bottom: 50px;
+      }
+      .card:hover {
+        width: 800px;
+      }
+      .card .img{
+        position: relative;
+        padding: 0;
+      }
+      .card details{
+        display: flex;
+        margin: auto;
+        justify-items: center;
+        align-items: center;
+      }
+      
+      .card2 img{
+        position: relative;
+        padding: 0;
+      }
+    
+      .card2 {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        background: #000;
+        display: flex;
+        box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
+        overflow: hidden;
+        transition: 0.5s ease-in-out;
+        color: white;
+        padding: auto;
+        margin: auto;
+        margin-bottom: 50px;
+      }
+      .card2:hover {
+        width: 800px;
+      }
+
+}
+
+@media screen and (max-width: 630px) {
+
+    .card {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        background: #000;
+        display: flex;
+        box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
+        overflow: hidden;
+        transition: 0.5s ease-in-out;
+        color: white;
+        padding: auto;
+        margin: auto;
+        margin-bottom: 50px;
+      }
+      .card:hover {
+        height: 800px;
+      }
+      .card .img{
+        max-height: 300px;
+        width: auto;
+        position: relative;
+        padding: 0;
+      }
+      .card details{
+        display: flex;
+        margin: auto;
+        justify-items: center;
+        align-items: center;
+      }
+      
+      .card2 img{
+        position: relative;
+        padding: 0;
+      }
+    
+      .card2 {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        background: #000;
+        display: flex;
+        box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
+        overflow: hidden;
+        transition: 0.5s ease-in-out;
+        color: white;
+        padding: auto;
+        margin: auto;
+        margin-bottom: 50px;
+      }
+      .card2:hover {
+        height: 800px;
+      }
 }
