@@ -8,18 +8,10 @@
     <link rel="shortcut icon" href="/imagenes/logoico.ico" type="image/x-icon">
 </head>
 <body>
-    <header>
-        <input type="checkbox"  id="activar" class="header_checkbox" >
-        <label for="activar" class="abrir_menu" role="button">=</label>
-        <img class="header_logo" src="/imagenes/darosa.png" alt="logo de la empresa">
-        <nav class="header_nav">
-            <ul class="header_nav_lista">
-                <li class="header_nav_link"><a href="#">Calendario</a></li>
-                <li class="header_nav_link"><a href="#">Mis ofertas</a></li>
-                <li class="header_nav_link"><a href="#">Lotes</a></li>
-            </ul>
-        </nav>
-    </header>
+<?php
+session_start();
+include './includes/header.php';
+?>
 
     <!-- lista de lotes dinamica(esto mostrara la cantidad de lotes que hay en la base de datos) -->
     <div class="lista-columna">
@@ -47,25 +39,10 @@
         </ul>
     </div>
 
-    <div class="footer">
-        <div class="contenido-footer">
-            <div class="logo-footer">
-                <img src="/imagenes/darosa.png" alt="Logo de la empresa">
-            </div>
-            <div class="contactos-footer">
-                <h3>Contacto</h3>
-                <p>Teléfono: +598 XXX XXX XXX</p>
-                <p>Correo electrónico: info@empresa.com</p>
-                <p>Dirección: </p>
-            </div>
-            <div class="links-footer">
-                <h3>Enlaces</h3>
-                <ul>
-                    <li><a href="#">Sobre Nosotros</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <?php
+session_start();
+include './includes/footer.php';
+?>
 </body>
 </html>
 
