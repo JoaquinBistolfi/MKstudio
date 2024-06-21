@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-$conexion = mysqli_connect("localhost", "root", "", "chatajax") or die ("Datos incorrectos");
-mysqli_select_db($conexion, "chatajax") or die ("No se encontró la base de datos");
+$conexion = mysqli_connect("localhost", "root", "", "proyecto") or die ("Datos incorrectos");
+mysqli_select_db($conexion, "proyecto") or die ("No se encontró la base de datos");
 
 
 if(isset($_POST['usuario']) && isset($_POST['password'])){
@@ -23,7 +23,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
             header("Location: ../main.php");
             exit();
         } else {
-            $error = "Nombre de usuario o contraseña incorrectos.";
+            echo '<p>"Nombre de usuario o contraseña incorrectos."</p>';
         }
     }
 }
@@ -53,7 +53,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
                 <a href="#">¿Olvido su contraseña?</a>
             </div>
             <input type="submit" value="Iniciar Sesion">
-            <div class="registrarse">
+            <div class="iraregistrarse">
             <a href="registro.html">Resgistrarse</a>
             </div>
         </form>

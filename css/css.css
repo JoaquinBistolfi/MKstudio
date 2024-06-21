@@ -229,7 +229,7 @@ header {
         transition: 0.5s ease-in-out;
         color: white;
         padding: auto;
-        margin: auto;
+        margin: auto;   
         margin-bottom: 50px;
       }
       .card:hover {
