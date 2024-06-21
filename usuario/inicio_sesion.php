@@ -1,18 +1,15 @@
 <?php
 session_start();
 
-$conexion = mysqli_connect("localhost", "root", "", "proyecto") or die ("Datos incorrectos");
-mysqli_select_db($conexion, "proyecto") or die ("No se encontró la base de datos");
+$conexion = mysqli_connect("localhost", "root", "", "proyecto") or die("Datos incorrectos");
 
-
-if(isset($_POST['usuario']) && isset($_POST['password'])){
-    if(!empty($_POST["usuario"]) && !empty($_POST["password"])){
+if (isset($_POST['usuario']) && isset($_POST['password'])) {
+    if (!empty($_POST["usuario"]) && !empty($_POST["password"])) {
         $usr = $_POST["usuario"];
         $pass = $_POST["password"];
 
         $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?");
         $stmt->bind_param('ss', $usr, $pass);
-
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
@@ -23,7 +20,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
             header("Location: ../main.php");
             exit();
         } else {
-            echo '<p>"Nombre de usuario o contraseña incorrectos."</p>';
+            echo '<p>Nombre de usuario o contraseña incorrectos.</p>';
         }
     }
 }
@@ -33,7 +30,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de Sesion</title>
+    <title>Inicio de Sesión</title>
     <link rel="stylesheet" href="registro.css">
     <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
 </head>
@@ -41,20 +38,19 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
     <header>
         <img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa">
     </header>
-    <div class= "iniciosesion">
+    <div class="form-container">
         <h1>Iniciar sesión</h1>
         <form method="post">
-                <label>Nombre de usuario</label>
-                <input type="text" name='usuario' required>
-                <label> Contraseña</label>
-                <input type="contraseña" name='password' required>
-
+            <label>Nombre de usuario</label>
+            <input type="text" name='usuario' required>
+            <label>Contraseña</label>
+            <input type="password" name='password' required>
             <div class="recordar">
-                <a href="#">¿Olvido su contraseña?</a>
+                <a href="#">¿Olvidó su contraseña?</a>
             </div>
-            <input type="submit" value="Iniciar Sesion">
-            <div class="iraregistrarse">
-            <a href="registro.html">Resgistrarse</a>
+            <input type="submit" value="Iniciar Sesión">
+            <div>
+                <a href="registro.php">Registrarse</a>
             </div>
         </form>
     </div>

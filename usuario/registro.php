@@ -1,5 +1,4 @@
 <?php
-
 $conexion = mysqli_connect("localhost", "root", "", "proyecto") or die("Datos incorrectos");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -14,31 +13,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $confirmar_pass = $_POST['confirmar_password'];
 
             if ($pass !== $confirmar_pass) {
-                $error = "Las contraseñas no coinciden.";
-                echo '<script>alert("' . $error . '")</script>';
+                echo '<script>alert("Las contraseñas no coinciden.")</script>';
             } else {
                 $query = "INSERT INTO `usuarios` (`usuario`, `nombre`, `apellido`, `documento`, `contrasena`) VALUES ('$usuario', '$nombre', '$apellido', '$documento', '$pass')";
-
                 if (mysqli_query($conexion, $query)) {
-                    echo '<script>alert("Se ha registrado correctamente")</script>';
+                    echo '<script>alert("Se ha registrado correctamente.")</script>';
                     header("Location: inicio_sesion.php");
                     exit();
                 } else {
                     if (mysqli_errno($conexion) == 1062) {
-                        $error = "El nombre de usuario ya existe, por favor elija otro.";
-                        echo '<script>alert("' . $error . '")</script>';
-                        exit();
+                        echo '<script>alert("El nombre de usuario ya existe, por favor elija otro.")</script>';
                     } else {
-                        $error = "Error en el registro: " . mysqli_error($conexion);
-                        echo '<script>alert("' . $error . '")</script>';
-                        exit();
+                        echo '<script>alert("Error en el registro: ' . mysqli_error($conexion) . '")</script>';
                     }
                 }
             }
         }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -47,42 +39,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse</title>
     <link rel="stylesheet" href="registro.css">
-    <link rel="shortcut icon" href="/imagenes/logoico.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
 </head>
 <body>
     <header>
         <img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa">
     </header>
-    <div class="registrarse">
+    <div class="form-container">
         <h1>Registrarse</h1>
         <form method="post">
-            <div class="usuario">
-                <label>Usuario</label>
-                <input type="text" name="usuario" required>
-            </div>
-            <div class="nombre">
-                <label>Nombre</label>
-                <input type="text" name="nombre" required>
-            </div>
-            <div class="apellido">
-                <label>Apellido</label>
-                <input type="text" name="apellido" required>
-            </div>
-            <div class="documento">
-                <label>Documento</label>
-                <input type="number" name="documento" required>
-            </div>          
-            <div class="contraseña">
-                <label>Contraseña</label>
-                <input type="password" name="password" required>
-            </div>
-            <div class="confirmar">
-                <label>Confirmar contraseña</label>
-                <input type="password" name="confirmar_password" required>
-            </div>
-            
+            <label>Usuario</label>
+            <input type="text" name="usuario" required>
+            <label>Nombre</label>
+            <input type="text" name="nombre" required>
+            <label>Apellido</label>
+            <input type="text" name="apellido" required>
+            <label>Documento</label>
+            <input type="number" name="documento" required>
+            <label>Contraseña</label>
+            <input type="password" name="password" required>
+            <label>Confirmar contraseña</label>
+            <input type="password" name="confirmar_password" required>
             <input type="submit" value="Registrarse">
-            <div class="inicio_sesion">
+            <div>
                 <a href="inicio_sesion.php">Iniciar sesión</a>
             </div>
         </form>

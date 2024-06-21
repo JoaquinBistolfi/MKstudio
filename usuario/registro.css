@@ -1,115 +1,27 @@
-body{
+body {
     margin: 0;
     padding: 0;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-image: url(fotofondo.jpg);
 }
 
+label {
+    text-align: center;
+}
+
 header {
-    display: block;
+    display: flex;
     background-color: beige;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 20px;
 }
+
 .header_logo {
-    max-width: 100%;
     max-height: 65px;
-    margin: 10px 20px;
 }
 
-.registrarse{
-    margin-top: 60px;
-    padding: 10px 30px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 370px;
-    background: beige;
-    border-radius: 20px;
-    border: 1px solid green;
-    box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
-    overflow: hidden;
-    transition: 0.5s ease-in-out;
-}
-
-.registrarse h1{
-    text-align: center;
-    padding: 0 0 20px 0;
-    border-bottom: 1px solid green;
-}
-
-form label{
-    font-size: 17px;
-    margin-bottom: 20px;
-} 
-
-form input{
-    width: 350px;
-    padding: 0 5px;
-    height: 40px;
-    font-size: 16px;
-    border-radius: 20px;
-    margin-bottom: 15px;
-}
-
-.confirmar label{
-    font-size: 17px;
-    margin-bottom: 20px;
-} 
-
-
-input[type="submit"]{
-    width: 370px;
-    height: 40px;
-    border: 1px;
-    background-color: rgb(14, 93, 14);
-    border-radius: 20px;
-    color: azure;
-    cursor: pointer;
-    outline: none;
-    margin-bottom: 20px;
-}
-
-.recordar {
-    font-size: 16px;
-    color: antiquewhite;
-    margin-bottom: 20px;
-    text-decoration: none;
-}
-.inicio_sesion  {
-    text-align: center;
-    font-size: 16px;
-    color: antiquewhite;
-    margin-bottom: 20px;
-    text-decoration: none;
-}
-
-.recordar a{
-    color: rgb(71, 131, 208);
-    text-decoration: none;
-    left: 5px;
-}
-
-.recordar a:hover{
-    text-decoration: underline;
-}
-
-
-.inicio_sesion a{
-    color: rgb(71, 131, 208);
-    text-decoration: none;
-}
-
-.inicio_sesion a:hover{
-    text-decoration: underline;
-}
-
-/*----------------------------------------------------------------------------------*/
-
-
-
-.iniciosesion{
+.form-container {
     margin-top: 60px;
     padding: 30px;
     position: absolute;
@@ -120,88 +32,52 @@ input[type="submit"]{
     background: beige;
     border-radius: 20px;
     border: 1px solid green;
-    box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
-    overflow: hidden;
-    transition: 0.5s ease-in-out;
+    box-shadow: 0px 50px 60px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
-
-.iniciosesion h1{
-    text-align: center;
-    padding: 0 0 20px 0;
+.form-container h1 {
+    padding-bottom: 20px;
     border-bottom: 1px solid green;
 }
 
-.usuario label{
-    font-size: 17px;
-    margin-bottom: 20px;
-} 
+form label {
+    font-size: 20px;
+    color: black;
+    display: block;
+    margin-bottom: 0px;
+}
 
-.usuario input{
+form input {
     width: 350px;
-    padding: 0 5px;
-    height: 40px;
+    height: 35px;
     font-size: 16px;
     border-radius: 20px;
     margin-bottom: 15px;
 }
 
-.iraregistrarse label{
-    margin-bottom: 20px;
-    font-size: 17px;
-}
-
-.iraregistrarse input{
-    width: 350px;
-    padding: 0 5px;
-    height: 40px;
-    font-size: 16px;
-    border-radius: 20px;
-    margin-bottom: 20px;
-}
-
-input[type="submit"]{
-    width: 370px;
-    height: 40px;
-    border: 1px;
+input[type="submit"] {
+    width: 100%;
+    height: 35px;
     background-color: rgb(14, 93, 14);
+    border: none;
     border-radius: 20px;
     color: azure;
     cursor: pointer;
-    outline: none;
     margin-bottom: 20px;
+}
+
+a {
+    font-size: 16px;
+    color: rgb(71, 131, 208);
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 .recordar {
-    font-size: 16px;
-    color: antiquewhite;
     margin-bottom: 20px;
-    text-decoration: none;
-}
-.registrarse  {
-    text-align: center;
-    font-size: 16px;
-    color: antiquewhite;
-    margin-bottom: 20px;
-    text-decoration: none;
-}
-
-.recordar a{
-    color: rgb(71, 131, 208);
-    text-decoration: none;
-    left: 5px;
-}
-
-.recordar a:hover{
-    text-decoration: underline;
-}
-
-
-.registrarse a{
-    color: rgb(71, 131, 208);
-    text-decoration: none;
-}
-
-.registrarse a:hover{
-    text-decoration: underline;
 }
