@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesion</title>
-    <link rel="stylesheet" href="/css/USR.css">
-    <link rel="shortcut icon" href="/imagenes/logoico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="../../css/USR.css">
+    <link rel="shortcut icon" href="../../imagenes/logoico.ico" type="image/x-icon">
 </head>
 <body>
     <header>
-        <img class="header_logo" src="/imagenes/darosa.png" alt="logo de la empresa">
+        <img class="header_logo" src="../../imagenes/darosa.png" alt="logo de la empresa">
         </header>
     <div class= "iniciosesiondiv">
         <h1>Iniciar sesión</h1>
@@ -27,7 +27,7 @@
             </div>
             <input type="submit" value="Iniciar Sesion">
             <div class="registrarse">
-            <a href="registro.html">Resgistrarse</a>
+            <a href="registro.php">Resgistrarse</a>
             </div>
         </form>
     </div>

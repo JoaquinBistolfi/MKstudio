@@ -9,7 +9,7 @@
 </head>
 <body>
 <?php include('../includes/header.php'); ?>
-    <script src="js.js"></script>
+    <script src="../js/js.js"></script>
     <main class="info_vaca">
             <div class="img_vaca">
                 <ul>

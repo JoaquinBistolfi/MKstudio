@@ -6,7 +6,7 @@
             <ul class="header_nav_lista">
                 <li class="header_nav_link"><a href="#">Calendario</a></li>
                 <li class="header_nav_link"><a href="#">Mis ofertas</a></li>
-                <li class="header_nav_link"><a href="#">Lotes</a></li>
+                <li class="header_nav_link"><a href="lotes.php">Lotes</a></li>
             </ul>
         </nav>
     </header>
