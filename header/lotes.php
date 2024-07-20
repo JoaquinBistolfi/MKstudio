@@ -6,8 +6,6 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="lotes">
-        <div>lote</div>
-    </div>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam modi aliquam dicta exercitationem temporibus placeat consectetur. Dolor laborum adipisci, illo animi rerum quas. Incidunt asperiores dolorum commodi placeat velit necessitatibus.</p>
 </body>
 </html>

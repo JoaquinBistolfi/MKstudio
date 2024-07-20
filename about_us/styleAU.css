@@ -1,0 +1,94 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.3;
+    color: #333;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+    position: relative;
+}
+
+header .logo {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    width: 65px;
+    height: auto;
+}
+
+header h1 {
+    margin: 0;
+    padding: 0;
+}
+
+.about-us {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.about-us .content {
+    max-width: 800px;
+    text-align: left;
+}
+
+.about-us img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.about-us .text h2 {
+    color: #333;
+    margin-top: 1rem;
+}
+
+.about-us .text p {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.about-us a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.about-us a:hover {
+    text-decoration: underline;
+}
+
+.integrantes {
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem 0;
+}
+
+.integrante {
+    text-align: center;
+}
+
+.integrante img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+}
+
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
