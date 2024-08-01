@@ -32,10 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo']) && isset($_F
     }
 }
 
-// Recuperar y mostrar los datos
 $sql = "SELECT titulo, ruta_archivo FROM lotes";
 $result = mysqli_query($conexion, $sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -44,10 +42,21 @@ $result = mysqli_query($conexion, $sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>  
-    <link rel="stylesheet" href="../css/lotes.css">
-    
+    <link rel="stylesheet" href="lotes.css">
 </head>
 <body>
+    <header>
+        <input type="checkbox"  id="activar" class="header_checkbox" >
+        <label for="activar" class="abrir_menu" role="button">=</label>
+        <a href="../main.html"><img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa"></a>
+        <nav class="header_nav">
+            <ul class="header_nav_lista">
+                <li class="header_nav_link"><a href="#">Calendario</a></li>
+                <li class="header_nav_link"><a href="#">Mis ofertas</a></li>
+                <li class="header_nav_link"><a href="/header/lotes.php">Lotes</a></li>
+            </ul>
+        </nav>
+    </header>
     <form action="" method="post" enctype="multipart/form-data">
         <label for="titulo_lote">
             Título del lote:
@@ -67,7 +76,7 @@ $result = mysqli_query($conexion, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<li>";
                 echo "<h3>" . htmlspecialchars($row['titulo']) . "</h3>";
-                echo "<img src='" . htmlspecialchars($row['ruta_archivo']) . "' alt='" . htmlspecialchars($row['titulo']) . "'>";
+                echo "<a href='especificaciones.php'><img src='" . htmlspecialchars($row['ruta_archivo']) . "' alt='" . htmlspecialchars($row['titulo']) . "'></a>";
                 echo "</li>";
             }
         } else {
@@ -77,4 +86,3 @@ $result = mysqli_query($conexion, $sql);
     </ul>
 </body>
 </html>
-

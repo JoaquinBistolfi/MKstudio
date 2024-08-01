@@ -125,6 +125,15 @@ header {
     justify-items: center;
 }
 
+.ubi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ubi iframe {
+    border: 10px solid white;
+}
 /*----------------------------- FOOTER------------------------------*/
 .footer{
     display: flex;
