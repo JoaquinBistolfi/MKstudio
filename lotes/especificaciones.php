@@ -16,18 +16,14 @@ $query = "SELECT * FROM `lotes` WHERE `titulo` LIKE '1 joaquin bien perritp'";
 <body>
     <h1>Espcecificaciones del lote</h1>
 
-    <div class="datos">
-        <div class="img_vaca">
-                <ul>
-                    <li><img src="../imagenes/loteangus.webp" alt=""></li>
-                    <li><img src="../imagenes/lotebraford.jpg" alt=""></li>
-                    <li><img src="../imagenes/lotepampa.jpeg" alt=""></li>
-                    <li><img src="../imagenes/novillonegro.jpg" alt=""></li>
-                    <li><img src="../imagenes/gandado.jpg" alt=""></li>
-                </ul>
-        </div>
-        <div id="messages"></div>
-    </div>
+    <H2>FORMULARIO DE DATOS</H2>
+    <form action="" method="post">
+        <label for="">Agregar imagenes</label>
+            <img src="../imagenes/agregar.png" alt="" style="height: 30px;">
+        
+        <label for="">Estado:</label>
+        <input type="text">
+    </form>
 </body>
 <script>
     

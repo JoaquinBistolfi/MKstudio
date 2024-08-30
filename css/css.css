@@ -4,61 +4,47 @@
 
 body {
     margin: 0;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: rgba(143, 186, 157, 0.667);
 }
 
 /* ------------------------   HEADER   --------------------------- */
-
 header {
     display: flex;
     background-color: beige;
     align-items: center;
     justify-content: space-between;
+    padding: 10px 20px;
+    position: relative;
+}
+
+.header_logo {
+    max-height: 70px;
+    margin: 0;
 }
 
 .abrir_menu {
     color: black;
     font-size: 3rem;
     font-weight: 600;
-    position: absolute;
-    right: 10px;
-    z-index: 11;
+    display: none; 
+    cursor: pointer;
 }
 
 .header_checkbox {
     display: none;
-    z-index: 11;
 }
 
 .header_nav {
-    display: none;
-    background-color: beige;
-    position: absolute;
-    height: 75%;
-    width: 100%;
-    top: 0;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    z-index: 10;
+    background-color: beige;
 }
 
 .header_nav_lista {
     display: flex;
-    flex-direction: column;
-    height: 40vh;
-    margin: auto;
-    justify-content: space-evenly;
-}
-
-.header_checkbox:checked ~ .header_nav {
-    display: flex;
-}
-
-.header_logo {
-    max-width: 100%;
-    max-height: 70px;
-    margin: 10px 20px;
-    z-index: 100;
+    gap: 20px;
 }
 
 .header_nav_link {
@@ -69,17 +55,14 @@ header {
     color: black;
     text-decoration: none;
     font-size: 23px;
+    transition: color 0.3s ease;
 }
 
 .header_nav_link a:hover {
     color: rgb(53, 85, 63);
 }
 
-.vaca{
-    display: block;
-}
-
-/*---------------------------- INICIO  ------------------------- */
+/* ------------------------  MAIN CONTENT  ------------------------ */
 .info_vaca {
     width: 100%;
     margin: 0;
@@ -92,7 +75,7 @@ header {
     padding: 0;
     margin: 0;
     display: flex;
-    animation: desplazar 40s infinite linear; 
+    animation: desplazar 50s infinite linear;
 }
 
 @keyframes desplazar {
@@ -108,17 +91,17 @@ header {
 }
 
 .img_vaca li {
-    flex: 0 0 1200px; 
+    flex: 0 0 1200px;
     scroll-snap-align: start;
 }
 
 .img_vaca img {
     width: 100%;
     height: 450px;
-    object-fit: cover;  
+    object-fit: cover;
 }
 
-.caracteristicas h1{
+.caracteristicas h1 {
     display: flex;
     justify-content: center;
     font-size: 50px;
@@ -126,157 +109,164 @@ header {
 }
 
 .ubi {
+    flex-direction: column;
+    background-color: gray;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 5px;
+    margin-top: 20px;
+}
+
+.ubi h2{
+    font-size: 35px;
 }
 
 .ubi iframe {
     border: 10px solid white;
 }
-/*----------------------------- FOOTER------------------------------*/
-.footer{
+
+/* ------------------------   FOOTER   ---------------------------- */
+.footer {
     display: flex;
-    position: relative;
-    margin: 0;
+    justify-content: space-between; 
     background-color: rgb(58, 91, 63);
-    bottom: 0px;
-}
-.footer p{
+    padding: 20px;
     color: white;
+    gap: 10px; 
+}
+
+
+.footer p {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: small;
 }
 
-/*---------------------------- PANTALLA   -------------------------*/
-@media screen and (min-width: 630px) {
-    .header_nav {
-        display: flex;
-        height: auto;
-        width: auto;
-        justify-content: space-between;
-        position: static;
-        z-index: 1;
-        margin-right: 30px;
-    }
+/* ------------------------  estilo caryas  ------------------------- */
+.cartas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px; 
+    padding: 10px; 
+}
 
-    .header_nav_lista {
-        flex-direction: row;
-        height: auto;
-        width: auto;
-        gap: 20px;
-        z-index: 10;
-    }
+.card, .card2 {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background: #000;
+    display: flex;
+    box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
+    overflow: hidden;
+    transition: 0.9s ease-in-out;
+    color: white;
+    margin: 40px; 
+}
 
-    .abrir_menu {
-        display: none;
-    }
+.card .details, .card2 .details {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
 
-    .card {
-        position: relative;
-        width: 300px;
-        height: 300px;
-        background: #000;
-        display: flex;
-        box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
-        overflow: hidden;
-        transition: 0.5s ease-in-out;
-        color: white;
-        padding: auto;
-        margin: auto;
-        margin-bottom: 50px;
-      }
-      .card:hover {
-        width: 800px;
-      }
-      .card .img{
-        position: relative;
-        padding: 0;
-      }
-      .card details{
-        display: flex;
-        margin: auto;
-        justify-items: center;
+.card:hover .details, .card2:hover .details {
+    opacity: 1;
+}
+
+.card:hover, .card2:hover {
+    width: 800px;
+}
+
+.card .img, .card2 .img {
+    position: relative;
+    padding: 0;
+}
+
+@media screen and (max-width: 900px) {
+    .cartas {
+        flex-direction: column;
         align-items: center;
-      }
-      
-      .card2 img{
+        gap: 10px; 
+        padding: 10px;
+    }
+
+    .card:hover, .card2:hover {
+        height: 530px; 
+        width: 300px;
+        margin: 10px;
+    }
+
+    .card .img, .card2 .img {
         position: relative;
         padding: 0;
-      }
-    
-      .card2 {
-        position: relative;
-        width: 300px;
-        height: 300px;
-        background: #000;
-        display: flex;
-        box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
-        overflow: hidden;
-        transition: 0.5s ease-in-out;
-        color: white;
-        padding: auto;
-        margin: auto;
-        margin-bottom: 50px;
-      }
-      .card2:hover {
-        width: 800px;
-      }
+        max-height: 300px;
+    }
 
+    .card .details, .card2 .details {
+        position: absolute;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .card:hover .details, .card2:hover .details {
+        opacity: 1;
+    }
+
+    .logo-footer img {
+        max-width: 100%;
+        height: auto;   
+        object-fit: contain;
+    }
 }
 
 @media screen and (max-width: 630px) {
+    .abrir_menu {
+        display: block;
+    }
 
-    .card {
-        position: relative;
-        width: 300px;
-        height: 300px;
-        background: #000;
+    .header_nav {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 450px;
+        background-color: beige;
+        z-index: 10;
+    }
+
+    .header_checkbox:checked + .abrir_menu + .header_logo + .header_nav {
         display: flex;
-        box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
-        overflow: hidden;
-        transition: 0.5s ease-in-out;
-        color: white;
-        padding: auto;
-        margin: auto;   
-        margin-bottom: 50px;
-      }
-      .card:hover {
-        height: 800px;
-      }
-      .card .img{
-        max-height: 300px;
-        width: auto;
-        position: relative;
-        padding: 0;
-      }
-      .card details{
-        display: flex;
-        margin: auto;
-        justify-items: center;
+    }
+
+    .header_nav_lista {
+        flex-direction: column;
+        width: 100%;
+        padding: 20px 0;
+        margin-top: 90px;
+    }
+
+    .header_nav_link {
+        text-align: center;
+    }
+
+    .header_nav_link a {
+        display: block;
+        padding: 10px 0;
+        width: 100%;
+    }
+
+    .footer {
+        flex-direction: column;
         align-items: center;
-      }
-      
-      .card2 img{
-        position: relative;
-        padding: 0;
-      }
-    
-      .card2 {
-        position: relative;
-        width: 300px;
-        height: 300px;
-        background: #000;
-        display: flex;
-        box-shadow: 0px 50px 60px rgba(0, 0, 0, 10);
-        overflow: hidden;
-        transition: 0.5s ease-in-out;
-        color: white;
-        padding: auto;
-        margin: auto;
-        margin-bottom: 50px;
-      }
-      .card2:hover {
-        height: 800px;
-      }
+        text-align: center;
+        gap: 20px;
+    }
 }

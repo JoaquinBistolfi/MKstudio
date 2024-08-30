@@ -68,20 +68,21 @@ $result = mysqli_query($conexion, $sql);
         </label>
         <input type="submit" value="Subir">
     </form>
-
+    
     <h2>Lista de lotes subidos</h2>
     <ul class="listas">
         <?php
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<li>";
-                echo "<h3>" . htmlspecialchars($row['titulo']) . "</h3>";
-                echo "<a href='especificaciones.php'><img src='" . htmlspecialchars($row['ruta_archivo']) . "' alt='" . htmlspecialchars($row['titulo']) . "'></a>";
+                echo "<h3>" . $row['titulo'] . "</h3>";
+                echo "<a href='especificaciones.php'><img src='" . $row['ruta_archivo'] . "' alt='" . $row['titulo'] . "'></a>";
+                echo "<input type='button' value='ingresar datos'>";
                 echo "</li>";
             }
         } else {
             echo "No se encontraron lotes.";
-        }
+        }        
         ?>
     </ul>
 </body>
