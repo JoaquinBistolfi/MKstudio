@@ -120,6 +120,8 @@ header {
     padding: 5px;
     margin-top: 20px;
     width: 50%;
+    margin-left: 5%;
+    text-align: center;
 }
 
 .ubi h2{
@@ -128,6 +130,9 @@ header {
 
 .ubi iframe {
     border: 10px solid white;
+    width: 100%;
+    height: 360px;
+    margin-bottom: 10%;
 }
 
 .uc{
@@ -142,6 +147,8 @@ header {
     align-items: center;
     flex-direction: column;
     width: 50%;
+    margin-right: 5%;
+    text-align: center;
 }
 
 input[type=text], select {
@@ -270,6 +277,15 @@ input[type=submit]:hover {
         max-width: 80%;
         height: auto;   
         object-fit: contain;
+    }
+
+    .uc{
+        display: block;
+    }
+
+    .consultas, .ubi{
+        width: 90%;
+        margin-left: 5%;
     }
 }
 
