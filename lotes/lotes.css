@@ -121,34 +121,33 @@ h2 {
     justify-content: center;
 }
 
-.listas {
-    display: flex;
-    flex-wrap: wrap;
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
+table.listas {
+    width: 100%;
 }
 
-.listas li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
+table.listas th, table.listas td {
+    font-size: 20px;
+    border: 1px solid #000000;
+    padding: 10px;
     text-align: center;
 }
 
-.listas img {
-    width: 250px;
-    height: 250px;
-    border-radius: 5%;
-    transition: width 0.5s ease-in-out, height 0.5s ease-in-out;
+table.listas th {
+    background-color: #ececec;
 }
 
-.listas img:hover {
-    width: 270px;
-    height: auto;
+table.listas img {
+    width: 265px;
+    height: 150px;
+    border-radius: 5%;
 }
+
+table.listas tr :hover{
+    height: 200px;
+    background-color: #218838;
+}
+
+
 /*---------------------------------------------------------------------------*/
 
 @media screen and (min-width: 630px) {

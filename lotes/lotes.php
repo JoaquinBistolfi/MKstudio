@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
 
 $sql = "SELECT Categoria, Cantidad, Peso_Prom, Ruta_archivo FROM lotes";
 $result = mysqli_query($conexion, $sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -97,22 +96,33 @@ $result = mysqli_query($conexion, $sql);
     </form>
 
     <h2>Lista de lotes subidos</h2>
-    <ul class="listas">
+    <table class="listas">
+        <thead>
+            <tr>
+                <th>Foto</th>
+                <th>Categoría</th>
+                <th>Cantidad</th>
+                <th>Peso</th>
+            </tr>
+        </thead>
+        <tbody>
+        <div class="fila_tabla">
         <?php
-        if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<li>";
-                echo "<a href='especificaciones.php'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['Categoria'] . "'></a>";
-                echo "<h3>" . $row['Categoria'] . "</h3>";
-                echo "<h3>" . $row['Cantidad'] . "</h3>";
-                echo "<h3>" . $row['Peso_Prom'] . "</h3>";
-                echo "<input type='button' value='Ingresar datos'>";
-                echo "</li>";
+            if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    echo "<tr>";
+                    echo "<td><a href='especificaciones.php'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['Categoria'] . "'></a></td>";
+                    echo "<td>" . $row['Categoria'] . "</td>";
+                    echo "<td>" . $row['Cantidad'] . "</td>";
+                    echo "<td>" . $row['Peso_Prom'] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='4'>No se encontraron lotes.</td></tr>";
             }
-        } else {
-            echo "No se encontraron lotes.";
-        }
-        ?>
-    </ul>
+            ?>
+        </div>
+        </tbody>
+    </table>
 </body>
 </html>

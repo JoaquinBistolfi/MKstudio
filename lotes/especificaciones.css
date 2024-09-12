@@ -10,3 +10,12 @@
     height: 20px;
     width: 30px;
 }
+
+.ordenar{
+    display: flex;
+    justify-content: center;
+}
+
+input{
+    width: 80%;
+}
