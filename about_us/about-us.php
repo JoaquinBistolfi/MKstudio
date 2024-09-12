@@ -20,14 +20,17 @@
                     <div class="integrante">
                         <img src="../imagenes/felipe.jpg" alt="Integrante 1: Felipe Castillo">
                         <p>Felipe Castillo</p>
+                        <li class="linkedin_link"><a href="https://www.linkedin.com/in/felipe-castillo-837718327/">Linkedin</a></li>
                     </div>
                     <div class="integrante">
                         <img src="../imagenes/mateo.jpg" alt="Integrante 2: Mateo Da Rosa">
                         <p>Mateo Da Rosa</p>
+                        <li class="linkedin_link"><a href="https://www.linkedin.com/in/felipe-castillo-837718327/">Linkedin</a></li>
                     </div>
                     <div class="integrante">
                         <img src="../imagenes/mimo.jpg" alt="Integrante 3: Joaquin Bistolfi">
                         <p>Joaquin Bistolfi</p>
+                        <li class="linkedin_link"><a href="https://www.linkedin.com/in/felipe-castillo-837718327/">Linkedin</a></li>
                     </div>
                 </div>
                 

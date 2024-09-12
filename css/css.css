@@ -108,14 +108,18 @@ header {
     justify-items: center;
 }
 
-.ubi {
-    flex-direction: column;
-    background-color: gray;
+.uc{
     display: flex;
+    background-color: gray;
+}
+
+.ubi {
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     padding: 5px;
     margin-top: 20px;
+    width: 50%;
 }
 
 .ubi h2{
@@ -125,6 +129,50 @@ header {
 .ubi iframe {
     border: 10px solid white;
 }
+
+.uc{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+.consultas{
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+}
+
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[name="texto"]{
+    height: 120px;
+}
+  
+input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
 
 /* ------------------------   FOOTER   ---------------------------- */
 .footer {
@@ -219,7 +267,7 @@ header {
     }
 
     .logo-footer img {
-        max-width: 100%;
+        max-width: 80%;
         height: auto;   
         object-fit: contain;
     }
@@ -270,3 +318,4 @@ header {
         gap: 20px;
     }
 }
+
