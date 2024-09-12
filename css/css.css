@@ -197,7 +197,7 @@ input[type=submit]:hover {
     font-size: small;
 }
 
-/* ------------------------  estilo caryas  ------------------------- */
+/* ------------------------  estilo cartas  ------------------------- */
 .cartas {
     display: flex;
     flex-wrap: wrap;
@@ -334,4 +334,3 @@ input[type=submit]:hover {
         gap: 20px;
     }
 }
-
