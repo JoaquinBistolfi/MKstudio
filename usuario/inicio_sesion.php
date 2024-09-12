@@ -38,7 +38,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
     <header>
         <img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa">
     </header>
-    <div class="form-container">
+    <div class="registro">
         <h1>Iniciar sesión</h1>
         <form method="post">
             <label>Nombre de usuario</label>

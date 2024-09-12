@@ -21,9 +21,9 @@ header {
     max-height: 65px;
 }
 
-.form-container {
-    margin-top: 60px;
-    padding: 30px;
+.registro {
+    margin-top: 50px;
+    padding: 10px 25px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -36,7 +36,7 @@ header {
     text-align: center;
 }
 
-.form-container h1 {
+.registro h1 {
     padding-bottom: 20px;
     border-bottom: 1px solid green;
 }
@@ -52,7 +52,7 @@ form input {
     width: 350px;
     height: 35px;
     font-size: 16px;
-    border-radius: 20px;
+    border-radius: 15px;
     margin-bottom: 15px;
 }
 
@@ -61,7 +61,7 @@ input[type="submit"] {
     height: 35px;
     background-color: rgb(14, 93, 14);
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     color: azure;
     cursor: pointer;
     margin-bottom: 20px;

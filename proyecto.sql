@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 31-07-2024 a las 14:15:15
+-- Tiempo de generación: 12-09-2024 a las 12:17:51
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -24,24 +24,135 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `certificador`
+--
+
+CREATE TABLE `certificador` (
+  `ID_Certificador` int(11) NOT NULL,
+  `Nombre` varchar(50) DEFAULT NULL,
+  `Apellido` varchar(50) DEFAULT NULL,
+  `Fecha` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `lotes`
 --
 
 CREATE TABLE `lotes` (
-  `id` int(11) NOT NULL,
-  `titulo` text NOT NULL,
-  `ruta_archivo` text NOT NULL
+  `ID_Lote` int(11) NOT NULL,
+  `Categoria` varchar(50) DEFAULT NULL,
+  `Cantidad` int(11) DEFAULT NULL,
+  `Peso_Prom` int(11) DEFAULT NULL,
+  `Peso_Max` int(11) DEFAULT NULL,
+  `Peso_Min` int(11) DEFAULT NULL,
+  `Porc_Pesada` int(11) DEFAULT NULL,
+  `Estado` varchar(50) DEFAULT NULL,
+  `Estado_Reproductivo` varchar(50) DEFAULT NULL,
+  `Castrados` varchar(50) DEFAULT NULL,
+  `Cantidad_Raza` varchar(50) DEFAULT NULL,
+  `Edad` varchar(50) DEFAULT NULL,
+  `Sanidad` varchar(50) DEFAULT NULL,
+  `Trat_Nutricional` varchar(50) DEFAULT NULL,
+  `Conoce_MiOMiO` varchar(50) DEFAULT NULL,
+  `Zona_Garrapata` varchar(50) DEFAULT NULL,
+  `Trazabilidad` varchar(50) DEFAULT NULL,
+  `Destetados` varchar(50) DEFAULT NULL,
+  `Mochos` varchar(50) DEFAULT NULL,
+  `Observaciones` text DEFAULT NULL,
+  `ID_Certificador` int(11) DEFAULT NULL,
+  `Ruta_archivo` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `lotes`
 --
 
-INSERT INTO `lotes` (`id`, `titulo`, `ruta_archivo`) VALUES
-(23, '1 joaquin bien perritp', 'foto_lote/1 joaquin bien perritp/1 joaquin bien perritp_Entrevista.png'),
-(24, '20 toros hereford', 'foto_lote/20 toros hereford/20 toros hereford_juve2.jpg'),
-(25, '20 toros hereford', 'foto_lote/20 toros hereford/20 toros hereford_juve2.jpg'),
-(26, 'felipe entangado', 'foto_lote/felipe entangado/felipe entangado_png-clipart-modiano-playing-card-poker-card-game-trophy-others-retail-rectangle-removebg-preview.png');
+INSERT INTO `lotes` (`ID_Lote`, `Categoria`, `Cantidad`, `Peso_Prom`, `Peso_Max`, `Peso_Min`, `Porc_Pesada`, `Estado`, `Estado_Reproductivo`, `Castrados`, `Cantidad_Raza`, `Edad`, `Sanidad`, `Trat_Nutricional`, `Conoce_MiOMiO`, `Zona_Garrapata`, `Trazabilidad`, `Destetados`, `Mochos`, `Observaciones`, `ID_Certificador`, `Ruta_archivo`) VALUES
+(1, 'terneros cruza', 234, 123, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'foto_lote/terneros cruza_234_123_USUARIOS (3).png'),
+(2, 'terneritosss crizados', 123, 234, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'foto_lote/terneritosss crizados_123_234/Ejercicio Bootstrap.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `lotes_mail`
+--
+
+CREATE TABLE `lotes_mail` (
+  `ID_Lote` int(11) NOT NULL,
+  `ID_Mail` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mail`
+--
+
+CREATE TABLE `mail` (
+  `ID_Mail` int(11) NOT NULL,
+  `Asunto` varchar(100) DEFAULT NULL,
+  `Contenido` text DEFAULT NULL,
+  `Fecha` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `oferta`
+--
+
+CREATE TABLE `oferta` (
+  `ID_Oferta` int(11) NOT NULL,
+  `Monto` decimal(10,2) DEFAULT NULL,
+  `Fecha` date DEFAULT NULL,
+  `ID_Lote` int(11) DEFAULT NULL,
+  `ID_Usuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pago`
+--
+
+CREATE TABLE `pago` (
+  `ID_Pago` int(11) NOT NULL,
+  `Monto` decimal(10,2) DEFAULT NULL,
+  `Fecha` date DEFAULT NULL,
+  `Metodo_Pago` varchar(50) DEFAULT NULL,
+  `ID_Usuario` int(11) DEFAULT NULL,
+  `ID_Oferta` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pregunta`
+--
+
+CREATE TABLE `pregunta` (
+  `ID_Pregunta` int(11) NOT NULL,
+  `Contenido` text DEFAULT NULL,
+  `Fecha` date DEFAULT NULL,
+  `Estado` varchar(50) DEFAULT NULL,
+  `ID_Usuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pre_oferta`
+--
+
+CREATE TABLE `pre_oferta` (
+  `ID_Pre_Oferta` int(11) NOT NULL,
+  `Monto` decimal(10,2) DEFAULT NULL,
+  `Fecha` date DEFAULT NULL,
+  `ID_Lote` int(11) DEFAULT NULL,
+  `ID_Usuario` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -50,42 +161,97 @@ INSERT INTO `lotes` (`id`, `titulo`, `ruta_archivo`) VALUES
 --
 
 CREATE TABLE `usuarios` (
-  `uid` int(11) NOT NULL,
-  `usuario` varchar(11) NOT NULL,
-  `nombre` varchar(11) NOT NULL,
-  `apellido` varchar(11) NOT NULL,
-  `documento` int(8) NOT NULL,
-  `contrasena` varchar(11) NOT NULL
+  `ID_Usuario` int(11) NOT NULL,
+  `Nombre` varchar(50) DEFAULT NULL,
+  `Apellido` varchar(50) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `Telefono` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `usuarios`
+-- Estructura de tabla para la tabla `usuarios_mail`
 --
 
-INSERT INTO `usuarios` (`uid`, `usuario`, `nombre`, `apellido`, `documento`, `contrasena`) VALUES
-(4, 'feli', 'feli', 'feli', 12312313, 'feli'),
-(5, 'mateodr17', 'mateo', 'da rosa', 123123123, 'mateo'),
-(12, 'johsua1', 'johsua', 'hartwig', 2147483647, 'mateo'),
-(13, 'juancito', 'jan', 'juan', 234234, 'juan'),
-(14, 'prueba', 'jan', 'juan', 1231232123, 'prueba');
+CREATE TABLE `usuarios_mail` (
+  `ID_Usuario` int(11) NOT NULL,
+  `ID_Mail` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Índices para tablas volcadas
 --
 
 --
+-- Indices de la tabla `certificador`
+--
+ALTER TABLE `certificador`
+  ADD PRIMARY KEY (`ID_Certificador`);
+
+--
 -- Indices de la tabla `lotes`
 --
 ALTER TABLE `lotes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`ID_Lote`),
+  ADD KEY `ID_Certificador` (`ID_Certificador`);
+
+--
+-- Indices de la tabla `lotes_mail`
+--
+ALTER TABLE `lotes_mail`
+  ADD PRIMARY KEY (`ID_Lote`,`ID_Mail`),
+  ADD KEY `ID_Mail` (`ID_Mail`);
+
+--
+-- Indices de la tabla `mail`
+--
+ALTER TABLE `mail`
+  ADD PRIMARY KEY (`ID_Mail`);
+
+--
+-- Indices de la tabla `oferta`
+--
+ALTER TABLE `oferta`
+  ADD PRIMARY KEY (`ID_Oferta`),
+  ADD KEY `ID_Lote` (`ID_Lote`),
+  ADD KEY `ID_Usuario` (`ID_Usuario`);
+
+--
+-- Indices de la tabla `pago`
+--
+ALTER TABLE `pago`
+  ADD PRIMARY KEY (`ID_Pago`),
+  ADD KEY `ID_Usuario` (`ID_Usuario`),
+  ADD KEY `ID_Oferta` (`ID_Oferta`);
+
+--
+-- Indices de la tabla `pregunta`
+--
+ALTER TABLE `pregunta`
+  ADD PRIMARY KEY (`ID_Pregunta`),
+  ADD KEY `ID_Usuario` (`ID_Usuario`);
+
+--
+-- Indices de la tabla `pre_oferta`
+--
+ALTER TABLE `pre_oferta`
+  ADD PRIMARY KEY (`ID_Pre_Oferta`),
+  ADD KEY `ID_Lote` (`ID_Lote`),
+  ADD KEY `ID_Usuario` (`ID_Usuario`);
 
 --
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  ADD PRIMARY KEY (`uid`),
-  ADD UNIQUE KEY `usuario` (`usuario`),
-  ADD UNIQUE KEY `documento` (`documento`);
+  ADD PRIMARY KEY (`ID_Usuario`);
+
+--
+-- Indices de la tabla `usuarios_mail`
+--
+ALTER TABLE `usuarios_mail`
+  ADD PRIMARY KEY (`ID_Usuario`,`ID_Mail`),
+  ADD KEY `ID_Mail` (`ID_Mail`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -95,13 +261,58 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `lotes`
 --
 ALTER TABLE `lotes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `ID_Lote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT de la tabla `usuarios`
+-- Restricciones para tablas volcadas
 --
-ALTER TABLE `usuarios`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- Filtros para la tabla `lotes`
+--
+ALTER TABLE `lotes`
+  ADD CONSTRAINT `lotes_ibfk_1` FOREIGN KEY (`ID_Certificador`) REFERENCES `certificador` (`ID_Certificador`);
+
+--
+-- Filtros para la tabla `lotes_mail`
+--
+ALTER TABLE `lotes_mail`
+  ADD CONSTRAINT `lotes_mail_ibfk_1` FOREIGN KEY (`ID_Lote`) REFERENCES `lotes` (`ID_Lote`),
+  ADD CONSTRAINT `lotes_mail_ibfk_2` FOREIGN KEY (`ID_Mail`) REFERENCES `mail` (`ID_Mail`);
+
+--
+-- Filtros para la tabla `oferta`
+--
+ALTER TABLE `oferta`
+  ADD CONSTRAINT `oferta_ibfk_1` FOREIGN KEY (`ID_Lote`) REFERENCES `lotes` (`ID_Lote`),
+  ADD CONSTRAINT `oferta_ibfk_2` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuarios` (`ID_Usuario`);
+
+--
+-- Filtros para la tabla `pago`
+--
+ALTER TABLE `pago`
+  ADD CONSTRAINT `pago_ibfk_1` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuarios` (`ID_Usuario`),
+  ADD CONSTRAINT `pago_ibfk_2` FOREIGN KEY (`ID_Oferta`) REFERENCES `oferta` (`ID_Oferta`);
+
+--
+-- Filtros para la tabla `pregunta`
+--
+ALTER TABLE `pregunta`
+  ADD CONSTRAINT `pregunta_ibfk_1` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuarios` (`ID_Usuario`);
+
+--
+-- Filtros para la tabla `pre_oferta`
+--
+ALTER TABLE `pre_oferta`
+  ADD CONSTRAINT `pre_oferta_ibfk_1` FOREIGN KEY (`ID_Lote`) REFERENCES `lotes` (`ID_Lote`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pre_oferta_ibfk_2` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuarios` (`ID_Usuario`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `usuarios_mail`
+--
+ALTER TABLE `usuarios_mail`
+  ADD CONSTRAINT `usuarios_mail_ibfk_1` FOREIGN KEY (`ID_Usuario`) REFERENCES `usuarios` (`ID_Usuario`),
+  ADD CONSTRAINT `usuarios_mail_ibfk_2` FOREIGN KEY (`ID_Mail`) REFERENCES `mail` (`ID_Mail`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

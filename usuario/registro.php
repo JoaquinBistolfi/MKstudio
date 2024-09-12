@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <header>
         <img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa">
     </header>
-    <div class="form-container">
+    <div class="registro">
         <h1>Registrarse</h1>
         <form method="post">
             <label>Usuario</label>

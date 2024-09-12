@@ -1,25 +1,34 @@
 <?php
-$conexion = mysqli_connect("localhost", "root", "", "proyecto") or die("Datos incorrectos");
+$conexion = mysqli_connect("localhost", "root", "", "proyecto");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo']) && isset($_FILES['archivo'])) {
-    if (!empty($_POST["titulo"]) && !empty($_FILES["archivo"])) {
-        $titulo = $_POST['titulo'];
+if (!$conexion) {
+    die("Error en la conexión a la base de datos: " . mysqli_connect_error());
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset($_FILES['archivo'])) {
+    if (!empty($_POST["categoria"]) && !empty($_POST["cantidad"]) && !empty($_POST["peso"]) && !empty($_FILES["archivo"])) {
+        $categoria = $_POST['categoria'];
+        $cantidad = $_POST['cantidad'];
+        $peso = $_POST['peso'];
         $foto_lote = $_FILES['archivo']['name'];
         $tmp_name = $_FILES['archivo']['tmp_name'];
 
         if ($foto_lote != '') {
-            $nombre_archivo_unico = $titulo . '_' . $foto_lote;
-            $ruta_archivo = 'foto_lote/' . $titulo . '/' . $nombre_archivo_unico;
-
-            if (!file_exists('foto_lote/' . $titulo)) {
-                if (!mkdir('foto_lote/' . $titulo, 0777, true)) {
+            $nombre_carpeta = 'foto_lote/' . $categoria . '_' . $cantidad . '_' . $peso;
+            if (!file_exists($nombre_carpeta)) {
+                if (!mkdir($nombre_carpeta, 0777, true)) {
                     die("Error al crear el directorio.");
                 }
             }
 
+            $ruta_archivo = $nombre_carpeta . '/' . basename($foto_lote);
+
             if (move_uploaded_file($tmp_name, $ruta_archivo)) {
-                $sql = "INSERT INTO lotes (titulo, ruta_archivo) VALUES ('$titulo', '$ruta_archivo')";
+                $sql = "INSERT INTO lotes (Categoria, Cantidad, Peso_Prom, Ruta_archivo) 
+                        VALUES ('$categoria', '$cantidad', '$peso', '$ruta_archivo')";
+                
                 if (mysqli_query($conexion, $sql)) {
+                    echo "Datos ingresados correctamente.";
                     header("Location: " . $_SERVER['PHP_SELF']);
                     exit;
                 } else {
@@ -28,25 +37,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['titulo']) && isset($_F
             } else {
                 echo "Error al mover el archivo subido.";
             }
+        } else {
+            echo "No se ha seleccionado ningún archivo.";
         }
+    } else {
+        echo "Por favor, completa todos los campos.";
     }
 }
 
-$sql = "SELECT titulo, ruta_archivo FROM lotes";
+$sql = "SELECT Categoria, Cantidad, Peso_Prom, Ruta_archivo FROM lotes";
 $result = mysqli_query($conexion, $sql);
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>  
+    <title>Subir Lotes</title>
     <link rel="stylesheet" href="lotes.css">
 </head>
 <body>
     <header>
-        <input type="checkbox"  id="activar" class="header_checkbox" >
+        <input type="checkbox" id="activar" class="header_checkbox">
         <label for="activar" class="abrir_menu" role="button">=</label>
         <a href="../main.html"><img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa"></a>
         <nav class="header_nav">
@@ -57,32 +71,47 @@ $result = mysqli_query($conexion, $sql);
             </ul>
         </nav>
     </header>
-    <form action="" method="post" enctype="multipart/form-data">
-        <label for="titulo_lote">
-            Título del lote:
-            <input type="text" name="titulo" id="titulo_lote" required>
-        </label>
-        <label for="foto_lote">
-            Foto principal del lote:
-            <input type="file" name="archivo" id="foto_lote" required accept=".jpg, .png">
-        </label>
-        <input type="submit" value="Subir">
-    </form>
     
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="info">
+            <label for="categoria">
+                Categoría:
+                <input type="text" name="categoria" required>
+            </label>
+            <label for="cantidad">
+                Cantidad:
+                <input type="number" name="cantidad" required>
+            </label>
+            <label for="peso">
+                Peso:
+                <input type="number" name="peso" required>
+            </label>
+            <label for="foto_lote">
+                Foto principal del lote:
+                <input type="file" name="archivo" id="foto_lote" required accept=".jpg, .png">
+            </label>
+        </div>
+        <div class="btn">
+            <input type="submit" value="Subir">
+        </div>
+    </form>
+
     <h2>Lista de lotes subidos</h2>
     <ul class="listas">
         <?php
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<li>";
-                echo "<h3>" . $row['titulo'] . "</h3>";
-                echo "<a href='especificaciones.php'><img src='" . $row['ruta_archivo'] . "' alt='" . $row['titulo'] . "'></a>";
-                echo "<input type='button' value='ingresar datos'>";
+                echo "<a href='especificaciones.php'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['Categoria'] . "'></a>";
+                echo "<h3>" . $row['Categoria'] . "</h3>";
+                echo "<h3>" . $row['Cantidad'] . "</h3>";
+                echo "<h3>" . $row['Peso_Prom'] . "</h3>";
+                echo "<input type='button' value='Ingresar datos'>";
                 echo "</li>";
             }
         } else {
             echo "No se encontraron lotes.";
-        }        
+        }
         ?>
     </ul>
 </body>
