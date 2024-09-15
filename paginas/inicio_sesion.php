@@ -17,7 +17,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         if ($user) {
             $_SESSION['user_id'] = $user['uid'];
             $_SESSION['username'] = $user['usuario'];
-            header("Location: ../main.php");
+            header("Location: main.php");
             exit();
         } else {
             echo '<p>Nombre de usuario o contraseña incorrectos.</p>';
@@ -31,7 +31,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
-    <link rel="stylesheet" href="registro.css">
+    <link rel="stylesheet" href="../css/registro.css">
     <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
 </head>
 <body>
@@ -50,7 +50,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
             </div>
             <input type="submit" value="Iniciar Sesión">
             <div>
-                <a href="registro.php">Registrarse</a>
+                <a href="registro.php">¿No tiene una cuenta? Clic aqui</a>
             </div>
         </form>
     </div>

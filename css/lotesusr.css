@@ -1,0 +1,10 @@
+.lote {
+    margin: 10px 0;
+}
+.lote a {
+    text-decoration: none;
+    color: #007bff;
+}
+.lote a:hover {
+    text-decoration: underline;
+}

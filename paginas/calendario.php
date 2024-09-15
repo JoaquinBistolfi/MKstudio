@@ -4,64 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendario Interactivo</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .calendar {
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            overflow: hidden;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #007BFF;
-            color: white;
-            padding: 10px;
-        }
-        .calendar-header button {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .calendar-body {
-            padding: 10px;
-        }
-        .calendar-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        .calendar-table th,
-        .calendar-table td {
-            width: 14.28%;
-            padding: 10px;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-        }
-        .calendar-table th {
-            background-color: #f0f0f0;
-        }
-        .calendar-table td img {
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            width: 35px;
-            height: 35px;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/calendario.css">
 </head>
+
 <body>
     <div class="calendar">
         <div class="calendar-header">
@@ -159,5 +104,6 @@
 
         generateCalendar(currentYear, currentMonth);
     </script>
-</body>
+    </body>
+
 </html>

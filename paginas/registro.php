@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrarse</title>
-    <link rel="stylesheet" href="registro.css">
+    <link rel="stylesheet" href="../css/registro.css">
     <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
 </head>
 <body>
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="password" name="confirmar_password" required>
             <input type="submit" value="Registrarse">
             <div>
-                <a href="inicio_sesion.php">Iniciar sesión</a>
+                <a href="inicio_sesion.php">¿Ya tienes cuenta? Clic aqui</a>
             </div>
         </form>
     </div>

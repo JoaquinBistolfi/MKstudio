@@ -1,0 +1,32 @@
+.footer {
+    display: flex;
+    justify-content: space-between; 
+    background-color: rgb(58, 91, 63);
+    padding: 20px;
+    color: white;
+    gap: 10px; 
+}
+
+
+.footer p {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: small;
+}
+
+@media screen and (max-width: 900px) {
+    .logo-footer img {
+        max-width: 60%;
+        height: auto;   
+        object-fit: contain;
+    }
+
+}
+
+@media screen and (max-width: 630px) {
+.footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+}
