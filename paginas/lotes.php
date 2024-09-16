@@ -43,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
                         VALUES ('$categoria', '$raza', '$cantidad', '$peso', '$peso_max', '$peso_min', '$porc_pesada', '$estado', '$estado_reproductivo', '$castrados', '$edad', '$sanidad', '$trat_nutricional', '$destetados', '$mochos', '$observaciones', '$conoce_miomio', '$zona_garrapata', '$ruta_archivo')";
                 
                 if (mysqli_query($conexion, $sql)) {
-                    echo "Datos ingresados correctamente.";
                     header("Location: " . $_SERVER['PHP_SELF']);
                     exit;
                 } else {
@@ -52,15 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
             } else {
                 echo "Error al mover el archivo subido.";
             }
-        } else {
-            echo "No se ha seleccionado ningún archivo.";
         }
     } else {
         echo "Por favor, completa todos los campos.";
     }
 }
 
-$sql = "SELECT Categoria, Cantidad_Raza, Cantidad, Peso_Prom, Ruta_archivo FROM lotes";
+$sql = "SELECT ID_Lote, Categoria, Cantidad_Raza, Cantidad, Peso_Prom, Ruta_archivo FROM lotes";
 $result = mysqli_query($conexion, $sql);
 ?>
 
@@ -73,7 +70,6 @@ $result = mysqli_query($conexion, $sql);
     <link rel="stylesheet" href="../css/lotes.css">
 </head>
 <body>
-<?php include '../includes/header.php'; ?>
     <form action="" method="post" enctype="multipart/form-data">
         <div class="info">
             <label for="categoria">Categoría:
@@ -157,7 +153,7 @@ $result = mysqli_query($conexion, $sql);
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
-                    echo "<td><a href='especificaciones.php'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['Categoria'] . "'></a></td>";
+                    echo "<td><a href='especificaciones.php?id=" . $row['ID_Lote'] . "'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['Categoria'] . "'></a></td>";  
                     echo "<td>" . $row['Categoria'] . "</td>";
                     echo "<td>" . $row['Cantidad_Raza'] . "</td>";
                     echo "<td>" . $row['Cantidad'] . "</td>";
@@ -165,7 +161,7 @@ $result = mysqli_query($conexion, $sql);
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='5'>No se encontraron lotes.</td></tr>";
+                echo "No se encontraron lotes.";
             }
             ?>
         </div>
