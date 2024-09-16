@@ -23,12 +23,14 @@ form label {
 
 form input[type="text"],
 form input[type="file"],
-form input[type="number"] {
+form input[type="number"],
+textarea {
     width: calc(100% - 22px);
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    height: 17px;
 }
 
 form input[type="submit"] {
@@ -74,23 +76,29 @@ table.listas img {
     border-radius: 5%;
 }
 
-table.listas tr :hover{
+table.listas tbody tr:hover {
+    background-color: rgba(121, 158, 133, 0.667);
+    color: white;
     height: 200px;
-    background-color: #218838;
 }
 
-@media screen and (min-width: 630px) {
-.info{
-    display: flex;
-    flex-direction: row;
-}
+@media screen and (min-width: 650px) {
+    .info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
 
-.btn{
-    display: flex;
-    justify-content: center;
-}
+    .info label {
+        width: 48%;
+    }
 
-form input[type="submit"] {
-    width: 150px;
-}
+    .btn {
+        display: flex;
+        justify-content: center;
+    }
+
+    form input[type="submit"] {
+        width: 150px;
+    }
 }
