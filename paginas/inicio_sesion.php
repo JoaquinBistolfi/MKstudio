@@ -8,14 +8,14 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         $usr = $_POST["usuario"];
         $pass = $_POST["password"];
 
-        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?");
+        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE Usuario = ? AND Contrasena = ?");
         $stmt->bind_param('ss', $usr, $pass);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
         if ($user) {
-            $_SESSION['user_id'] = $user['uid'];
+            $_SESSION['user_id'] = $user['ID_Usuario'];
             $_SESSION['username'] = $user['usuario'];
             header("Location: main.php");
             exit();

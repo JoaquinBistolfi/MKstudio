@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($pass !== $confirmar_pass) {
                 echo '<script>alert("Las contraseñas no coinciden.")</script>';
             } else {
-                $query = "INSERT INTO `usuarios` (`usuario`, `nombre`, `apellido`, `documento`, `contrasena`) VALUES ('$usuario', '$nombre', '$apellido', '$documento', '$pass')";
+                $query = "INSERT INTO `usuarios` (`Usuario`, `Nombre`, `Apellido`, `Telefono`, `Contrasena`) VALUES ('$usuario', '$nombre', '$apellido', '$documento', '$pass')";
                 if (mysqli_query($conexion, $query)) {
                     echo '<script>alert("Se ha registrado correctamente.")</script>';
                     header("Location: inicio_sesion.php");

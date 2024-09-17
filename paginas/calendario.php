@@ -97,7 +97,7 @@
         function addImageToCell(cell) {
             if (!cell.querySelector('img')) {
                 const img = document.createElement('img');
-                img.src = 'http://localhost/MKstudio/imagenes/vaquita.jpeg'; // URL de la imagen pequeña
+                img.src = 'http://localhost/MKstudio/imagenes/vaquita.jpeg'; 
                 cell.appendChild(img);
             }
         }
