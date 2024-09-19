@@ -1,5 +1,5 @@
 <?php
-$conexion = mysqli_connect("localhost", "root", "", "proyecto") or die("Datos incorrectos");
+include '../includes/conexion.php';
 
 session_start();
 
@@ -14,9 +14,15 @@ if (isset($_GET['id'])) {
     } else {
         echo "<p>No se encontró el lote.</p>";
     }
+
+    $sql = "SELECT * FROM oferta";
+    $result2 = mysqli_query($conexion, $sql);
+
 } else {
     echo "<p>No se ha seleccionado ningún lote.</p>";
 }
+
+$_SESSION['lote_id'] = $lote_id;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -39,12 +45,19 @@ if (isset($_GET['id'])) {
         <div class="oferta">
             <h2>Ofertas</h2>
             <?php
+        
+            if (mysqli_num_rows($result2) > 0) {
+                $oferta = mysqli_fetch_assoc($result2);
+            } else {
+                echo "<p>No hay ninguna oferta aun.</p>";
+            }
+            
              if (isset($_SESSION['user_id'])) {
                 echo '
                 <form action="procesar_oferta.php" method="post">
                     <input type="hidden" name="lote_id" value="' . $lote['ID_Lote'] . '">
                     <label for="oferta">Ingrese su oferta:</label>
-                    <input type="number" name="oferta" id="oferta" min="0" step="any" required>
+                    <input type="number" name="oferta" id="oferta" required>
                     <button type="submit">Enviar oferta</button>
                 </form>';
             } else {

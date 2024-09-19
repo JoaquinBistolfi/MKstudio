@@ -69,6 +69,7 @@ $result = mysqli_query($conexion, $sql);
     <title>Subir Lotes</title>
     <link rel="stylesheet" href="../css/lotes.css">
 </head>
+<?php include '../includes/header.php'; ?>
 <body>
     <form action="" method="post" enctype="multipart/form-data">
         <div class="info">
@@ -168,4 +169,5 @@ $result = mysqli_query($conexion, $sql);
         </tbody>
     </table>
 </body>
+<?php include '../includes/footer.php'; ?>
 </html>
