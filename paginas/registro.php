@@ -1,21 +1,22 @@
 <?php
-$conexion = mysqli_connect("localhost", "root", "", "proyecto") or die("Datos incorrectos");
+include '../includes/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_POST['usuario']) && isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['documento']) && isset($_POST['password']) && isset($_POST['confirmar_password'])) {
-        if (!empty($_POST["usuario"]) && !empty($_POST["nombre"]) && !empty($_POST["apellido"]) && !empty($_POST["documento"]) && !empty($_POST["password"]) && !empty($_POST["confirmar_password"])) {
+    if (isset($_POST['usuario']) && isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['telefono']) && isset($_POST['mail']) && isset($_POST['password']) && isset($_POST['confirmar_password'])) {
+        if (!empty($_POST["usuario"]) && !empty($_POST["nombre"]) && !empty($_POST["apellido"]) && !empty($_POST["telefono"]) && !empty($_POST["password"]) && !empty($_POST["confirmar_password"])) {
 
             $usuario = $_POST['usuario'];
             $nombre = $_POST['nombre'];
             $apellido = $_POST['apellido'];
-            $documento = $_POST['documento'];
+            $telefono = $_POST['telefono'];
+            $mail = $_POST['mail'];
             $pass = $_POST['password'];
             $confirmar_pass = $_POST['confirmar_password'];
 
             if ($pass !== $confirmar_pass) {
                 echo '<script>alert("Las contraseñas no coinciden.")</script>';
             } else {
-                $query = "INSERT INTO `usuarios` (`Usuario`, `Nombre`, `Apellido`, `Telefono`, `Contrasena`) VALUES ('$usuario', '$nombre', '$apellido', '$documento', '$pass')";
+                $query = "INSERT INTO `usuarios` (`Usuario`, `Nombre`, `Apellido`, `Telefono`, `Email`, `Contrasena`) VALUES ('$usuario', '$nombre', '$apellido', '$telefono', '$mail', '$pass')";
                 if (mysqli_query($conexion, $query)) {
                     echo '<script>alert("Se ha registrado correctamente.")</script>';
                     header("Location: inicio_sesion.php");
@@ -54,8 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <input type="text" name="nombre" required>
             <label>Apellido</label>
             <input type="text" name="apellido" required>
-            <label>Documento</label>
-            <input type="number" name="documento" required>
+            <label>Telefono</label>
+            <input type="number" name="telefono" required>
+            <label>Mail</label>
+            <input type="text" name="mail" required>
             <label>Contraseña</label>
             <input type="password" name="password" required>
             <label>Confirmar contraseña</label>

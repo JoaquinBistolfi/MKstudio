@@ -15,13 +15,17 @@ if (isset($_GET['id'])) {
         echo "<p>No se encontró el lote.</p>";
     }
 
-    $sql = "SELECT * FROM oferta";
-    $result2 = mysqli_query($conexion, $sql);
+    $sql2 = "SELECT * FROM oferta WHERE ID_Lote = $lote_id ORDER BY Monto DESC LIMIT 1";
+    $result2 = mysqli_query($conexion, $sql2);
 
 } else {
     echo "<p>No se ha seleccionado ningún lote.</p>";
 }
 
+if(isset($_SESSION['oferta']) && $_SESSION['oferta'] == "echo") {
+    echo "<script>alert('Oferta hecha correctamente');</script>";
+    $_SESSION['oferta'] = "no";
+}
 $_SESSION['lote_id'] = $lote_id;
 ?>
 <!DOCTYPE html>
@@ -32,6 +36,7 @@ $_SESSION['lote_id'] = $lote_id;
     <title>Especificaciones del Lote</title>
     <link rel="stylesheet" href="../css/especificaciones.css">
 </head>
+<?php include '../includes/header.php'; ?>
 <body>
     <?php
     echo "<h1>Lote de " . $lote['Cantidad'] . " " . $lote['Categoria'] . "</h1>"
@@ -45,14 +50,18 @@ $_SESSION['lote_id'] = $lote_id;
         <div class="oferta">
             <h2>Ofertas</h2>
             <?php
-        
-            if (mysqli_num_rows($result2) > 0) {
-                $oferta = mysqli_fetch_assoc($result2);
-            } else {
-                echo "<p>No hay ninguna oferta aun.</p>";
-            }
             
              if (isset($_SESSION['user_id'])) {
+                if (mysqli_num_rows($result2) > 0) {
+                    $oferta = mysqli_fetch_assoc($result2);
+                    if($oferta['ID_Usuario'] == $_SESSION['user_id']){
+                        echo '<p>La mayor oferta es: ' . $oferta['Monto'] . '. Fue hecha por usted.</p>';
+                    }else{
+                        echo '<p>La mayor oferta es: ' . $oferta['Monto'] . '</p>';
+                    }             
+                } else {
+                    echo "<p>No hay ninguna oferta aun.</p>";
+                }
                 echo '
                 <form action="procesar_oferta.php" method="post">
                     <input type="hidden" name="lote_id" value="' . $lote['ID_Lote'] . '">
@@ -105,4 +114,5 @@ $_SESSION['lote_id'] = $lote_id;
         </div>
     </div>
 </body>
+<?php include '../includes/footer.php'; ?>
 </html>

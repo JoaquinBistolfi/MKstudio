@@ -89,6 +89,47 @@ p {
     font-weight: bold;
 }
 
+.oferta {
+    background-color: #f0f2ef;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.oferta h2 {
+    color: #2c3e50;
+    font-size: 22px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.oferta p {
+    font-size: 16px;
+    color: #34495e;
+}
+
+.oferta form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.oferta input, .oferta button {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.oferta button {
+    background-color: #2c3e50;
+    color: white;
+    cursor: pointer;
+}
+
+.oferta button:hover {
+    background-color: #34495e;
+}
+
 @media screen and (max-width: 650px) {
     .datos {
         grid-template-columns: 1fr;  
