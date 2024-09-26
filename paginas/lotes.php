@@ -1,6 +1,7 @@
 <?php
 include '../includes/conexion.php';
 
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset($_FILES['archivo'])) {
     if (!empty($_POST["categoria"]) && !empty($_POST["cantidad"]) && !empty($_POST["peso"]) && !empty($_FILES["archivo"])) {
@@ -41,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
                 
                 if (mysqli_query($conexion, $sql)) {
                     header("Location: " . $_SERVER['PHP_SELF']);
-                    $_SESSION['mail'] == "nuevolote";
+                    $_SESSION['mail'] = "nuevolote";
                     exit;
                 } else {
                     echo "Error al guardar los datos: " . mysqli_error($conexion);
