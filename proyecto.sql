@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-09-2024 a las 12:17:51
+-- Tiempo de generación: 26-09-2024 a las 13:19:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -55,8 +55,8 @@ CREATE TABLE `lotes` (
   `Edad` varchar(50) DEFAULT NULL,
   `Sanidad` varchar(50) DEFAULT NULL,
   `Trat_Nutricional` varchar(50) DEFAULT NULL,
-  `Conoce_MiOMiO` varchar(50) DEFAULT NULL,
-  `Zona_Garrapata` varchar(50) DEFAULT NULL,
+  `Conoce_MiOMiO` tinyint(1) DEFAULT NULL,
+  `Zona_Garrapata` tinyint(1) DEFAULT NULL,
   `Trazabilidad` varchar(50) DEFAULT NULL,
   `Destetados` varchar(50) DEFAULT NULL,
   `Mochos` varchar(50) DEFAULT NULL,
@@ -64,14 +64,6 @@ CREATE TABLE `lotes` (
   `ID_Certificador` int(11) DEFAULT NULL,
   `Ruta_archivo` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `lotes`
---
-
-INSERT INTO `lotes` (`ID_Lote`, `Categoria`, `Cantidad`, `Peso_Prom`, `Peso_Max`, `Peso_Min`, `Porc_Pesada`, `Estado`, `Estado_Reproductivo`, `Castrados`, `Cantidad_Raza`, `Edad`, `Sanidad`, `Trat_Nutricional`, `Conoce_MiOMiO`, `Zona_Garrapata`, `Trazabilidad`, `Destetados`, `Mochos`, `Observaciones`, `ID_Certificador`, `Ruta_archivo`) VALUES
-(1, 'terneros cruza', 234, 123, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'foto_lote/terneros cruza_234_123_USUARIOS (3).png'),
-(2, 'terneritosss crizados', 123, 234, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'foto_lote/terneritosss crizados_123_234/Ejercicio Bootstrap.png');
 
 -- --------------------------------------------------------
 
@@ -162,6 +154,8 @@ CREATE TABLE `pre_oferta` (
 
 CREATE TABLE `usuarios` (
   `ID_Usuario` int(11) NOT NULL,
+  `Usuario` varchar(20) NOT NULL,
+  `Contrasena` varchar(20) NOT NULL,
   `Nombre` varchar(50) DEFAULT NULL,
   `Apellido` varchar(50) DEFAULT NULL,
   `Email` varchar(100) DEFAULT NULL,
@@ -214,6 +208,7 @@ ALTER TABLE `mail`
 --
 ALTER TABLE `oferta`
   ADD PRIMARY KEY (`ID_Oferta`),
+  ADD UNIQUE KEY `monto_lote_unico` (`Monto`,`ID_Lote`),
   ADD KEY `ID_Lote` (`ID_Lote`),
   ADD KEY `ID_Usuario` (`ID_Usuario`);
 
@@ -258,10 +253,52 @@ ALTER TABLE `usuarios_mail`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `certificador`
+--
+ALTER TABLE `certificador`
+  MODIFY `ID_Certificador` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `lotes`
 --
 ALTER TABLE `lotes`
-  MODIFY `ID_Lote` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID_Lote` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `mail`
+--
+ALTER TABLE `mail`
+  MODIFY `ID_Mail` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `oferta`
+--
+ALTER TABLE `oferta`
+  MODIFY `ID_Oferta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pago`
+--
+ALTER TABLE `pago`
+  MODIFY `ID_Pago` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pregunta`
+--
+ALTER TABLE `pregunta`
+  MODIFY `ID_Pregunta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `pre_oferta`
+--
+ALTER TABLE `pre_oferta`
+  MODIFY `ID_Pre_Oferta` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `ID_Usuario` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
