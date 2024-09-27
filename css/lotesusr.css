@@ -1,10 +1,87 @@
-.lote {
-    margin: 10px 0;
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgba(143, 186, 157, 0.667);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
-.lote a {
-    text-decoration: none;
-    color: #007bff;
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
 }
-.lote a:hover {
-    text-decoration: underline;
+
+table.listas {
+    width: 100%;
+}
+
+table.listas th, table.listas td {
+    font-size: 20px;
+    border: 1px solid #000000;
+    padding: 10px;
+    text-align: center;
+}
+
+table.listas th {
+    background-color: #ececec;
+}
+
+table.listas img {
+    width: 265px;
+    height: 150px;
+    border-radius: 5%;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.fixed-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+}
+.no-lotes {
+    font-size: 1.2em;
+    color: #ff0000;
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+table.listas tbody tr:hover {
+    background-color: rgba(121, 158, 133, 0.667);
+    color: white;
+    height: 200px;
+}
+
+@media screen and (min-width: 650px) {
+    .info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .info label {
+        width: 48%;
+    }
+
+    .btn {
+        display: flex;
+        justify-content: center;
+    }
 }
