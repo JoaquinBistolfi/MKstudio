@@ -35,10 +35,10 @@
                 </div>
                 
                 <h2>Nuestra Misión</h2>
-                <p></p>
+                <p>Somos una empresa que satisface a nuestros clientes mediante el desarrollo de software brindando eficacia y sencillez.</p>
 
                 <h2>Nuestra Visión</h2>
-                <p></p>
+                <p>Ser la empresa líder en desarrollo web del Uruguay, facilitando a la sociedad el acceso a la información y servicios que necesitan a través de internet.</p>
                 
                 <h2>Contacta con Nosotros</h2>
                 <p>Para más información o cualquier consulta, no dudes en contactarnos. mkstudio3be@gmail.com</p>

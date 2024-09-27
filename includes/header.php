@@ -5,8 +5,7 @@
         <a href="main.php"><img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa"></a>
         <nav class="header_nav">
             <ul class="header_nav_lista">
-                <li class="header_nav_link"><a href="../paginas/calendario.php">Calendario</a></li>
-                <li class="header_nav_link"><a href="../paginas/ofertas.php">Mis ofertas</a></li>
+                <li class="header_nav_link"><a href="../paginas/mis_ofertas.php">Mis ofertas</a></li>
                 <li class="header_nav_link"><a href="../paginas/lotesusr.php">Lotes</a></li>
             </ul>
         </nav>

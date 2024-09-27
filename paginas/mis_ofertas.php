@@ -15,7 +15,7 @@ $result = mysqli_query($conexion, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotes</title>
+    <title>Mis Ofertas</title>
     <link rel="stylesheet" href="../css/lotes.css">
 </head>
 <?php include '../includes/header.php'; ?>
@@ -26,10 +26,11 @@ $result = mysqli_query($conexion, $sql);
         <thead>
             <tr>
                 <th>Foto</th>
-                <th>Categoría</th>
                 <th>Raza</th>
                 <th>Cantidad</th>
                 <th>Peso</th>
+                <th>Tu Ultima Oferta</th>
+                <th>Mayor Oferta</th>
             </tr>
         </thead>
         <tbody>
@@ -39,10 +40,11 @@ $result = mysqli_query($conexion, $sql);
                 while ($row = mysqli_fetch_assoc($result)) {
                     echo "<tr>";
                     echo "<td><a href='especificaciones.php?id=" . $row['ID_Lote'] . "'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['Categoria'] . "'></a></td>";  
-                    echo "<td>" . $row['Categoria'] . "</td>";
                     echo "<td>" . $row['Cantidad_Raza'] . "</td>";
                     echo "<td>" . $row['Cantidad'] . "</td>";
                     echo "<td>" . $row['Peso_Prom'] . "</td>";
+                    echo "<td>" . $row['Oferta_Usr'] . "</td>";
+                    echo "<td>" . $row['Mayor_Oferta'] . "</td>";
                     echo "</tr>";
                 }
             } else {
