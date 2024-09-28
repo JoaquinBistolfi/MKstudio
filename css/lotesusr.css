@@ -43,6 +43,7 @@ table.listas img {
     align-items: center;
     justify-content: center;
 }
+
 .fixed-button {
     position: fixed;
     bottom: 20px;
@@ -55,13 +56,13 @@ table.listas img {
     cursor: pointer;
     display: none;
 }
+
 .no-lotes {
     font-size: 1.2em;
     color: #ff0000;
     text-align: center;
     margin-top: 20px;
 }
-
 
 table.listas tbody tr:hover {
     background-color: rgba(121, 158, 133, 0.667);
