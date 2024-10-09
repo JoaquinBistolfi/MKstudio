@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$conexion = mysqli_connect("localhost", "root", "", "proyecto") or die("Datos incorrectos");
+include '../includes/conexion.php';
 
 if (isset($_POST['usuario']) && isset($_POST['password'])) {
     if (!empty($_POST["usuario"]) && !empty($_POST["password"])) {

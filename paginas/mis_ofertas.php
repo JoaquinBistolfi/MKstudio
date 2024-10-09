@@ -1,11 +1,7 @@
 <?php
 session_start();
 
-$conexion = mysqli_connect("localhost", "root", "", "proyecto");
-
-if (!$conexion) {
-    die("Error en la conexión a la base de datos: " . mysqli_connect_error());
-}
+include '../includes/conexion.php';
 
 $id_usuario = @$_SESSION['ID_Usuario'];
 
@@ -25,7 +21,7 @@ $result = mysqli_query($conexion, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotes</title>
+    <title>Ofertas Lotes</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
 </head>
 <?php include '../includes/header.php'; ?>

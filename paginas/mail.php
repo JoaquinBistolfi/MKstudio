@@ -1,5 +1,6 @@
 <?php
 include '../includes/conexion.php';
+
 session_start();
 
 if ($_SESSION['mail'] == "nuevolote") {

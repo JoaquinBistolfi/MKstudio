@@ -1,18 +1,14 @@
 <?php
 session_start();
 
-$conexion = mysqli_connect("localhost", "root", "", "proyecto");
+include '../includes/conexion.php';
 
-if (!$conexion) {
-    die("Error en la conexión a la base de datos: " . mysqli_connect_error());
-}
+$id_usuario = @$_SESSION['id_usuario'];
 
-//$id_usuario = $_SESSION['id_usuario'];
-
-//$sql_rol = "SELECT rol FROM usuarios WHERE ID_Usuario = '$id_usuario'";
-//$result_rol = mysqli_query($conexion, $sql_rol);
-//$row_rol = mysqli_fetch_assoc($result_rol);
-//$rol_usuario = $row_rol['rol'];
+$sql_rol = "SELECT rol FROM usuarios WHERE ID_Usuario = '$id_usuario'";
+$result_rol = mysqli_query($conexion, $sql_rol);
+$row_rol = mysqli_fetch_assoc($result_rol);
+@$rol_usuario = $row_rol['rol'];
 
 $rol_usuario = 'Administrador';//para no tener que iniciar sesion.
 
