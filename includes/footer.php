@@ -17,10 +17,8 @@
             <div class="links-footer">
                 <h3>Enlaces</h3>
                 <ul>
-                    <li><a href="../paginas/about-us.php">About Us\Sobre Nosotros</a></li>
+                    <li><a href="../pagina/about-us.php">About Us\Sobre Nosotros</a></li>
                 </ul>
             </div>
         </div>
-    </footer>
-    </body>
-</html>
+</footer>

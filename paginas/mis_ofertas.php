@@ -7,14 +7,17 @@ if (!$conexion) {
     die("Error en la conexión a la base de datos: " . mysqli_connect_error());
 }
 
-$id_usuario = $_SESSION['ID_Usuario'];
+$id_usuario = @$_SESSION['ID_Usuario'];
 
+
+if(isset($_SESSION['ID_Usuario'])){
 $sql = "SELECT l.ID_Lote, l.Categoria, l.Cantidad, l.Peso_Prom, l.Ruta_archivo, o.Monto AS Monto_Usuario, 
         (SELECT MAX(Monto) FROM oferta WHERE ID_Lote = l.ID_Lote) AS Monto_Maximo
         FROM lotes l
         JOIN oferta o ON l.ID_Lote = o.ID_Lote
         WHERE o.ID_Usuario = '$id_usuario'";
 $result = mysqli_query($conexion, $sql);
+}
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +34,10 @@ $result = mysqli_query($conexion, $sql);
     <div class="content">
         <h2>Lista de lotes subidos</h2>
         <?php
-        if (mysqli_num_rows($result) > 0) {
+       if(!isset($_SESSION['ID_Usuario'])){
+        echo "<div class='no-lotes'>Debe iniciar sesion para ver sus ofertas.</div>";
+       }else{
+       if(mysqli_num_rows($result) > 0) {
             echo '<table class="listas">
                     <thead>
                         <tr>
@@ -59,7 +65,8 @@ $result = mysqli_query($conexion, $sql);
             echo '</tbody></table>';
         } else {
             echo "<div class='no-lotes'>Todavía no has hecho ninguna oferta.</div>";
-        }
+    }
+}
         ?>
     </div>
 </body>

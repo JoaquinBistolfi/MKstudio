@@ -9,4 +9,4 @@
                 <li class="header_nav_link"><a href="../paginas/lotesusr.php">Lotes</a></li>
             </ul>
         </nav>
-    </header>
+</header>
