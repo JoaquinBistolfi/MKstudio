@@ -8,18 +8,8 @@
     <link rel="shortcut icon" href="imagenes/logoico.ico" type="image/x-icon">
 </head>
 <body>
+<?php include 'includes/headeradmin.php'; ?>
 <header>
-    <link rel="stylesheet" href="css/header.css">
-        <input type="checkbox" id="activar" class="header_checkbox"> 
-        <label for="activar" class="abrir_menu" role="button">=</label>
-        <a href="main.php"><img class="header_logo" src="imagenes/darosa.png" alt="logo de la empresa"></a>
-        <nav class="header_nav">
-            <ul class="header_nav_lista">
-                <li class="header_nav_link"><a href="paginas/mis_ofertas.php">Mis ofertas</a></li>
-                <li class="header_nav_link"><a href="paginas/lotesusr.php">Lotes</a></li>
-            </ul>
-        </nav>
-</header>
     <main class="info_vaca">
         <div class="img_vaca">
             <ul>

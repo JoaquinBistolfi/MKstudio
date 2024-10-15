@@ -80,6 +80,8 @@ if (!$result) {
 </head>
 <?php include '../includes/header.php'; ?>
 <body>
+    <h2>Agregar nuevo lote</h2>
+
     <form action="" method="post" enctype="multipart/form-data">
         <div class="info">
             <label for="categoria">Categoría:
