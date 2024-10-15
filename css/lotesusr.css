@@ -17,6 +17,7 @@ h2 {
 
 table.listas {
     width: 100%;
+    border-collapse: collapse;
 }
 
 table.listas th, table.listas td {
@@ -31,8 +32,8 @@ table.listas th {
 }
 
 table.listas img {
-    width: 265px;
-    height: 150px;
+    width: 150px;
+    height: auto; 
     border-radius: 5%;
 }
 
@@ -67,7 +68,6 @@ table.listas img {
 table.listas tbody tr:hover {
     background-color: rgba(121, 158, 133, 0.667);
     color: white;
-    height: 200px;
 }
 
 @media screen and (min-width: 650px) {

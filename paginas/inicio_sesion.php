@@ -8,7 +8,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         $usr = $_POST["usuario"];
         $pass = $_POST["password"];
 
-        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE Usuario = ? AND Contrasena = ?");
+        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?");
         $stmt->bind_param('ss', $usr, $pass);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -17,7 +17,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         if ($user) {
             $_SESSION['user_id'] = $user['ID_Usuario'];
             $_SESSION['username'] = $user['usuario'];
-            header("Location: main.php");
+            header("Location: ../index.php");
             exit();
         } else {
             echo '<p>Nombre de usuario o contraseña incorrectos.</p>';

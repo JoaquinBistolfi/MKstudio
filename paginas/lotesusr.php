@@ -10,9 +10,13 @@ $result_rol = mysqli_query($conexion, $sql_rol);
 $row_rol = mysqli_fetch_assoc($result_rol);
 @$rol_usuario = $row_rol['rol'];
 
-$rol_usuario = 'Administrador';//para no tener que iniciar sesion.
+// Para no tener que iniciar sesión durante las pruebas
+$rol_usuario = 'Administrador';
 
-$sql = "SELECT ID_Lote, Categoria, Cantidad_Raza, Cantidad, Peso_Prom, Ruta_archivo FROM lotes";
+$sql = "SELECT lotes.id_lote, lotes.categoria, lotes.raza, lotes.cantidad, lotes.peso_promedio, archivo.ruta 
+        FROM lotes 
+        LEFT JOIN archivo ON lotes.id_lote = archivo.id_lote";
+
 $result = mysqli_query($conexion, $sql);
 ?>
 
@@ -38,17 +42,17 @@ $result = mysqli_query($conexion, $sql);
                             <th>Categoría</th>
                             <th>Raza</th>
                             <th>Cantidad</th>
-                            <th>Peso</th>
+                            <th>Peso Promedio</th>
                         </tr>
                     </thead>
                     <tbody>';
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
-                echo "<td><a href='especificaciones.php?id=" . $row['ID_Lote'] . "'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['Categoria'] . "'></a></td>";  
-                echo "<td>" . $row['Categoria'] . "</td>";
-                echo "<td>" . $row['Cantidad_Raza'] . "</td>";
-                echo "<td>" . $row['Cantidad'] . "</td>";
-                echo "<td>" . $row['Peso_Prom'] . "</td>";
+                echo "<td><a href='especificaciones.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
+                echo "<td>" . $row['categoria'] . "</td>";
+                echo "<td>" . $row['raza'] . "</td>";
+                echo "<td>" . $row['cantidad'] . "</td>";
+                echo "<td>" . $row['peso_promedio'] . "</td>";
                 echo "</tr>";
             }
             echo '</tbody></table>';

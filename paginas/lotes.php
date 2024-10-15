@@ -9,16 +9,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
         $raza = $_POST['raza'];
         $cantidad = $_POST['cantidad'];
         $peso = $_POST['peso'];
-        $peso_max = $_POST['peso_max'];
-        $peso_min = $_POST['peso_min'];
-        $porc_pesada = $_POST['porc_pesada'];
+        $peso_maximo = $_POST['peso_maximo'];
+        $peso_minimo = $_POST['peso_minimo'];
+        $cant_pesada = $_POST['cant_pesada'];
         $estado = $_POST['estado'];
-        $estado_reproductivo = $_POST['estado_reproductivo'];
-        $castrados = $_POST['castrados'];
         $edad = $_POST['edad'];
         $sanidad = $_POST['sanidad'];
-        $trat_nutricional = $_POST['trat_nutricional'];
-        $destetados = $_POST['destetados'];
+        $tratamiento_nutricional = $_POST['tratamiento_nutricional'];
         $mochos = $_POST['mochos'];
         $observaciones = $_POST['observaciones'];
         $conoce_miomio = isset($_POST['conoce_miomio']) ? 1 : 0;
@@ -37,15 +34,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
             $ruta_archivo = $nombre_carpeta . '/' . basename($foto_lote);
 
             if (move_uploaded_file($tmp_name, $ruta_archivo)) {
-                $sql = "INSERT INTO lotes (Categoria, Cantidad_Raza, Cantidad, Peso_Prom, Peso_Max, Peso_Min, Porc_Pesada, Estado, Estado_Reproductivo, Castrados, Edad, Sanidad, Trat_Nutricional, Destetados, Mochos, Observaciones, Conoce_MiOMiO, Zona_Garrapata, Ruta_archivo) 
-                        VALUES ('$categoria', '$raza', '$cantidad', '$peso', '$peso_max', '$peso_min', '$porc_pesada', '$estado', '$estado_reproductivo', '$castrados', '$edad', '$sanidad', '$trat_nutricional', '$destetados', '$mochos', '$observaciones', '$conoce_miomio', '$zona_garrapata', '$ruta_archivo')";
-                
-                if (mysqli_query($conexion, $sql)) {
-                    header("Location: " . $_SERVER['PHP_SELF']);
-                    $_SESSION['mail'] = "nuevolote";
-                    exit;
+                $sql_lotes = "INSERT INTO lotes (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, edad, sanidad, tratamiento_nutricional, mochos, observaciones, conoce_miomio, zona_garrapata) 
+                              VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$edad', '$sanidad', '$tratamiento_nutricional', '$mochos', '$observaciones', '$conoce_miomio', '$zona_garrapata')";
+
+                if (mysqli_query($conexion, $sql_lotes)) {
+                    $id_lote = mysqli_insert_id($conexion);  
+
+                    $sql_archivo = "INSERT INTO archivo (id_lote, ruta) VALUES ('$id_lote', '$ruta_archivo')";
+                    if (mysqli_query($conexion, $sql_archivo)) {
+                        header("Location: " . $_SERVER['PHP_SELF']);
+                        $_SESSION['mail'] = "nuevolote";
+                        exit;
+                    } else {
+                        echo "Error al guardar el archivo: " . mysqli_error($conexion);
+                    }
                 } else {
-                    echo "Error al guardar los datos: " . mysqli_error($conexion);
+                    echo "Error al guardar el lote: " . mysqli_error($conexion);
                 }
             } else {
                 echo "Error al mover el archivo subido.";
@@ -56,8 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
     }
 }
 
-$sql = "SELECT ID_Lote, Categoria, Cantidad_Raza, Cantidad, Peso_Prom, Ruta_archivo FROM lotes";
+$sql = "SELECT l.id_lote, l.categoria, l.raza, l.cantidad, l.peso_promedio, a.ruta 
+        FROM lotes l 
+        LEFT JOIN archivo a ON a.id_lote = l.id_lote;";
+
 $result = mysqli_query($conexion, $sql);
+if (!$result) {
+    die("Error en la consulta SQL: " . mysqli_error($conexion));
+}
 ?>
 
 <!DOCTYPE html>
@@ -84,23 +94,17 @@ $result = mysqli_query($conexion, $sql);
             <label for="peso">Peso Promedio:
                 <input type="number" name="peso" required>
             </label>
-            <label for="peso_max">Peso Máximo:
-                <input type="number" name="peso_max">
+            <label for="peso_maximo">Peso Máximo:
+                <input type="number" name="peso_maximo">
             </label>
-            <label for="peso_min">Peso Mínimo:
-                <input type="number" name="peso_min">
+            <label for="peso_minimo">Peso Mínimo:
+                <input type="number" name="peso_minimo">
             </label>
-            <label for="porc_pesada">Porcentaje Pesada:
-                <input type="number" name="porc_pesada">
+            <label for="cant_pesada">Porcentaje Pesada:
+                <input type="number" name="cant_pesada">
             </label>
             <label for="estado">Estado:
                 <input type="text" name="estado">
-            </label>
-            <label for="estado_reproductivo">Estado Reproductivo:
-                <input type="text" name="estado_reproductivo">
-            </label>
-            <label for="castrados">Castrados:
-                <input type="text" name="castrados">
             </label>
             <label for="edad">Edad:
                 <input type="number" name="edad">
@@ -108,14 +112,11 @@ $result = mysqli_query($conexion, $sql);
             <label for="sanidad">Sanidad:
                 <input type="text" name="sanidad">
             </label>
-            <label for="trat_nutricional">Tratamiento Nutricional:
-                <input type="text" name="trat_nutricional">
-            </label>
-            <label for="destetados">Destetados:
-                <input type="text" name="destetados">
+            <label for="tratamiento_nutricional">Tratamiento Nutricional:
+                <input type="text" name="tratamiento_nutricional">
             </label>
             <label for="mochos">Mochos:
-                <input type="text" name="mochos">
+                <input type="number" name="mochos">
             </label>
             <label for="observaciones">Observaciones:
                 <textarea name="observaciones"></textarea>
@@ -127,9 +128,9 @@ $result = mysqli_query($conexion, $sql);
                 <input type="checkbox" name="zona_garrapata" value="1">
             </label>
         </div>
-            <label for="foto_lote">Foto principal del lote:
-                <input type="file" name="archivo" id="foto_lote" required accept=".jpg, .png">
-            </label>
+        <label for="foto_lote">Foto principal del lote:
+            <input type="file" name="archivo" id="foto_lote" required accept=".jpg, .png">
+        </label>
         
         <div class="btn">
             <input type="submit" value="Subir">
@@ -144,27 +145,27 @@ $result = mysqli_query($conexion, $sql);
                 <th>Categoría</th>
                 <th>Raza</th>
                 <th>Cantidad</th>
-                <th>Peso</th>
+                <th>Peso Promedio</th>
             </tr>
         </thead>
         <tbody>
-        <div class="fila_tabla">
-        <?php
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    echo "<tr>";
-                    echo "<td><a href='especificaciones.php?id=" . $row['ID_Lote'] . "'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['Categoria'] . "'></a></td>";  
-                    echo "<td>" . $row['Categoria'] . "</td>";
-                    echo "<td>" . $row['Cantidad_Raza'] . "</td>";
-                    echo "<td>" . $row['Cantidad'] . "</td>";
-                    echo "<td>" . $row['Peso_Prom'] . "</td>";
-                    echo "</tr>";
+            <div class="fila_tabla">
+            <?php
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<tr>";
+                        echo "<td><a href='especificaciones.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
+                        echo "<td>" . $row['categoria'] . "</td>";
+                        echo "<td>" . $row['raza'] . "</td>";
+                        echo "<td>" . $row['cantidad'] . "</td>";
+                        echo "<td>" . $row['peso_promedio'] . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "No se encontraron lotes.";
                 }
-            } else {
-                echo "No se encontraron lotes.";
-            }
             ?>
-        </div>
+            </div>
         </tbody>
     </table>
 </body>

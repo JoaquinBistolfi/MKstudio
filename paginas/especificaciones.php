@@ -6,16 +6,20 @@ session_start();
 if (isset($_GET['id'])) {
     $lote_id = $_GET['id'];
     
-    $sql = "SELECT * FROM lotes WHERE ID_Lote = '$lote_id'";
+    $sql = "SELECT * FROM lotes WHERE id_lote = '$lote_id'";
+    $sql3 = "SELECT * FROM archivo WHERE id_lote = '$lote_id'";
+
     $result = mysqli_query($conexion, $sql);
+    $result3 = mysqli_query($conexion, $sql3);
 
     if (mysqli_num_rows($result) > 0) {
         $lote = mysqli_fetch_assoc($result);
+        $archivo = mysqli_fetch_assoc($result3);
     } else {
         echo "<p>No se encontró el lote.</p>";
     }
 
-    $sql2 = "SELECT * FROM oferta WHERE ID_Lote = $lote_id ORDER BY Monto DESC LIMIT 1";
+    $sql2 = "SELECT * FROM oferta WHERE id_lote = $lote_id ORDER BY monto DESC LIMIT 1";
     $result2 = mysqli_query($conexion, $sql2);
 
 } else {
@@ -39,12 +43,12 @@ $_SESSION['lote_id'] = $lote_id;
 <?php include '../includes/header.php'; ?>
 <body>
     <?php
-    echo "<h1>Lote de " . $lote['Cantidad'] . " " . $lote['Categoria'] . "</h1>"
+    echo "<h1>Lote de " . $lote['cantidad'] . " " . $lote['categoria'] . "</h1>"
     ?>
     <div class="datos">
         <div class="imagenes">
             <?php
-            echo "<img src='" . $lote['Ruta_archivo'] . "' alt='" . $lote['Categoria'] . "'>";
+            echo "<img src='" . $archivo['ruta'] . "' alt='" . $lote['categoria'] . "'>";
             ?>
         </div>
         <div class="oferta">
@@ -79,31 +83,26 @@ $_SESSION['lote_id'] = $lote_id;
         <div class="informacion">
             <h2>Información</h2>
             <?php
-            echo "<p>Categoría: " . $lote['Categoria'] . "</p>";
-            echo "<p>Raza: " . $lote['Cantidad_Raza'] . "</p>";
-            echo "<p>Cantidad: " . $lote['Cantidad'] . "</p>";
-            echo "<p>Peso promedio: " . $lote['Peso_Prom'] . "</p>";
-            echo "<p>Peso máximo: " . $lote['Peso_Max'] . "</p>";
-            echo "<p>Peso mínimo: " . $lote['Peso_Min'] . "</p>";
-            echo "<p>Porcentaje pesado: " . $lote['Porc_Pesada'] . "</p>";
-            echo "<p>Estado: " . $lote['Estado'] . "</p>";
-            echo "<p>Estado reproductivo: " . $lote['Estado_Reproductivo'] . "</p>";
-            echo "<p>Castrados: " . $lote['Castrados'] . "</p>";
-            echo "<p>Raza: " . $lote['Cantidad_Raza'] . "</p>";
-            echo "<p>Edad: " . $lote['Edad'] . "</p>";
-            echo "<p>Sanidad: " . $lote['Sanidad'] . "</p>";
-            echo "<p>Tratamiento nutricional: " . $lote['Trat_Nutricional'] . "</p>";
-            echo "<p>Conoce Mio Mio: " . $lote['Conoce_MiOMiO'] . "</p>";
-            echo "<p>Zona garrapata: " . $lote['Zona_Garrapata'] . "</p>";
-            echo "<p>Trazabilidad: " . $lote['Trazabilidad'] . "</p>";
-            echo "<p>Destetados: " . $lote['Destetados'] . "</p>";
-            echo "<p>Mochos: " . $lote['Mochos'] . "</p>";
+            echo "<p>Categoría: " . $lote['categoria'] . "</p>";
+            echo "<p>Raza: " . $lote['raza'] . "</p>";
+            echo "<p>cantidad: " . $lote['cantidad'] . "</p>";
+            echo "<p>Peso promedio: " . $lote['peso_promedio'] . "</p>";
+            echo "<p>Peso máximo: " . $lote['peso_maximo'] . "</p>";
+            echo "<p>Peso mínimo: " . $lote['peso_minimo'] . "</p>";
+            echo "<p>Porcentaje pesado: " . $lote['cant_pesada'] . "</p>";
+            echo "<p>Estado: " . $lote['estado'] . "</p>";
+            echo "<p>Raza: " . $lote['raza'] . "</p>";
+            echo "<p>Edad: " . $lote['edad'] . "</p>";
+            echo "<p>Sanidad: " . $lote['sanidad'] . "</p>";
+            echo "<p>Tratamiento nutricional: " . $lote['tratamiento_nutricional'] . "</p>";
+            echo "<p>Conoce Mio Mio: " . $lote['conoce_miomio'] . "</p>";
+            echo "<p>Zona garrapata: " . $lote['zona_garrapata'] . "</p>";
             ?>
         </div>
         <div class="observaciones">
             <h2>Observaciones</h2>
             <?php
-            echo "<p>Observaciones: " . $lote['Observaciones'] . "</p>";
+            echo "<p>Observaciones: " . $lote['observaciones'] . "</p>";
             ?>
         </div>
         <div class="certificador">

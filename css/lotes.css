@@ -30,7 +30,6 @@ textarea {
     margin-bottom: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    height: 17px;
 }
 
 form input[type="submit"] {
@@ -57,29 +56,32 @@ h2 {
 
 table.listas {
     width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
 }
 
-table.listas th, table.listas td {
-    font-size: 20px;
-    border: 1px solid #000000;
+table.listas thead {
+    background-color: #2c3e50;
+    color: white;
+}
+
+table.listas th,
+table.listas td {
     padding: 10px;
     text-align: center;
+    border-bottom: 1px solid #ddd;
 }
 
-table.listas th {
-    background-color: #ececec;
+table.listas tr:hover {
+    background-color: rgba(121, 158, 133, 0.667);
+    color: white;
 }
 
 table.listas img {
     width: 265px;
-    height: 150px;
+    height: auto;
     border-radius: 5%;
-}
-
-table.listas tbody tr:hover {
-    background-color: rgba(121, 158, 133, 0.667);
-    color: white;
-    height: 200px;
 }
 
 @media screen and (min-width: 650px) {
