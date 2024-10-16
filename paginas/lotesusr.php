@@ -6,7 +6,6 @@ include '../includes/conexion.php';
 @$rol_usuario = $_SESSION['rol'];
 
 // Para no tener que iniciar sesión durante las pruebas
-$rol_usuario = 'Administrador';
 
 $sql = "SELECT lotes.id_lote, lotes.categoria, lotes.raza, lotes.cantidad, lotes.peso_promedio, archivo.ruta 
         FROM lotes 
