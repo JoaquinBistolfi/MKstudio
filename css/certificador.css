@@ -37,9 +37,9 @@ label {
 input[type="number"],
 input[type="text"],
 input[type="file"],
-button {
+input[type="submit"] {
     width: 100%;
-    padding: 10px;
+    height: 35px;
     margin: 5px 0 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -54,21 +54,21 @@ input[type="file"]:focus {
     outline: none;
 }
 
-button {
-    background-color: #2c3e50;
+input[type="submit"] {
+    background-color: #28a745;
     color: white;
     cursor: pointer;
     font-size: 16px;
 }
 
-button:hover {
-    background-color: #34495e;
+input[type="submit"]:hover {
+    background-color: #218838;
 }
 
 table.listas {
     width: 80%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin: 20px auto;
     background-color: #d0d0d0;
 }
 
@@ -89,11 +89,16 @@ table.listas tr:hover {
 }
 
 table.listas img {
-    width: 50px; 
+    width: 80px; 
     height: auto;
     border-radius: 5px;
 }
 
+ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
 
 @media screen and (max-width: 650px) {
     form {

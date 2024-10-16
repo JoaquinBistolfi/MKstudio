@@ -4,6 +4,15 @@ include '../includes/conexion.php';
 
 @$rol_usuario = $_SESSION['rol'];
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!empty($_POST["nombre"]) && !empty($_POST["apellido"]) && !empty($_POST["profesion"]) && !empty($_FILES["archivo"])) {
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $profesion = $_POST['profesion'];
+        $foto_lote = $_FILES['archivo']['name'];
+        $tmp_name = $_FILES['archivo']['tmp_name'];
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,9 +74,7 @@ include '../includes/conexion.php';
 
             <div class="consultas">
                 <h2>¡Contáctese con nosotros!</h2>
-                <form>
-                    <input placeholder="Nombre Completo*" name="nombre" type="text" required>
-                    <input placeholder="Teléfono*" name="telefono" type="text" required>
+                <form action="" method="post">
                     <input placeholder="Mensaje" name="texto" type="text" required>
                     <input type="submit" value="Enviar">
                 </form>

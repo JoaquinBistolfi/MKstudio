@@ -53,6 +53,7 @@ header {
 }
 
 .header_submenu {
+    list-style-type: none;
     display: none;
     position: absolute;
     background-color: #f9f9f9;
