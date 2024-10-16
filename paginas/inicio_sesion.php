@@ -15,9 +15,10 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         $user = $result->fetch_assoc();
 
         if ($user) {
-            $_SESSION['user_id'] = $user['ID_Usuario'];
+            $_SESSION['user_id'] = $user['id_usuario'];
             $_SESSION['username'] = $user['usuario'];
-            header("Location: ../index.php");
+            $_SESSION['rol'] = $user['rol'];
+            header("Location: index.php");
             exit();
         } else {
             echo '<p>Nombre de usuario o contraseña incorrectos.</p>';

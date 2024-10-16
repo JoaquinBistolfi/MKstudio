@@ -3,6 +3,8 @@ include '../includes/conexion.php';
 
 session_start();
 
+@$rol_usuario = $_SESSION['rol'];
+
 if (isset($_GET['id'])) {
     $lote_id = $_GET['id'];
     
@@ -40,7 +42,13 @@ $_SESSION['lote_id'] = $lote_id;
     <title>Especificaciones del Lote</title>
     <link rel="stylesheet" href="../css/especificaciones.css">
 </head>
-<?php include '../includes/header.php'; ?>
+<?php 
+    if ($rol_usuario == 'Administrador'){
+            include '../includes/headeradmin.php';
+    }else{
+            include '../includes/header.php';
+    }
+ ?>
 <body>
     <?php
     echo "<h1>Lote de " . $lote['cantidad'] . " " . $lote['categoria'] . "</h1>"
@@ -68,7 +76,7 @@ $_SESSION['lote_id'] = $lote_id;
                 }
                 echo '
                 <form action="procesar_oferta.php" method="post">
-                    <input type="hidden" name="lote_id" value="' . $lote['ID_Lote'] . '">
+                    <input type="hidden" name="lote_id" value="' . $lote['id_lote'] . '">
                     <label for="oferta">Ingrese su oferta:</label>
                     <input type="number" name="oferta" id="oferta" required>
                     <button type="submit">Enviar oferta</button>
@@ -84,7 +92,6 @@ $_SESSION['lote_id'] = $lote_id;
             <h2>Información</h2>
             <?php
             echo "<p>Categoría: " . $lote['categoria'] . "</p>";
-            echo "<p>Raza: " . $lote['raza'] . "</p>";
             echo "<p>cantidad: " . $lote['cantidad'] . "</p>";
             echo "<p>Peso promedio: " . $lote['peso_promedio'] . "</p>";
             echo "<p>Peso máximo: " . $lote['peso_maximo'] . "</p>";

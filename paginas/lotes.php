@@ -34,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
             $ruta_archivo = $nombre_carpeta . '/' . basename($foto_lote);
 
             if (move_uploaded_file($tmp_name, $ruta_archivo)) {
-                $sql_lotes = "INSERT INTO lotes (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, edad, sanidad, tratamiento_nutricional, mochos, observaciones, conoce_miomio, zona_garrapata) 
-                              VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$edad', '$sanidad', '$tratamiento_nutricional', '$mochos', '$observaciones', '$conoce_miomio', '$zona_garrapata')";
+                $sql_lotes = "INSERT INTO lotes (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, raza, edad, sanidad, tratamiento_nutricional, mochos, observaciones, conoce_miomio, zona_garrapata) 
+                              VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$raza', '$edad', '$sanidad', '$tratamiento_nutricional', '$mochos', '$observaciones', '$conoce_miomio', '$zona_garrapata')";
 
                 if (mysqli_query($conexion, $sql_lotes)) {
                     $id_lote = mysqli_insert_id($conexion);  

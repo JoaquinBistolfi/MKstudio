@@ -3,12 +3,7 @@ session_start();
 
 include '../includes/conexion.php';
 
-$id_usuario = @$_SESSION['id_usuario'];
-
-$sql_rol = "SELECT rol FROM usuarios WHERE ID_Usuario = '$id_usuario'";
-$result_rol = mysqli_query($conexion, $sql_rol);
-$row_rol = mysqli_fetch_assoc($result_rol);
-@$rol_usuario = $row_rol['rol'];
+@$rol_usuario = $_SESSION['rol'];
 
 // Para no tener que iniciar sesión durante las pruebas
 $rol_usuario = 'Administrador';
@@ -28,7 +23,13 @@ $result = mysqli_query($conexion, $sql);
     <title>Lotes</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
 </head>
-<?php include '../includes/header.php'; ?>
+<?php 
+    if ($rol_usuario == 'Administrador'){
+            include '../includes/headeradmin.php';
+    }else{
+            include '../includes/header.php';
+    }
+ ?>
 <body>
 
     <div class="content">

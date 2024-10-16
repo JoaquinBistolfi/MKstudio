@@ -82,10 +82,26 @@ header {
     display: block;
 }
 
+.user-profile {
+    top: 10px; 
+    right: 10px; 
+}
+
+.user-icon {
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.user-icon:hover {
+    opacity: 0.8; 
+}
+
 @media screen and (max-width: 900px) {
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 768px) {
     .abrir_menu {
         display: block;
     }
