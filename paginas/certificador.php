@@ -1,6 +1,8 @@
 <?php
 include '../includes/conexion.php'; 
 
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST["nombre"]) && !empty($_POST["apellido"]) && !empty($_POST["profesion"]) && !empty($_FILES["archivo"])) {
         $nombre = $_POST['nombre'];
@@ -16,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                           VALUES ('$nombre', '$apellido', '$profesion', '$ruta_destino')";
             
             if (mysqli_query($conexion, $sql_lotes)) {
-                echo "Certificador agregado exitosamente.";
+                header("Location: certificador.php");
             } else {
                 echo "Error: " . mysqli_error($conexion);
             }
@@ -34,6 +36,9 @@ $result = mysqli_query($conexion, $sql);
 if (!$result) {
     die("Error en la consulta SQL: " . mysqli_error($conexion));
 }
+
+@$rol_usuario = $_SESSION['rol'];
+
 ?>
 
 <!DOCTYPE html>
@@ -44,8 +49,14 @@ if (!$result) {
     <title>Agregar nuevo certificador</title>
     <link rel="stylesheet" href="../css/certificador.css">
 </head>
-<?php include '../includes/header.php'; ?>
-<body>
+    <?php 
+    if ($rol_usuario == 'Administrador'){
+            include '../includes/headeradmin.php';
+    }else{
+            include '../includes/header.php';
+    }
+    ?>
+    <body>
     <h1>Agregar nuevo certificador</h1> 
     <form action="" method="post" enctype="multipart/form-data">
         <label for="Nombre">Nombre:

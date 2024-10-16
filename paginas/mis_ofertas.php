@@ -4,14 +4,17 @@ session_start();
 include '../includes/conexion.php';
 
 $id_usuario = @$_SESSION['ID_Usuario'];
+@$rol_usuario = $_SESSION['rol'];
 
 
 if(isset($_SESSION['ID_Usuario'])){
-$sql = "SELECT l.ID_Lote, l.Categoria, l.Cantidad, l.Peso_Prom, l.Ruta_archivo, o.Monto AS Monto_Usuario, 
-        (SELECT MAX(Monto) FROM oferta WHERE ID_Lote = l.ID_Lote) AS Monto_Maximo
-        FROM lotes l
-        JOIN oferta o ON l.ID_Lote = o.ID_Lote
-        WHERE o.ID_Usuario = '$id_usuario'";
+    $sql = "SELECT l.id_lote, l.categoria, l.raza, l.cantidad, l.peso_promedio, a.ruta AS Ruta_archivo, 
+                   o.Monto AS Monto_Usuario, 
+                   (SELECT MAX(Monto) FROM oferta WHERE ID_Lote = l.ID_Lote) AS Monto_Maximo
+            FROM lotes l
+            LEFT JOIN archivo a ON l.id_lote = a.id_lote
+            LEFT JOIN oferta o ON l.ID_Lote = o.ID_Lote
+            WHERE o.ID_Usuario = '$id_usuario'";  
 $result = mysqli_query($conexion, $sql);
 }
 ?>
@@ -24,7 +27,13 @@ $result = mysqli_query($conexion, $sql);
     <title>Ofertas Lotes</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
 </head>
-<?php include '../includes/header.php'; ?>
+<?php 
+    if ($rol_usuario == 'Administrador'){
+            include '../includes/headeradmin.php';
+    }else{
+            include '../includes/header.php';
+    }
+ ?>
 <body>
 
     <div class="content">

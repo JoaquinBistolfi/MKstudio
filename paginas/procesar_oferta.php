@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lote_id = $_SESSION['lote_id'];
     $fecha = date("Y-m-d H:i:s");
 
-    $sql = "INSERT INTO `oferta` (`ID_Oferta`, `Monto`, `Fecha`, `ID_Lote`, `ID_Usuario`) VALUES (NULL, '$oferta', '$fecha', '$lote_id', '$usr_id');";
+    $sql = "INSERT INTO `oferta` (`id_oferta`, `monto`, `fecha_oferta`, `id_lote`, `id_usuario`) VALUES (NULL, '$oferta', '$fecha', '$lote_id', '$usr_id');";
     $result = mysqli_query($conexion, $sql);
 
     if ($result) {

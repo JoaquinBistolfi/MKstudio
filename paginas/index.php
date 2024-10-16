@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }else{
             include '../includes/header.php';
     }
- ?>
+    ?>
 
     <main>
         <section class="info_vaca">

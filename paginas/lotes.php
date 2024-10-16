@@ -68,6 +68,9 @@ $result = mysqli_query($conexion, $sql);
 if (!$result) {
     die("Error en la consulta SQL: " . mysqli_error($conexion));
 }
+
+@$rol_usuario = $_SESSION['rol'];
+
 ?>
 
 <!DOCTYPE html>
@@ -78,7 +81,13 @@ if (!$result) {
     <title>Subir Lotes</title>
     <link rel="stylesheet" href="../css/lotes.css">
 </head>
-<?php include '../includes/header.php'; ?>
+<?php 
+    if ($rol_usuario == 'Administrador'){
+            include '../includes/headeradmin.php';
+    }else{
+            include '../includes/header.php';
+    }
+    ?>
 <body>
     <h2>Agregar nuevo lote</h2>
 
