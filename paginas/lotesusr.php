@@ -33,7 +33,7 @@ $result = mysqli_query($conexion, $sql);
 <body>
 
     <div class="content">
-        <h2>Lista de lotes subidos</h2>
+        <h2>Lista de Lotes Disponibles</h2>
         <?php
         if (mysqli_num_rows($result) > 0) {
             echo '<table class="listas">
