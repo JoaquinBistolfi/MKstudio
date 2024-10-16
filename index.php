@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -86,7 +86,7 @@
             <div class="links-footer">
                 <h3>Enlaces</h3>
                 <ul>
-                    <li><a href="pagina/about-us.php">About Us\Sobre Nosotros</a></li>
+                    <li><a href="pagina/about-us-es.php">About Us\Sobre Nosotros</a></li>
                 </ul>
             </div>
         </div>

@@ -28,7 +28,7 @@ $result = mysqli_query($conexion, $sql);
 <body>
 
     <div class="content">
-        <h2>Lista de lotes subidos</h2>
+        <h2>Ofertas del Usuario</h2>
         <?php
        if(!isset($_SESSION['ID_Usuario'])){
         echo "<div class='no-lotes'>Debe iniciar sesion para ver sus ofertas.</div>";

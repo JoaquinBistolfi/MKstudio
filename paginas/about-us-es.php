@@ -43,7 +43,7 @@
                 <h2>Contacta con Nosotros</h2>
                 <p>Para más información o cualquier consulta, no dudes en contactarnos. mkstudio3be@gmail.com</p>
 
-                <h2>H</h2>
+                <h2></h2>
             </div>
         </div>
     </section>
