@@ -38,6 +38,7 @@ header {
 
 .header_nav_link {
     list-style: none;
+    position: relative;
 }
 
 .header_nav_link a {
@@ -49,6 +50,37 @@ header {
 
 .header_nav_link a:hover {
     color: rgb(53, 85, 63);
+}
+
+.header_submenu {
+    list-style-type: none;
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    top: 100%;
+    left: 0;
+    width: 200px;
+    z-index: 100;
+}
+
+.header_submenu li {
+    padding: 10px 20px;
+}
+
+.header_submenu li a {
+    color: #2c3e50;
+    text-decoration: none;
+}
+
+.header_submenu li a:hover {
+    background-color: rgba(121, 158, 133, 0.667);
+    color: white;
+}
+
+.submenu:hover .header_submenu {
+    display: block;
 }
 
 .user-profile {
@@ -70,7 +102,7 @@ header {
 @media screen and (max-width: 900px) {
 }
 
-@media screen and (max-width: 630px) {
+@media screen and (max-width: 768px) {
     .abrir_menu {
         display: block;
     }
@@ -105,6 +137,13 @@ header {
     .header_nav_link a {
         display: block;
         padding: 10px 0;
+        width: 100%;
+    }
+
+    .header_submenu {
+        position: relative;
+        top: auto;
+        left: auto;
         width: 100%;
     }
 }

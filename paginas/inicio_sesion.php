@@ -8,16 +8,17 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         $usr = $_POST["usuario"];
         $pass = $_POST["password"];
 
-        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE Usuario = ? AND Contrasena = ?");
+        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?");
         $stmt->bind_param('ss', $usr, $pass);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
         if ($user) {
-            $_SESSION['user_id'] = $user['ID_Usuario'];
+            $_SESSION['user_id'] = $user['id_usuario'];
             $_SESSION['username'] = $user['usuario'];
-            header("Location: main.php");
+            $_SESSION['rol'] = $user['rol'];
+            header("Location: index.php");
             exit();
         } else {
             echo '<p>Nombre de usuario o contraseña incorrectos.</p>';
