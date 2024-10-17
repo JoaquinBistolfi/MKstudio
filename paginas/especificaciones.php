@@ -66,10 +66,10 @@ $_SESSION['lote_id'] = $lote_id;
              if (isset($_SESSION['user_id'])) {
                 if (mysqli_num_rows($result2) > 0) {
                     $oferta = mysqli_fetch_assoc($result2);
-                    if($oferta['ID_Usuario'] == $_SESSION['user_id']){
-                        echo '<p>La mayor oferta es: ' . $oferta['Monto'] . '. Fue hecha por usted.</p>';
+                    if($oferta['id_usuario'] == $_SESSION['user_id']){
+                        echo '<p>La mayor oferta es: ' . $oferta['monto'] . '. Fue hecha por usted.</p>';
                     }else{
-                        echo '<p>La mayor oferta es: ' . $oferta['Monto'] . '</p>';
+                        echo '<p>La mayor oferta es: ' . $oferta['monto'] . '</p>';
                     }             
                 } else {
                     echo "<p>No hay ninguna oferta aun.</p>";
@@ -78,7 +78,7 @@ $_SESSION['lote_id'] = $lote_id;
                 <form action="procesar_oferta.php" method="post">
                     <input type="hidden" name="lote_id" value="' . $lote['id_lote'] . '">
                     <label for="oferta">Ingrese su oferta:</label>
-                    <input type="number" name="oferta" id="oferta" required>
+                    <input type="number" name="oferta" step=0.01 min=' . @$oferta['monto'] + 0.01 .' id="oferta" required>
                     <button type="submit">Enviar oferta</button>
                 </form>';
             } else {
@@ -99,7 +99,7 @@ $_SESSION['lote_id'] = $lote_id;
             echo "<p>Porcentaje pesado: " . $lote['cant_pesada'] . "</p>";
             echo "<p>Estado: " . $lote['estado'] . "</p>";
             echo "<p>Raza: " . $lote['raza'] . "</p>";
-            echo "<p>Edad: " . $lote['edad'] . "</p>";
+            echo "<p>Edad: " . $lote['edad'] . " meses.</p>";
             echo "<p>Sanidad: " . $lote['sanidad'] . "</p>";
             echo "<p>Tratamiento nutricional: " . $lote['tratamiento_nutricional'] . "</p>";
             echo "<p>Conoce Mio Mio: " . $lote['conoce_miomio'] . "</p>";

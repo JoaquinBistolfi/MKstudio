@@ -8,13 +8,13 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         $usr = $_POST["usuario"];
         $pass = $_POST["password"];
 
-        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE usuario = ? AND contrasena = ?");
-        $stmt->bind_param('ss', $usr, $pass);
+        $stmt = $conexion->prepare("SELECT * FROM usuarios WHERE usuario = ?");
+        $stmt->bind_param('s', $usr);
         $stmt->execute();
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        if ($user) {
+        if (password_verify($pass, $user['contrasena'])) {
             $_SESSION['user_id'] = $user['id_usuario'];
             $_SESSION['username'] = $user['usuario'];
             $_SESSION['rol'] = $user['rol'];
@@ -37,7 +37,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
 </head>
 <body>
     <header>
-        <img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa">
+        <a href="index.php"><img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa"></a>
     </header>
     <div class="registro">
         <h1>Iniciar sesión</h1>

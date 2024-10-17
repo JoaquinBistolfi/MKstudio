@@ -23,7 +23,7 @@
         </ul>
     </nav>
     <div class="user-profile">
-        <a href="configuracion_usuario.php">
+        <a href="../paginas/inicio_sesion.php">
             <img src="../imagenes/avatar.png" alt="Usuario" class="user-icon">
         </a>
     </div>

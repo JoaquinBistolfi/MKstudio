@@ -11,7 +11,7 @@
             </ul>
         </nav>
         <div class="user-profile">
-        <a href="configuracion_usuario.php">
+        <a href="../paginas/sessiondestroy.php">
             <img src="../imagenes/avatar.png" alt="Usuario" class="user-icon">
         </a>
     </div>
