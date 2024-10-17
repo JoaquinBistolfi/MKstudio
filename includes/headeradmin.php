@@ -8,7 +8,7 @@
 
     <nav class="header_nav">
         <ul class="header_nav_lista">
-            <li class="header_nav_link"><a href="../paginas/mis_ofertas.php">Estadísticas</a></li>
+            <li class="header_nav_link"><a href="../paginas/estadisticas.php">Estadísticas</a></li>
             <li class="header_nav_link submenu">
                 <a href="#">Administración</a>
                 <ul class="header_submenu">
