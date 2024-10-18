@@ -5,8 +5,6 @@ include '../includes/conexion.php';
 
 @$rol_usuario = $_SESSION['rol'];
 
-// Para no tener que iniciar sesión durante las pruebas
-
 $sql = "SELECT lotes.id_lote, lotes.categoria, lotes.raza, lotes.cantidad, lotes.peso_promedio, archivo.ruta 
         FROM lotes 
         LEFT JOIN archivo ON lotes.id_lote = archivo.id_lote";

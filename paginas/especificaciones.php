@@ -10,10 +10,9 @@ if (isset($_GET['id'])) {
     
     $sql = "SELECT * FROM lotes WHERE id_lote = '$lote_id'";
     $sql3 = "SELECT * FROM archivo WHERE id_lote = '$lote_id'";
-
     $result = mysqli_query($conexion, $sql);
     $result3 = mysqli_query($conexion, $sql3);
-
+    
     if (mysqli_num_rows($result) > 0) {
         $lote = mysqli_fetch_assoc($result);
         $archivo = mysqli_fetch_assoc($result3);
@@ -23,6 +22,14 @@ if (isset($_GET['id'])) {
 
     $sql2 = "SELECT * FROM oferta WHERE id_lote = $lote_id ORDER BY monto DESC LIMIT 1";
     $result2 = mysqli_query($conexion, $sql2);
+
+    $sql_tiempo = "SELECT TIMESTAMPDIFF(SECOND, NOW(), fecha_fin) AS tiempo_restante FROM lotes WHERE id_lote = '$lote_id'";
+    $result_tiempo = mysqli_query($conexion, $sql_tiempo);
+    $tiempo_restante = 0;
+    if (mysqli_num_rows($result_tiempo) > 0) {
+        $row_tiempo = mysqli_fetch_assoc($result_tiempo);
+        $tiempo_restante = $row_tiempo['tiempo_restante'];
+    }
 
 } else {
     echo "<p>No se ha seleccionado ningún lote.</p>";
@@ -43,44 +50,53 @@ $_SESSION['lote_id'] = $lote_id;
     <link rel="stylesheet" href="../css/especificaciones.css">
 </head>
 <?php 
-    if ($rol_usuario == 'Administrador'){
-            include '../includes/headeradmin.php';
-    }else{
-            include '../includes/header.php';
-    }
- ?>
+if ($rol_usuario == 'Administrador'){
+    include '../includes/headeradmin.php';
+} else {
+    include '../includes/header.php';
+}
+?>
 <body>
     <?php
-    echo "<h1>Lote de " . $lote['cantidad'] . " " . $lote['categoria'] . "</h1>"
+    echo "<h1>Lote de " . $lote['cantidad'] . " " . $lote['categoria'] . "</h1>";
     ?>
+
     <div class="datos">
         <div class="imagenes">
             <?php
             echo "<img src='" . $archivo['ruta'] . "' alt='" . $lote['categoria'] . "'>";
             ?>
         </div>
+
         <div class="oferta">
             <h2>Ofertas</h2>
             <?php
-            
-             if (isset($_SESSION['user_id'])) {
+            if (isset($_SESSION['user_id'])) {
                 if (mysqli_num_rows($result2) > 0) {
                     $oferta = mysqli_fetch_assoc($result2);
-                    if($oferta['id_usuario'] == $_SESSION['user_id']){
+                    if ($oferta['id_usuario'] == $_SESSION['user_id']) {
                         echo '<p>La mayor oferta es: ' . $oferta['monto'] . '. Fue hecha por usted.</p>';
-                    }else{
+                    } else {
                         echo '<p>La mayor oferta es: ' . $oferta['monto'] . '</p>';
                     }             
                 } else {
                     echo "<p>No hay ninguna oferta aun.</p>";
                 }
+                
+
                 echo '
+                    <p>Precio en dólares por kilo</p>
                 <form action="procesar_oferta.php" method="post">
                     <input type="hidden" name="lote_id" value="' . $lote['id_lote'] . '">
                     <label for="oferta">Ingrese su oferta:</label>
                     <input type="number" name="oferta" step=0.01 min=' . @$oferta['monto'] + 0.01 .' id="oferta" required>
                     <button type="submit">Enviar oferta</button>
-                </form>';
+                </form>
+                <div class="cronometro">
+                <h2>Tiempo restante:</h2>
+                <div id="contador"></div>
+                </div>';
+                
             } else {
                 echo '
                 <p>Debes iniciar sesión para hacer una oferta.</p>
@@ -88,11 +104,12 @@ $_SESSION['lote_id'] = $lote_id;
             }
             ?>
         </div>
+
         <div class="informacion">
             <h2>Información</h2>
             <?php
             echo "<p>Categoría: " . $lote['categoria'] . "</p>";
-            echo "<p>cantidad: " . $lote['cantidad'] . "</p>";
+            echo "<p>Cantidad: " . $lote['cantidad'] . "</p>";
             echo "<p>Peso promedio: " . $lote['peso_promedio'] . "</p>";
             echo "<p>Peso máximo: " . $lote['peso_maximo'] . "</p>";
             echo "<p>Peso mínimo: " . $lote['peso_minimo'] . "</p>";
@@ -106,19 +123,50 @@ $_SESSION['lote_id'] = $lote_id;
             echo "<p>Zona garrapata: " . $lote['zona_garrapata'] . "</p>";
             ?>
         </div>
+
         <div class="observaciones">
             <h2>Observaciones</h2>
             <?php
             echo "<p>Observaciones: " . $lote['observaciones'] . "</p>";
             ?>
         </div>
+
         <div class="certificador">
-            <h2>certificador</h2>
+            <h2>Certificador</h2>
             <?php
-            echo "<p>"
+            echo "<p>Certificado por: " . $lote['certificador'] . "</p>";
             ?>
         </div>
     </div>
+
+    <script>
+        let tiempoRestante = <?php echo $tiempo_restante; ?>;
+
+        function formatoTiempo(segundos) {
+            let horas = Math.floor(segundos / 3600);
+            let minutos = Math.floor((segundos % 3600) / 60);
+            let segundos_restantes = segundos % 60;
+
+            horas = horas < 10 ? '0' + horas : horas;
+            minutos = minutos < 10 ? '0' + minutos : minutos;
+            segundos_restantes = segundos_restantes < 10 ? '0' + segundos_restantes : segundos_restantes;
+
+            return horas + ':' + minutos + ':' + segundos_restantes;
+        }
+
+        function actualizarContador() {
+            if (tiempoRestante >= 0) {
+                document.getElementById('contador').innerHTML = formatoTiempo(tiempoRestante);
+                tiempoRestante--;
+            } else {
+                clearInterval(intervalo);
+                document.getElementById('contador').innerHTML = "¡Subasta finalizada!";
+            }
+        }
+
+        let intervalo = setInterval(actualizarContador, 1000);
+    </script>
+
 </body>
 <?php include '../includes/footer.php'; ?>
 </html>
