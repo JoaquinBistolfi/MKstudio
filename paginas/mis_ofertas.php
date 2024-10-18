@@ -53,8 +53,8 @@ if(isset($_SESSION['user_id'])){
                         </thead>
                         <tbody>';
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $color_usuario = $row['Monto_Usuario'] < $row['Monto_Maximo'] ? 'red' : 'gold';
-                    $color_maximo = $row['Monto_Usuario'] == $row['Monto_Maximo'] ? 'gold' : 'black';
+                    $color_usuario = $row['Monto_Usuario'] < $row['Monto_Maximo'] ? 'red' : 'green';
+                    $color_maximo = $row['Monto_Usuario'] == $row['Monto_Maximo'] ? 'green' : 'black';
                     echo "<tr>";
                     echo "<td><a href='especificaciones.php?id=" . $row['id_lote'] . "'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['categoria'] . "'></a></td>";  
                     echo "<td>" . $row['categoria'] . "</td>";

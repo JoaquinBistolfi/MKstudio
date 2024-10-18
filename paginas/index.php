@@ -3,16 +3,20 @@
 include '../includes/conexion.php';
 
 @$rol_usuario = $_SESSION['rol'];
+@$id_usuario = @$_SESSION['user_id'];
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (!empty($_POST["nombre"]) && !empty($_POST["apellido"]) && !empty($_POST["profesion"]) && !empty($_FILES["archivo"])) {
-        $nombre = $_POST['nombre'];
-        $apellido = $_POST['apellido'];
-        $profesion = $_POST['profesion'];
-        $foto_lote = $_FILES['archivo']['name'];
-        $tmp_name = $_FILES['archivo']['tmp_name'];
+    if (!empty($_POST["texto"])) {
+        $texto = $_POST['texto'];
+
+        $sql = "INSERT INTO `pregunta` (`contenido`, `fecha`, `id_usuario`)
+        VALUES ('$texto', NOW(), '$id_usuario');";
+        mysqli_query($conexion, $sql);
+
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,13 +75,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h2>¿Dónde está el ganado?</h2>
                 <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6570.5556628436725!2d-57.83396411929425!3d-31.03110519642315!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e1!3m2!1ses!2suy!4v1726067850907!5m2!1ses!2suy" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
-
+            
             <div class="consultas">
-                <h2>¡Contáctese con nosotros!</h2>
+            <h2>¡Contáctese con nosotros!</h2>
+            <?php
+            if (isset($_SESSION['user_id'])) {
+                echo '
                 <form action="" method="post">
                     <input placeholder="Mensaje" name="texto" type="text" required>
                     <input type="submit" value="Enviar">
-                </form>
+                </form>';
+            }else{
+                echo '
+                <p>Debes iniciar sesión para hacer una oferta.</p>
+                <a href="inicio_sesion.php"><button>Iniciar sesión</button></a>';
+            }
+            ?>
             </div>
         </section>
     </main>
