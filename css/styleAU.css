@@ -14,6 +14,12 @@ header {
     position: relative;
 }
 
+.language-switcher {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
 header .logo {
     position: absolute;
     top: 50%;
@@ -33,6 +39,7 @@ header h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 100px;
 }
 
 .about-us .content {
@@ -91,4 +98,12 @@ footer {
     position: fixed;
     width: 100%;
     bottom: 0;
+}
+
+.lang {
+    display: none;
+}
+
+.lang.active {
+    display: block;
 }
