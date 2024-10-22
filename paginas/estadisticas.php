@@ -3,7 +3,7 @@ session_start();
 
 $url = "https://acg.com.uy"; 
 $cacheFile = 'cache.html';
-$cacheTime = 3600; 
+$cacheTime = 3600;
 
 if (file_exists($cacheFile) && (time() - $cacheTime < filemtime($cacheFile))) {
     $html = file_get_contents($cacheFile);

@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
         $cant_pesada = $_POST['cant_pesada'];
         $estado = $_POST['estado'];
         $edad = $_POST['edad'];
+        $clase = $_POST['clase'];
         $sanidad = $_POST['sanidad'];
         $tratamiento_nutricional = $_POST['tratamiento_nutricional'];
         $mochos = $_POST['mochos'];
@@ -34,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
             $ruta_archivo = $nombre_carpeta . '/' . basename($foto_lote);
 
             if (move_uploaded_file($tmp_name, $ruta_archivo)) {
-                $sql_lotes = "INSERT INTO lotes (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, raza, edad, sanidad, tratamiento_nutricional, mochos, observaciones, conoce_miomio, zona_garrapata) 
-                              VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$raza', '$edad', '$sanidad', '$tratamiento_nutricional', '$mochos', '$observaciones', '$conoce_miomio', '$zona_garrapata')";
+                $sql_lotes = "INSERT INTO lotes (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, raza, edad, clase, sanidad, tratamiento_nutricional, mochos, observaciones, conoce_miomio, zona_garrapata) 
+                              VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$raza', '$edad', '$clase', '$sanidad', '$tratamiento_nutricional', '$mochos', '$observaciones', '$conoce_miomio', '$zona_garrapata')";
 
                 if (mysqli_query($conexion, $sql_lotes)) {
                     $id_lote = mysqli_insert_id($conexion);  
@@ -71,6 +72,9 @@ if (!$result) {
 
 @$rol_usuario = $_SESSION['rol'];
 
+$sql_cert = "SELECT * FROM certificador;";
+
+$result_cert = mysqli_query($conexion, $sql_cert);
 ?>
 
 <!DOCTYPE html>
@@ -106,28 +110,28 @@ if (!$result) {
                 <input type="number" name="peso" required>
             </label>
             <label for="peso_maximo">Peso Máximo:
-                <input type="number" name="peso_maximo">
+                <input type="number" name="peso_maximo" required>
             </label>
             <label for="peso_minimo">Peso Mínimo:
-                <input type="number" name="peso_minimo">
+                <input type="number" name="peso_minimo" required>
             </label>
             <label for="cant_pesada">Porcentaje Pesada:
-                <input type="number" name="cant_pesada">
+                <input type="number" name="cant_pesada" required>
             </label>
             <label for="estado">Estado:
-                <input type="text" name="estado">
+                <input type="text" name="estado" required>
             </label>
             <label for="edad">Edad:
-                <input type="number" name="edad">
+                <input type="number" name="edad" required>
             </label>
             <label for="sanidad">Sanidad:
-                <input type="text" name="sanidad">
+                <input type="text" name="sanidad" required>
+            </label>
+            <label for="Clase">Clase:
+                <input type="text" name="Clase" required>
             </label>
             <label for="tratamiento_nutricional">Tratamiento Nutricional:
-                <input type="text" name="tratamiento_nutricional">
-            </label>
-            <label for="mochos">Mochos:
-                <input type="number" name="mochos">
+                <input type="text" name="tratamiento_nutricional" required>
             </label>
             <label for="observaciones">Observaciones:
                 <textarea name="observaciones"></textarea>
@@ -137,6 +141,25 @@ if (!$result) {
             </label>
             <label for="zona_garrapata">Zona Garrapata:
                 <input type="checkbox" name="zona_garrapata" value="1">
+            </label>
+            <label for="fecha_inicio">Fecha de inicio:
+                <input type="datetime-local" name="fecha_inicio" required>
+            </label>
+            <label for="fecha_finalizacion">Fecha de finalizacion:
+                <input type="datetime-local" name="fecha_finalizacion" required>
+            </label>
+            <label for="certificador">Elegir certificador:
+                <select name="certificador" required>
+                <?php
+                    if ($result_cert->num_rows > 0) {
+                        while ($row = $result_cert->fetch_assoc()) {
+                            echo '<option value="' . $row['id_certificador'] . '">' . $row['nombre'] . " " . $row['apellido'] .'</option>';
+                        }
+                    } else {
+                        echo '<option value="">No hay datos disponibles</option>';
+                    }
+                    ?>
+                </select>
             </label>
         </div>
         <label for="foto_lote">Foto principal del lote:
@@ -165,7 +188,7 @@ if (!$result) {
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td><a href='especificaciones.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
+                        echo "<td><a href='administrar_lote.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
                         echo "<td>" . $row['categoria'] . "</td>";
                         echo "<td>" . $row['raza'] . "</td>";
                         echo "<td>" . $row['cantidad'] . "</td>";

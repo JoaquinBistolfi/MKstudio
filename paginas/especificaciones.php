@@ -83,20 +83,23 @@ if ($rol_usuario == 'Administrador'){
                     echo "<p>No hay ninguna oferta aun.</p>";
                 }
                 
-
-                echo '
+                if(@$rol_usuario==!'Administrador'){
+                echo 
+                '
                     <p>Precio en dólares por kilo</p>
                 <form action="procesar_oferta.php" method="post">
                     <input type="hidden" name="lote_id" value="' . $lote['id_lote'] . '">
                     <label for="oferta">Ingrese su oferta:</label>
-                    <input type="number" name="oferta" step=0.01 min=' . @$oferta['monto'] + 0.01 .' id="oferta" required>
+                    <input type="number" name="oferta" step=0.01 min=' . $oferta['monto'] + 0.01 .' id="oferta" required>
                     <button type="submit">Enviar oferta</button>
-                </form>
+                </form>';
+                }
+                echo'
                 <div class="cronometro">
                 <h2>Tiempo restante:</h2>
                 <div id="contador"></div>
                 </div>';
-                
+            
             } else {
                 echo '
                 <p>Debes iniciar sesión para hacer una oferta.</p>
@@ -108,33 +111,33 @@ if ($rol_usuario == 'Administrador'){
         <div class="informacion">
             <h2>Información</h2>
             <?php
-            echo "<p>Categoría: " . $lote['categoria'] . "</p>";
-            echo "<p>Cantidad: " . $lote['cantidad'] . "</p>";
-            echo "<p>Peso promedio: " . $lote['peso_promedio'] . "</p>";
-            echo "<p>Peso máximo: " . $lote['peso_maximo'] . "</p>";
-            echo "<p>Peso mínimo: " . $lote['peso_minimo'] . "</p>";
-            echo "<p>Porcentaje pesado: " . $lote['cant_pesada'] . "</p>";
-            echo "<p>Estado: " . $lote['estado'] . "</p>";
-            echo "<p>Raza: " . $lote['raza'] . "</p>";
-            echo "<p>Edad: " . $lote['edad'] . " meses.</p>";
-            echo "<p>Sanidad: " . $lote['sanidad'] . "</p>";
-            echo "<p>Tratamiento nutricional: " . $lote['tratamiento_nutricional'] . "</p>";
-            echo "<p>Conoce Mio Mio: " . $lote['conoce_miomio'] . "</p>";
-            echo "<p>Zona garrapata: " . $lote['zona_garrapata'] . "</p>";
+            echo "<p>Categoría: " . @$lote['categoria'] . "</p>";
+            echo "<p>Cantidad: " . @$lote['cantidad'] . "</p>";
+            echo "<p>Peso promedio: " . @$lote['peso_promedio'] . "</p>";
+            echo "<p>Peso máximo: " . @$lote['peso_maximo'] . "</p>";
+            echo "<p>Peso mínimo: " . @$lote['peso_minimo'] . "</p>";
+            echo "<p>Porcentaje pesado: " . @$lote['cant_pesada'] . "</p>";
+            echo "<p>Estado: " . @$lote['estado'] . "</p>";
+            echo "<p>Raza: " . @$lote['raza'] . "</p>";
+            echo "<p>Edad: " . @$lote['edad'] . " meses.</p>";
+            echo "<p>Sanidad: " . @$lote['sanidad'] . "</p>";
+            echo "<p>Tratamiento nutricional: " . @$lote['tratamiento_nutricional'] . "</p>";
+            echo "<p>Conoce Mio Mio: " . @$lote['conoce_miomio'] . "</p>";
+            echo "<p>Zona garrapata: " . @$lote['zona_garrapata'] . "</p>";
             ?>
         </div>
 
         <div class="observaciones">
             <h2>Observaciones</h2>
             <?php
-            echo "<p>Observaciones: " . $lote['observaciones'] . "</p>";
+            echo "<p>Observaciones: " . @$lote['observaciones'] . "</p>";
             ?>
         </div>
 
         <div class="certificador">
             <h2>Certificador</h2>
             <?php
-            echo "<p>Certificado por: " . $lote['certificador'] . "</p>";
+            echo "<p>Certificado por: " .  @$lote['certificador'] . "</p>";
             ?>
         </div>
     </div>

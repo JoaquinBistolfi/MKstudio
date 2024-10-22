@@ -15,11 +15,10 @@
                     <li><a href="../paginas/certificador.php">Certificador</a></li>
                     <li><a href="../paginas/administrar_lotes.php">Administrar Lotes</a></li>
                     <li><a href="../paginas/administrar_usuarios.php">Administrar Usuarios</a></li>
-                    <li><a href="../paginas/administrar_usuarios.php">Preguntas</a></li>
+                    <li><a href="../paginas/administrar_preguntas.php">Preguntas</a></li>
                     <li><a href="../paginas/pagos.php">Administrar pagos</a></li>
                 </ul>
             </li>
-            <li class="header_nav_link"><a href="../paginas/mis_ofertas.php">Mis ofertas</a></li>
             <li class="header_nav_link"><a href="../paginas/lotesusr.php">Lotes</a></li>
         </ul>
     </nav>

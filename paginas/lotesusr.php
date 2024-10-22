@@ -7,7 +7,7 @@ include '../includes/conexion.php';
 
 $sql = "SELECT lotes.id_lote, lotes.categoria, lotes.raza, lotes.cantidad, lotes.peso_promedio, archivo.ruta 
         FROM lotes 
-        LEFT JOIN archivo ON lotes.id_lote = archivo.id_lote";
+        LEFT JOIN archivo ON lotes.id_lote = archivo.id_lote WHERE fecha_fin<NOW()";
 
 $result = mysqli_query($conexion, $sql);
 ?>
