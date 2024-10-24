@@ -13,7 +13,7 @@
                 <a href="#">Administración</a>
                 <ul class="header_submenu">
                     <li><a href="../paginas/certificador.php">Certificador</a></li>
-                    <li><a href="../paginas/administrar_lotes.php">Administrar Lotes</a></li>
+                    <li><a href="../paginas/lotes.php">Administrar Lotes</a></li>
                     <li><a href="../paginas/administrar_usuarios.php">Administrar Usuarios</a></li>
                     <li><a href="../paginas/administrar_preguntas.php">Preguntas</a></li>
                     <li><a href="../paginas/pagos.php">Administrar pagos</a></li>
