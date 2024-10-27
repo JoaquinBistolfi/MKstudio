@@ -10,6 +10,7 @@ if (isset($_GET['id'])) {
     
     $sql = "SELECT * FROM lotes WHERE id_lote = '$lote_id'";
     $sql3 = "SELECT * FROM archivo WHERE id_lote = '$lote_id'";
+
     $result = mysqli_query($conexion, $sql);
     $result3 = mysqli_query($conexion, $sql3);
     
@@ -20,15 +21,29 @@ if (isset($_GET['id'])) {
         echo "<p>No se encontró el lote.</p>";
     }
 
+    $id_certificador = $lote['id_certificador'];
+
     $sql2 = "SELECT * FROM oferta WHERE id_lote = $lote_id ORDER BY monto DESC LIMIT 1";
     $result2 = mysqli_query($conexion, $sql2);
 
-    $sql_tiempo = "SELECT TIMESTAMPDIFF(SECOND, NOW(), fecha_fin) AS tiempo_restante FROM lotes WHERE id_lote = '$lote_id'";
+    $sql4 = "SELECT * FROM certificador WHERE id_certificador = '$id_certificador'";
+    $result4 = mysqli_query($conexion, $sql4);
+
+    if (mysqli_num_rows($result4) > 0) {
+        $certificador = mysqli_fetch_assoc($result4);
+    } else {
+        echo "<p>No se encontró el certificador.</p>";
+    }
+
+    $sql_tiempo = "SELECT TIMESTAMPDIFF(SECOND, NOW(), fecha_fin) AS tiempo_restante_fin, TIMESTAMPDIFF(SECOND, NOW(), fecha_inicio) AS tiempo_restante_inicio FROM lotes WHERE id_lote = '$lote_id'";
     $result_tiempo = mysqli_query($conexion, $sql_tiempo);
-    $tiempo_restante = 0;
+    
+    $tiempo_restante_fin = 0;
+    $tiempo_restante_inicio = 0;
     if (mysqli_num_rows($result_tiempo) > 0) {
         $row_tiempo = mysqli_fetch_assoc($result_tiempo);
-        $tiempo_restante = $row_tiempo['tiempo_restante'];
+        $tiempo_restante_fin = $row_tiempo['tiempo_restante_fin'];
+        $tiempo_restante_inicio = $row_tiempo['tiempo_restante_inicio'];
     }
 
 } else {
@@ -83,21 +98,21 @@ if ($rol_usuario == 'Administrador'){
                     echo "<p>No hay ninguna oferta aun.</p>";
                 }
                 
-                if(@$rol_usuario==!'Administrador'){
-                echo 
-                '
-                    <p>Precio en dólares por kilo</p>
-                <form action="procesar_oferta.php" method="post">
-                    <input type="hidden" name="lote_id" value="' . $lote['id_lote'] . '">
-                    <label for="oferta">Ingrese su oferta:</label>
-                    <input type="number" name="oferta" step=0.01 min=' . $oferta['monto'] + 0.01 .' id="oferta" required>
-                    <button type="submit">Enviar oferta</button>
-                </form>';
+                if($rol_usuario != 'Administrador'){
+                    echo 
+                    '
+                        <p>Precio en dólares por kilo</p>
+                    <form action="procesar_oferta.php" method="post">
+                        <input type="hidden" name="lote_id" value="' . $lote['id_lote'] . '">
+                        <label for="oferta">Ingrese su oferta:</label>
+                        <input type="number" name="oferta" step=0.01 min=' . @$oferta['monto'] + 0.01 .' id="oferta" required>
+                        <button type="submit">Enviar oferta</button>
+                    </form>';
                 }
                 echo'
                 <div class="cronometro">
-                <h2>Tiempo restante:</h2>
-                <div id="contador"></div>
+                    <h2>Tiempo restante:</h2>
+                    <div id="contador"></div>
                 </div>';
             
             } else {
@@ -137,13 +152,15 @@ if ($rol_usuario == 'Administrador'){
         <div class="certificador">
             <h2>Certificador</h2>
             <?php
-            echo "<p>Certificado por: " .  @$lote['certificador'] . "</p>";
+            echo "<p>Certificado por: " . $certificador['profesion'] . " " . $certificador['nombre'] . " " .  $certificador['apellido'] ."</p>";
+            echo "<img src='" . $certificador['ruta_archivo'] . "' alt='" . $certificador['nombre'] . "'>";
             ?>
         </div>
     </div>
 
     <script>
-        let tiempoRestante = <?php echo $tiempo_restante; ?>;
+        let tiempoRestanteInicio = <?php echo $tiempo_restante_inicio; ?>;
+        let tiempoRestanteFin = <?php echo $tiempo_restante_fin; ?>;
 
         function formatoTiempo(segundos) {
             let horas = Math.floor(segundos / 3600);
@@ -154,13 +171,16 @@ if ($rol_usuario == 'Administrador'){
             minutos = minutos < 10 ? '0' + minutos : minutos;
             segundos_restantes = segundos_restantes < 10 ? '0' + segundos_restantes : segundos_restantes;
 
-            return horas + ':' + minutos + ':' + segundos_restantes;
+            return horas + 'hr ' + minutos + 'min ' + segundos_restantes + 'seg';
         }
 
         function actualizarContador() {
-            if (tiempoRestante >= 0) {
-                document.getElementById('contador').innerHTML = formatoTiempo(tiempoRestante);
-                tiempoRestante--;
+            if (tiempoRestanteInicio > 0) {
+                document.getElementById('contador').innerHTML = "Faltan: " + formatoTiempo(tiempoRestanteInicio) + " para que empiece";
+                tiempoRestanteInicio--;
+            } else if (tiempoRestanteFin > 0) {
+                document.getElementById('contador').innerHTML = "Tiempo restante: " + formatoTiempo(tiempoRestanteFin);
+                tiempoRestanteFin--;
             } else {
                 clearInterval(intervalo);
                 document.getElementById('contador').innerHTML = "¡Subasta finalizada!";

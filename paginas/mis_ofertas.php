@@ -11,7 +11,7 @@ if(isset($_SESSION['user_id'])){
     (SELECT MAX(monto) FROM oferta WHERE o.id_lote = l.id_lote) AS Monto_Maximo
     FROM lotes l
     LEFT JOIN archivo a ON l.id_lote = a.id_lote
-    LEFT JOIN oferta o ON l.id_lote = o.id_lote AND o.id_usuario = $id_usuario";  
+    LEFT JOIN oferta o ON l.id_lote = o.id_lote AND o.id_usuario = $id_usuario  WHERE fecha_fin>NOW()";  
     $result = mysqli_query($conexion, $sql);
 }
 ?>

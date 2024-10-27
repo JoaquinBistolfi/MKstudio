@@ -66,6 +66,10 @@ h1 {
     grid-area: certificador;
 }
 
+.certificador img {
+    height: 120px;
+}
+
 h2 {
     color: #2c3e50;
     text-align: center;

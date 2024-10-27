@@ -11,7 +11,6 @@ h2 {
     padding: 20px;
     margin: 0;
     background-color: #ffffff;
-    width: 100%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     font-size: 24px;
 }
@@ -35,8 +34,17 @@ form label {
 form input[type="text"],
 form input[type="file"],
 form input[type="number"],
+form input[type="datetime-local"],
 textarea {
     width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form select{
+    width: 100%;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;

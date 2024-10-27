@@ -17,10 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
         $clase = $_POST['clase'];
         $sanidad = $_POST['sanidad'];
         $tratamiento_nutricional = $_POST['tratamiento_nutricional'];
-        $mochos = $_POST['mochos'];
         $observaciones = $_POST['observaciones'];
         $conoce_miomio = isset($_POST['conoce_miomio']) ? 1 : 0;
         $zona_garrapata = isset($_POST['zona_garrapata']) ? 1 : 0;
+        $fecha_ini = $_POST['fecha_inicio'];
+        $fecha_fin = $_POST['fecha_finalizacion'];
+        $certificador = $_POST['certificador'];
         $foto_lote = $_FILES['archivo']['name'];
         $tmp_name = $_FILES['archivo']['tmp_name'];
 
@@ -35,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
             $ruta_archivo = $nombre_carpeta . '/' . basename($foto_lote);
 
             if (move_uploaded_file($tmp_name, $ruta_archivo)) {
-                $sql_lotes = "INSERT INTO lotes (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, raza, edad, clase, sanidad, tratamiento_nutricional, mochos, observaciones, conoce_miomio, zona_garrapata) 
-                              VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$raza', '$edad', '$clase', '$sanidad', '$tratamiento_nutricional', '$mochos', '$observaciones', '$conoce_miomio', '$zona_garrapata')";
+                $sql_lotes = "INSERT INTO lotes (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, raza, edad, clase, sanidad, tratamiento_nutricional, observaciones, conoce_miomio, zona_garrapata, fecha_inicio, fecha_fin, id_certificador) 
+                              VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$raza', '$edad', '$clase', '$sanidad', '$tratamiento_nutricional', '$observaciones', '$conoce_miomio', '$zona_garrapata', '$fecha_ini', '$fecha_fin', '$certificador')";
 
                 if (mysqli_query($conexion, $sql_lotes)) {
                     $id_lote = mysqli_insert_id($conexion);  
@@ -128,7 +130,7 @@ $result_cert = mysqli_query($conexion, $sql_cert);
                 <input type="text" name="sanidad" required>
             </label>
             <label for="Clase">Clase:
-                <input type="text" name="Clase" required>
+                <input type="text" name="clase" required>
             </label>
             <label for="tratamiento_nutricional">Tratamiento Nutricional:
                 <input type="text" name="tratamiento_nutricional" required>
