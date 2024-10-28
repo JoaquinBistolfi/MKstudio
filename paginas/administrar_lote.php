@@ -74,7 +74,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../css/lotes.css">
 </head>
 <body>
-    <?php include '../includes/header.php'; ?>
+<?php 
+    if ($rol_usuario == 'Administrador'){
+            include '../includes/headeradmin.php';
+    }else{
+            include '../includes/header.php';
+    }
+    ?>
 
     <h2>Editar Lote de <?php echo $lote['cantidad'] . " " . $lote['categoria']; ?></h2>
 
