@@ -79,7 +79,7 @@ if ($rol_usuario == 'Administrador'){
     <div class="datos">
         <div class="imagenes">
             <?php
-            echo "<img src='" . $archivo['ruta'] . "' alt='" . $lote['categoria'] . "'>";
+            echo "<img src='" . @$archivo['ruta'] . "' alt='" . $lote['categoria'] . "'>";
             ?>
         </div>
 

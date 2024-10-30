@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } else {
         echo '
         <p>Debes iniciar sesión para dejar una valoración.</p>
-        <a href="inicio_sesion.php"><button class="login-button">Iniciar sesión</button></a>';
+        <a href="inicio_sesion.php"><button class="btn-login">Iniciar sesión</button></a>';
     }
     ?>
 </section>
