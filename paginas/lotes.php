@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
 
 $sql = "SELECT l.id_lote, l.categoria, l.raza, l.cantidad, l.peso_promedio, a.ruta 
         FROM lotes l 
-        LEFT JOIN archivo a ON a.id_lote = l.id_lote;";
+        LEFT JOIN archivo a ON a.id_lote = l.id_lote WHERE l.vendido='0';";
 
 $result = mysqli_query($conexion, $sql);
 if (!$result) {

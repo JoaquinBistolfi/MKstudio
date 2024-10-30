@@ -116,3 +116,38 @@ table.listas img {
         width: 150px;
     }
 }
+
+label[for="vendido"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    color: #333;
+    margin: 20px;
+}
+
+input[type="checkbox"][name="vendido"] {
+    appearance: none;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #4CAF50;
+    border-radius: 4px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    position: relative;
+}
+
+input[type="checkbox"][name="vendido"]:checked {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+input[type="checkbox"][name="vendido"]:checked::after {
+    content: '✓';
+    font-size: 35px;
+    color: white;
+    position: absolute;
+    top: -5px;
+    left: 4px;
+}

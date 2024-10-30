@@ -38,24 +38,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $zona_garrapata = $_POST['zona_garrapata'];
     $observaciones = $_POST['observaciones'];
     $certificador = $_POST['certificador'];
+    $vendido = isset($_POST['vendido']) ? 1 : 0;
 
     $update_sql = "UPDATE lotes SET 
-        categoria='$categoria',
-        cantidad='$cantidad',
-        peso_promedio='$peso_promedio',
-        peso_maximo='$peso_maximo',
-        peso_minimo='$peso_minimo',
-        cant_pesada='$cant_pesada',
-        estado='$estado',
-        raza='$raza',
-        edad='$edad',
-        sanidad='$sanidad',
-        tratamiento_nutricional='$tratamiento_nutricional',
-        conoce_miomio='$conoce_miomio',
-        zona_garrapata='$zona_garrapata',
-        observaciones='$observaciones',
-        certificador='$certificador'
-        WHERE id_lote='$lote_id'";
+    categoria='$categoria',
+    cantidad='$cantidad',
+    peso_promedio='$peso_promedio',
+    peso_maximo='$peso_maximo',
+    peso_minimo='$peso_minimo',
+    cant_pesada='$cant_pesada',
+    estado='$estado',
+    raza='$raza',
+    edad='$edad',
+    sanidad='$sanidad',
+    tratamiento_nutricional='$tratamiento_nutricional',
+    conoce_miomio='$conoce_miomio',
+    zona_garrapata='$zona_garrapata',
+    observaciones='$observaciones',
+    id_certificador='$certificador',
+    vendido='$vendido'
+    WHERE id_lote='$lote_id'";
+
 
     if (mysqli_query($conexion, $update_sql)) {
         echo "<p>Lote actualizado correctamente.</p>";
@@ -63,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<p>Error al actualizar el lote: " . mysqli_error($conexion) . "</p>";
     }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -155,9 +159,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     ?>
             </select>
             </label>
+            <label for="vendido">Marcar como vendido:
+                <input type="checkbox" name="vendido" <?php echo ($lote['vendido'] == 1) ? 'checked' : ''; ?>>
+            </label>
+
         </div>
         <div class="btn">
-            <input type="submit" value="Subir">
+            <input type="submit" value="Actualizar">
         </div>
     </form>
 
