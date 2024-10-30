@@ -1,4 +1,5 @@
-<?php session_start();
+<?php 
+session_start();
 
 include '../includes/conexion.php';
 
@@ -97,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     echo '
                     <form action="" method="post">
                         <textarea name="text" class="contact-textarea" placeholder="Escribe tu mensaje aquí..."></textarea>
-                        <button type="submit" name"texto">Enviar</button>
+                        <input type="submit" value="Enviar pregunta">
                     </form>';
                 } else {
                     echo '
@@ -107,31 +108,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ?>
             </div>
         </section>
-
-        <section class="valoracion">
-    <h2>¡Valora nuestra página!</h2>
-    <?php
-    if (isset($_SESSION['user_id'])) {
-        $query_valoracion = "SELECT * FROM valoracion WHERE id_usuario = '$id_usuario'";
-        $result_valoracion = mysqli_query($conexion, $query_valoracion);
-        $valoracion_existente = mysqli_fetch_assoc($result_valoracion);
-
-        $calificacion = $valoracion_existente['calificacion'] ?? '';
-        $comentario = $valoracion_existente['comentario'] ?? '';
-
-        echo '
-        <form action="" method="post">
-            <label>Calificación:</label>
-            <div class="rating">
-                <input type="radio" name="calificacion" id="star5" value="5" ' . ($calificacion == 5 ? 'checked' : '') . '><label for="star5" title="5 estrellas"></label>
-                <input type="radio" name="calificacion" id="star4" value="4" ' . ($calificacion == 4 ? 'checked' : '') . '><label for="star4" title="4 estrellas"></label>
-                <input type="radio" name="calificacion" id="star3" value="3" ' . ($calificacion == 3 ? 'checked' : '') . '><label for="star3" title="3 estrellas"></label>
-                <input type="radio" name="calificacion" id="star2" value="2" ' . ($calificacion == 2 ? 'checked' : '') . '><label for="star2" title="2 estrellas"></label>
-                <input type="radio" name="calificacion" id="star1" value="1" ' . ($calificacion == 1 ? 'checked' : '') . '><label for="star1" title="1 estrella"></label>
-            </div>
-
-            <label for="comentario">Comentario:</label>
-            <textarea name="comentario" rows="4" required>' . htmlspecialchars($comentario) . '</textarea>
+        <?php 
+        if ($rol_usuario != 'Administrador') {
+            echo '
+            <section class="valoracion">
+                <h2>¡Valora nuestra página!</h2>;
             
             <input type="submit" value="Enviar valoración">
         </form>';
@@ -142,6 +123,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     ?>
 </section>
+            if (isset($_SESSION['user_id'])) {
+                $query_valoracion = "SELECT * FROM valoracion WHERE id_usuario = '$id_usuario'";
+                $result_valoracion = mysqli_query($conexion, $query_valoracion);
+                $valoracion_existente = mysqli_fetch_assoc($result_valoracion);
+
+                $calificacion = $valoracion_existente['calificacion'] ?? '';
+                $comentario = $valoracion_existente['comentario'] ?? '';
+
+                echo '
+                <form action="" method="post">
+                    <label>Calificación:</label>
+                    <div class="rating">
+                        <input type="radio" name="calificacion" id="star5" value="5" ' . ($calificacion == 5 ? 'checked' : '') . '><label for="star5" title="5 estrellas"></label>
+                        <input type="radio" name="calificacion" id="star4" value="4" ' . ($calificacion == 4 ? 'checked' : '') . '><label for="star4" title="4 estrellas"></label>
+                        <input type="radio" name="calificacion" id="star3" value="3" ' . ($calificacion == 3 ? 'checked' : '') . '><label for="star3" title="3 estrellas"></label>
+                        <input type="radio" name="calificacion" id="star2" value="2" ' . ($calificacion == 2 ? 'checked' : '') . '><label for="star2" title="2 estrellas"></label>
+                        <input type="radio" name="calificacion" id="star1" value="1" ' . ($calificacion == 1 ? 'checked' : '') . '><label for="star1" title="1 estrella"></label>
+                    </div>
+
+                    <label for="comentario">Comentario:</label>
+                    <textarea name="comentario" rows="4" required>' . htmlspecialchars($comentario) . '</textarea>
+                    
+                    <input type="submit" value="Enviar valoración">
+                </form>';
+            } else {
+                echo '
+                <div class="centro">
+                    <p>Debes iniciar sesión para dejar una valoración.</p>
+                    <a href="inicio_sesion.php"><button class="btn-login">Iniciar sesión</button></a>
+                </div>';
+            }
+            echo '</section>';
+        }
+        ?>    
 
     </main>
             

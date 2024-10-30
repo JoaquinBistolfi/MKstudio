@@ -61,7 +61,7 @@ header {
     padding: 10px 0;
     top: 100%;
     left: 0;
-    width: 200px;
+    width: auto;
     z-index: 100;
 }
 
@@ -83,9 +83,8 @@ header {
     display: block;
 }
 
-.user-profile {
-    top: 10px; 
-    right: 10px; 
+.perfil-usr {
+    position: relative;
 }
 
 .user-icon {
@@ -97,6 +96,45 @@ header {
 
 .user-icon:hover {
     opacity: 0.8; 
+}
+
+.user-checkbox {
+    display: none;
+}
+
+.user-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    min-width: 200px;
+    width: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.user-menu p {
+    margin: 5px 0;
+    color: #333;
+}
+
+.user-menu a {
+    color: #d9534f;
+    text-decoration: none;
+    display: block;
+    margin-top: 10px;
+}
+
+.user-menu a:hover {
+    color: #c9302c;
+}
+
+.user-checkbox:checked ~ .user-menu {
+    display: block;
 }
 
 @media screen and (max-width: 900px) {
@@ -119,7 +157,7 @@ header {
         z-index: 10;
     }
 
-    .header_checkbox:checked + .abrir_menu + .header_logo + .header_nav {
+    .header_checkbox:checked ~.header_nav {
         display: flex;
     }
 
