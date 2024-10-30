@@ -3,12 +3,12 @@ include '../includes/conexion.php';
 
 @$id_usuario = @$_SESSION['user_id'];
 
-$sql = "SELECT * FROM usuarios WHERE id_usuario = '$id_usuario';";
-$result = mysqli_query($conexion, $sql);
-if (!$result) {
+$sql_usuarios = "SELECT * FROM usuarios WHERE id_usuario = '$id_usuario';";
+$result_usuarios = mysqli_query($conexion, $sql_usuarios);
+if (!$result_usuarios) {
     die("Error en la consulta SQL: " . mysqli_error($conexion));
 }
-$usuario = mysqli_fetch_assoc($result);
+$usuario = mysqli_fetch_assoc($result_usuarios);
 ?>
 
 <header>
