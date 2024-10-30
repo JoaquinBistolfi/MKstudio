@@ -112,17 +112,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($rol_usuario != 'Administrador') {
             echo '
             <section class="valoracion">
-                <h2>¡Valora nuestra página!</h2>;
+                <h2>¡Valora nuestra página!</h2>';
             
-            <input type="submit" value="Enviar valoración">
-        </form>';
-    } else {
-        echo '
-        <p>Debes iniciar sesión para dejar una valoración.</p>
-        <a href="inicio_sesion.php"><button class="btn-login">Iniciar sesión</button></a>';
-    }
-    ?>
-</section>
             if (isset($_SESSION['user_id'])) {
                 $query_valoracion = "SELECT * FROM valoracion WHERE id_usuario = '$id_usuario'";
                 $result_valoracion = mysqli_query($conexion, $query_valoracion);
