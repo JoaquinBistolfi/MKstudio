@@ -100,6 +100,14 @@ ul {
     text-align: center;
 }
 
+form input[type="datetime-local"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
 @media screen and (max-width: 650px) {
     form {
         padding: 15px;

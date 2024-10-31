@@ -1,76 +1,108 @@
-<?php
+<?php 
 session_start();
 
 include '../includes/conexion.php';
-
 @$rol_usuario = $_SESSION['rol'];
+$lote_id = $_GET['id'];
 
-$sql_lotes = "INSERT INTO pagos (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, raza, edad, clase, sanidad, tratamiento_nutricional, observaciones, conoce_miomio, zona_garrapata, fecha_inicio, fecha_fin, id_certificador) 
-                              VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$raza', '$edad', '$clase', '$sanidad', '$tratamiento_nutricional', '$observaciones', '$conoce_miomio', '$zona_garrapata', '$fecha_ini', '$fecha_fin', '$certificador')";
-
-
-$sql = "SELECT * FROM pagos p, lote l, oferta o, usuario u WHERE ";
-
-SELECT * FROM oferta o, usuarios u, lotes l, WHERE o.id_lote=l.id_lote AND o.id_usuario=u.id_usuario
-
+$sql = "SELECT * FROM lotes WHERE id_lote = '$lote_id'";
 $result = mysqli_query($conexion, $sql);
+if (mysqli_num_rows($result) > 0) {
+    $lote = mysqli_fetch_assoc($result);
+} else {
+    echo "<p>No se encontró el lote.</p>";
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['fecha']) && isset($_POST['metodo'])) {
+    if (!empty($_POST["monto"]) && !empty($_POST["fecha"]) && !empty($_POST["metodo"])) {
+        $monto = $_POST['monto'];
+        $fecha = $_POST['fecha'];
+        $metodo = $_POST['metodo'];
+        
+        $sql2 = "SELECT id_oferta FROM oferta WHERE monto = (
+            SELECT MAX(monto) 
+            FROM oferta 
+            WHERE id_lote = '$lote_id'
+        );";
+        $result2 = mysqli_query($conexion, $sql2);
+        
+        if (mysqli_num_rows($result2) > 0) {
+            $oferta = mysqli_fetch_assoc($result2);
+            $id_oferta = $oferta['id_oferta'];
+            
+            $sql_pago = "INSERT INTO pago (monto_pago, fecha, metodo_pago, id_oferta) VALUES ('$monto', '$fecha', '$metodo', '$id_oferta')";
+            mysqli_query($conexion, $sql_pago);
+        } else {
+            echo "<p>No se encontró la oferta.</p>";
+        }
+    }
+}
+
+$sql_lotes = "SELECT * FROM pago WHERE id_oferta IN (
+    SELECT id_oferta FROM oferta WHERE id_lote = '$lote_id'
+)";
+$result_lotes = mysqli_query($conexion, $sql_lotes);
 ?>
 
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotes</title>
-    <link rel="stylesheet" href="../css/lotesusr.css">
+    <link rel="stylesheet" href="../css/certificador.css">
+    <title>Document</title>
 </head>
+<body>
 <?php 
     if ($rol_usuario == 'Administrador'){
             include '../includes/headeradmin.php';
-    }else{
+    } else {
             include '../includes/header.php';
     }
- ?>
-<body>
+?>
 
-    <div class="content">
-        <h2>Lista de Lotes Disponibles</h2>
+<h1>Agregar pago a <?php echo $lote['cantidad'] . " " . $lote['categoria']; ?></h1>
+
+<form action="" method="post">
+    <label for="Monto">Monto:
+        <input type="text" name="monto" required>
+    </label>
+    <br>
+    <label for="fecha">Fecha del pago:
+        <input type="datetime-local" name="fecha" required>
+    </label>
+    <label for="metodo">Metodo:
+        <input type="text" name="metodo" required>
+    </label>
+    <input type="submit" value="Subir">
+</form>
+
+<h1>Pagos anteriores</h1>
+<table class="listas">
+    <thead>
+        <tr>
+            <th>Monto</th>
+            <th>Fecha</th>
+            <th>Metodo</th>
+        </tr>
+    </thead>
+    <tbody>
         <?php
-        if (mysqli_num_rows($result) > 0) {
-            echo '<table class="listas">
-                    <thead>
-                        <tr>
-                            <th>Foto</th>
-                            <th>Lote</th>
-                            <th>Total</th>
-                            <th>Pagado</th>
-                            <th>Falta</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td><a href='especificaciones.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
-                echo "<td>" . $row['categoria'] . "</td>";
-                echo "<td>" . $row['raza'] . "</td>";
-                echo "<td>" . $row['cantidad'] . "</td>";
-                echo "<td>" . $row['peso_promedio'] . "</td>";
-                echo "</tr>";
+            if (mysqli_num_rows($result_lotes) > 0) {
+                while ($row = mysqli_fetch_assoc($result_lotes)) {
+                    echo "<tr>";
+                    echo "<td>" . $row['monto_pago'] . "</td>";
+                    echo "<td>" . $row['fecha'] . "</td>";
+                    echo "<td>" . $row['metodo_pago'] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='3'>No se encontraron pagos.</td></tr>";
             }
-            echo '</tbody></table>';
-        } else {
-            echo "<div class='no-lotes'>No se encontraron lotes.</div>";
-        }
         ?>
-    </div>
+    </tbody>
+</table>
 
-    <?php if ($rol_usuario == 'Administrador'): ?>
-        <button class="fixed-button" onclick="window.location.href='lotes.php'">Agregar Lotes</button>
-        <script>
-            document.querySelector('.fixed-button').style.display = 'block';
-        </script>
-    <?php endif; ?>
-
-    <?php include '../includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
 </body>
 </html>
