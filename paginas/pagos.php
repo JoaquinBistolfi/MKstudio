@@ -69,12 +69,12 @@ $result = mysqli_query($conexion, $sql);
                     <tbody>';
             while ($row = mysqli_fetch_assoc($result)) {
                 $total = $row['monto'] * $row['cantidad'] * $row['peso_promedio'];
-                $falta = $total - $row['total_pagado'];  // Cambiar a total_pagado
+                $falta = $total - $row['total_pagado'];  
                 echo "<tr>";
                 echo "<td><a href='administrar_pagos.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
                 echo "<td>" . $row['categoria'] . ' ' . $row['raza'] . ' ' . $row['cantidad'] . "</td>";
                 echo "<td>" . $total . "</td>";
-                echo "<td>" . $row['total_pagado'] . "</td>";  // Usar total_pagado
+                echo "<td>" . $row['total_pagado'] . "</td>";  
                 echo "<td>" . $falta . "</td>";
                 echo "</tr>";
             }
@@ -84,13 +84,6 @@ $result = mysqli_query($conexion, $sql);
         }
         ?>
     </div>
-
-    <?php if ($rol_usuario == 'Administrador'): ?>
-        <button class="fixed-button" onclick="window.location.href='lotes.php'">Agregar Lotes</button>
-        <script>
-            document.querySelector('.fixed-button').style.display = 'block';
-        </script>
-    <?php endif; ?>
 
     <?php include '../includes/footer.php'; ?>
 </body>
