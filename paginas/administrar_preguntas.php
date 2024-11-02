@@ -6,14 +6,20 @@ $result = mysqli_query($conexion, $sql);
 if (!$result) {
     die("Error en la consulta SQL: " . mysqli_error($conexion));
 }
+
+$sqlB = 'DELETE * FROM pregunta, usuarios WHERE pregunta.id_usuario = usuarios.id_usuario AND estado != "pendiente" AND fecha;';
+$resultB = mysqli_query($conexion, $sqlB);
+if (!$resultB) {
+    die("Error en la consulta SQL: " . mysqli_error($conexion));
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Preguntas</title>
     <link rel="stylesheet" href="../css/certificador.css">
 </head>
 <body>

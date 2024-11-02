@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../css/lotes.css">
 </head>
 <body>
-<?php 
+<?php
     if ($rol_usuario == 'Administrador'){
             include '../includes/headeradmin.php';
     }else{
