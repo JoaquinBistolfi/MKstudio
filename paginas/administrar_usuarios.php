@@ -1,13 +1,74 @@
+<?php
+include "../includes/conexion.php";
+
+if (isset($_POST['id_usuario'])) {
+    $id_usuario = $_POST['id_usuario'];
+
+    $consulta = "SELECT bloqueado FROM usuarios WHERE id_usuario = '$id_usuario'";
+    $resultado = mysqli_query($conexion, $consulta);
+    $usuario = mysqli_fetch_assoc($resultado);
+
+    if ($usuario['bloqueado'] == 0) {
+        $nuevo_estado = 1;
+    } else {
+        $nuevo_estado = 0;
+    }
+
+    $consulta_actualizacion = "UPDATE usuarios SET bloqueado = $nuevo_estado WHERE id_usuario = '$id_usuario'";
+    mysqli_query($conexion, $consulta_actualizacion);
+
+    echo $nuevo_estado ? "Bloqueado" : "Activo";
+    exit;
+}
+
+$consulta = "SELECT * FROM usuarios";
+$resultado = mysqli_query($conexion, $consulta);
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuarios</title>
+    <title>Administrar Usuarios</title>
+    <link rel="stylesheet" href="../css/administrar_usuarios.css">
 </head>
 <body>
     <?php include '../includes/headeradmin.php'; ?>
+    <h1>Administrar Usuarios</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Correo</th>
+                <th>Teléfono</th>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php while ($usuario = mysqli_fetch_assoc($resultado)) { ?>
+                <tr>
+                    <td><?php echo $usuario['id_usuario']; ?></td>
+                    <td><?php echo $usuario['nombre']; ?></td>
+                    <td><?php echo $usuario['apellido']; ?></td>
+                    <td><?php echo $usuario['mail']; ?></td>
+                    <td><?php echo $usuario['telefono']; ?></td>
+                    <td><?php echo $usuario['rol']; ?></td>
+                    <td class="estado"><?php echo $usuario['bloqueado'] ? "Bloqueado" : "Activo"; ?></td>
+                    <td>
+                        <button class="toggle-status" data-id="<?php echo $usuario['id_usuario']; ?>">
+                            <?php echo $usuario['bloqueado'] ? "Desbloquear" : "Bloquear"; ?>
+                        </button>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 
+    <script src="../js/ajax_usuario.js"></script>
     <?php include '../includes/footer.php'; ?>
 </body>
 </html>
