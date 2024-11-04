@@ -8,7 +8,7 @@ $result_usuarios = mysqli_query($conexion, $sql_usuarios);
 if (!$result_usuarios) {
     die("Error en la consulta SQL: " . mysqli_error($conexion));
 }
-$usuario = mysqli_fetch_assoc($result_usuarios);
+$usuarioH = mysqli_fetch_assoc($result_usuarios);
 ?>
 
 <header>
@@ -41,8 +41,8 @@ $usuario = mysqli_fetch_assoc($result_usuarios);
             <img src="../imagenes/avatar.png" alt="Usuario" class="user-icon">
         </label>
         <div class="user-menu">
-            <p><strong>Nombre:</strong> <?php echo $usuario['nombre']; ?></p>
-            <p><strong>Email:</strong> <?php echo $usuario['mail']; ?></p>
+            <p><strong>Nombre:</strong><?php echo $usuarioH['usuario'];?></p>
+            <p><strong>Email:</strong> <?php echo $usuarioH['mail']; ?></p>
             <a href="../paginas/sessiondestroy.php">Cerrar sesión</a>
         </div>
     </div>

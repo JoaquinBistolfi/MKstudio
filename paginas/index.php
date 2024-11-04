@@ -31,6 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_query($conexion, $sql);
     }
 }
+    $sqlV = "SELECT u.nombre, u.apellido, v.calificacion, v.comentario, v.fecha 
+        FROM valoracion AS v
+        INNER JOIN usuarios AS u ON v.id_usuario = u.id_usuario
+        ORDER BY v.fecha DESC";
+    $resultV = $conexion->query($sqlV);
+
 
 ?>
 <!DOCTYPE html>
@@ -108,22 +114,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ?>
             </div>
         </section>
-        <?php 
-        if ($rol_usuario != 'Administrador') {
-            echo '
-            <section class="valoracion">
-                <h2>¡Valora nuestra página!</h2>';
-            
-            if (isset($_SESSION['user_id'])) {
-                $query_valoracion = "SELECT * FROM valoracion WHERE id_usuario = '$id_usuario'";
-                $result_valoracion = mysqli_query($conexion, $query_valoracion);
-                $valoracion_existente = mysqli_fetch_assoc($result_valoracion);
+        <div class="valoraciones-container">
+    <?php 
+    if ($rol_usuario != 'Administrador') {
+        echo '<section class="valoracion" id="valoracionSection">';
+        echo '<h2>¡Valora nuestra página!</h2>';
+        
+        if (isset($_SESSION['user_id'])) {
+            $query_valoracion = "SELECT * FROM valoracion WHERE id_usuario = '$id_usuario'";
+            $result_valoracion = mysqli_query($conexion, $query_valoracion);
+            $valoracion_existente = mysqli_fetch_assoc($result_valoracion);
 
-                $calificacion = $valoracion_existente['calificacion'] ?? '';
-                $comentario = $valoracion_existente['comentario'] ?? '';
+            $calificacion = $valoracion_existente['calificacion'] ?? '';
+            $comentario = $valoracion_existente['comentario'] ?? '';
 
-                echo '
-                <form action="" method="post">
+            if ($valoracion_existente) {
+                echo '<div class="overlay" id="editOverlay">
+                        <button class="editar-valoracion-btn" onclick="habilitarEdicion()">Editar valoración</button>
+                      </div>';
+            }
+
+            echo '<form action="" method="post" id="formValoracion" class="' . ($valoracion_existente ? 'blurred' : '') . '">
                     <label>Calificación:</label>
                     <div class="rating">
                         <input type="radio" name="calificacion" id="star5" value="5" ' . ($calificacion == 5 ? 'checked' : '') . '><label for="star5" title="5 estrellas"></label>
@@ -138,20 +149,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     
                     <input type="submit" value="Enviar valoración">
                 </form>';
-            } else {
-                echo '
-                <div class="centro">
-                    <p>Debes iniciar sesión para dejar una valoración.</p>
-                    <a href="inicio_sesion.php"><button class="btn-login">Iniciar sesión</button></a>
-                </div>';
-            }
-            echo '</section>';
+        } else {
+            echo '
+            <div class="centro">
+                <p>Debes iniciar sesión para dejar una valoración.</p>
+                <a href="inicio_sesion.php"><button class="btn-login">Iniciar sesión</button></a>
+            </div>';
         }
-        ?>    
+        echo '</section>';
+    }
+    ?>
+
+    <div class="valoraciones-otros">
+        <h2>Valoraciones de otros usuarios</h2>
+        <div class="valoraciones-scroll">
+            <?php
+            if ($resultV->num_rows > 0) {
+                while($row = $resultV->fetch_assoc()) {
+                    echo "<p><strong>" . htmlspecialchars($row['nombre']) . " " . htmlspecialchars($row['apellido']) . ":</strong></p>";
+                    echo "<p>";
+
+                    for ($i = 0; $i < 5; $i++) {
+                        if ($i < $row['calificacion']) {
+                            echo "<span class='estrella llena'>&#9733;</span>";
+                        } else {
+                            echo "<span class='estrella vacia'>&#9734;</span>";
+                        }
+                    }
+                    
+                    echo "</p><p>" . htmlspecialchars($row['comentario']) . "</p>";
+                    echo "<small>" . htmlspecialchars($row['fecha']) . "</small><hr>";
+                }
+            } else {
+                echo "<p>No hay valoraciones aún.</p>";
+            }
+            ?>
+        </div>
+    </div>
+</div>
 
     </main>
             
     <?php include '../includes/footer.php'; ?>
-
+<script src="../js/funciones.js"></script>
 </body>
 </html>

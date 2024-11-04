@@ -79,19 +79,92 @@ body {
     }
 
 /* ------------------------ SECCIÓN DE VALORACIÓN ------------------------ */
-.valoracion {
-    background-color: #E8F5E9;
-    border: 1px solid #4CAF50;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+.valoraciones-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    gap: 20px;
+    justify-content: center;
+    align-items: start;
+    margin: 20px 0;
+}
+
+.valoracion, .valoraciones-otros {
+    background-color: #e0f7e0;
+    border: 1px solid #b2d8b2;
+    border-radius: 8px;
+    padding: 20px;
+    width: 45%;
+    box-sizing: border-box;
+}
+
+.valoracion h2, .valoraciones-otros h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
     text-align: center;
-    margin: 20px auto; 
-    width: 100%;
-    max-width: 800px;
+}
+
+.valoraciones-scroll {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.estrella {
+    font-size: 1.2em;
+    color: #FFD700;
+    margin-right: 2px;
+}
+
+.estrella.llena {
+    color: #FFD700;
+}
+
+.estrella.vacia {
+    color: #CCCCCC;
+}
+
+.valoraciones-scroll p {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #d3d3d3;
+    margin: 10px 0;
+}
+
+.blurred {
+    filter: blur(8px);
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+}
+
+.editar-valoracion-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editar-valoracion-btn:hover {
+    background-color: #45a049;
 }
 
 .valoracion label {
@@ -125,10 +198,6 @@ body {
     font-family: inherit;
 }
 
-.valoracion h2 {
-    font-size: 24px;
-    color: #333;
-}
 
 .valoracion form {
     display: flex;
