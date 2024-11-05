@@ -84,7 +84,7 @@ body {
     display: flex;
     gap: 20px;
     justify-content: center;
-    align-items: start;
+    align-items: flex-start;
     margin: 20px 0;
 }
 
@@ -95,22 +95,23 @@ body {
     padding: 20px;
     width: 45%;
     box-sizing: border-box;
+    position: relative;
 }
 
 .valoracion h2, .valoraciones-otros h2 {
-    font-size: 1.5em;
+    font-size: 1.8em;
     margin-bottom: 15px;
     text-align: center;
 }
 
 .valoraciones-scroll {
-    max-height: 300px;
+    max-height: 400px;
     overflow-y: auto;
     padding-right: 10px;
 }
 
 .estrella {
-    font-size: 1.2em;
+    font-size: 1.5em;
     color: #FFD700;
     margin-right: 2px;
 }
@@ -124,8 +125,8 @@ body {
 }
 
 .valoraciones-scroll p {
-    font-size: 1em;
-    margin: 5px 0;
+    font-size: 1.1em;
+    margin: 10px 0;
 }
 
 hr {
@@ -135,27 +136,14 @@ hr {
 }
 
 .blurred {
-    filter: blur(8px);
+    filter: blur(3px);
     pointer-events: none;
     opacity: 0.7;
 }
 
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 8px;
-}
-
 .editar-valoracion-btn {
-    padding: 10px 20px;
-    font-size: 1em;
+    padding: 15px 30px;
+    font-size: 1.2em;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -166,6 +154,21 @@ hr {
 .editar-valoracion-btn:hover {
     background-color: #45a049;
 }
+
+#formValoracion.blurred {
+    filter: blur(3px);
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.valoraciones-otros p strong {
+    font-size: 1.1em;
+}
+
+.valoraciones-otros p {
+    margin-bottom: 5px;
+}
+
 
 .valoracion label {
     font-size: 16px;
@@ -192,7 +195,7 @@ hr {
     padding: 12px;
     margin: 8px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid #653b3b;
     border-radius: 4px;
     box-sizing: border-box;
     font-family: inherit;
