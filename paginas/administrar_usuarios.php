@@ -71,9 +71,13 @@ if (isset($_POST['id_usuario'])) {
                     <td><?php echo $usuario['rol']; ?></td>
                     <td class="estado"><?php echo $usuario['bloqueado'] ? "Bloqueado" : "Activo"; ?></td>
                     <td>
+                        <?php if($usuario['rol']=='Administrador'){ 
+                            echo '';
+                            }else{ ?>
                         <button class="toggle-status" data-id="<?php echo $usuario['id_usuario']; ?>">
                             <?php echo $usuario['bloqueado'] ? "Desbloquear" : "Bloquear"; ?>
                         </button>
+                        <?php } ?>
                     </td>
                 </tr>
             <?php } ?>

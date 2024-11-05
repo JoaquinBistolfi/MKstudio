@@ -14,6 +14,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
+        if($user['bloqueado']==0){
         if (password_verify($pass, $user['contrasena'])) {
             $_SESSION['user_id'] = $user['id_usuario'];
             $_SESSION['username'] = $user['usuario'];
@@ -23,7 +24,10 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         } else {
             echo '<p>Nombre de usuario o contraseña incorrectos.</p>';
         }
-    }
+    }else{
+    echo 'Su cuenta fue bloqueada. Para mas informacion contactese con soporte';
+  }
+}
 }
 
 ?>
