@@ -19,16 +19,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['fecha']) && isset($_PO
         $fecha = $_POST['fecha'];
         $metodo = $_POST['metodo'];
         
-        $sql2 = "SELECT id_oferta FROM oferta WHERE monto = (
+        $sql2 = "SELECT id_oferta, id_usuario FROM oferta o, usuarios u WHERE o.id_usuario = u.id_usuario AND monto = (
             SELECT MAX(monto) 
             FROM oferta 
-            WHERE id_lote = '$lote_id'
-        );";
+            WHERE id_lote = $lote_id
+            );";
         $result2 = mysqli_query($conexion, $sql2);
         
         if (mysqli_num_rows($result2) > 0) {
             $oferta = mysqli_fetch_assoc($result2);
             $id_oferta = $oferta['id_oferta'];
+            $usuario = $oferta['id_usuario'];
             
             $sql_pago = "INSERT INTO pago (monto_pago, fecha, metodo_pago, id_oferta) VALUES ('$monto', '$fecha', '$metodo', '$id_oferta')";
             mysqli_query($conexion, $sql_pago);
@@ -61,7 +62,7 @@ $result_lotes = mysqli_query($conexion, $sql_lotes);
     }
 ?>
 
-<h1>Agregar pago a <?php echo $lote['cantidad'] . " " . $lote['categoria']; ?></h1>
+<h1>Agregar pago a <?php echo $lote['cantidad'] . " " . $lote['categoria'] . $usuario; ?></h1>
 
 <form action="" method="post">
     <label for="Monto">Monto:
