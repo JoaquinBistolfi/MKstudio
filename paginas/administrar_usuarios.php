@@ -3,7 +3,7 @@ include "../includes/conexion.php";
 
 session_start();
 if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST["buscar"])){
-    @$busqueda = @$_POST['buscar'];
+    $busqueda = $_POST['buscar'];
     $buscar = "SELECT * FROM usuarios WHERE nombre LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%'";
     $resultado = mysqli_query($conexion, $buscar);
 }else{

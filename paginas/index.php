@@ -148,7 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <a href="inicio_sesion.php"><button class="btn-login">Iniciar sesión</button></a>
                         </div>
                     <?php endif;
-                    if ($valoracion_existente): ?>
+                    if (@$valoracion_existente): ?>
                         <button class="editar-valoracion-btn" id="btn-edit" onclick="habilitarEdicion()">Editar valoración</button>
                     <?php endif; ?>
                 </div>
