@@ -61,8 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['fecha']) && isset($_PO
         $fecha = $_POST['fecha'];
         $metodo = $_POST['metodo'];
         
-        
-            
             $sql_pago = "INSERT INTO pago (monto_pago, fecha, metodo_pago, id_oferta) VALUES ('$monto', '$fecha', '$metodo', '$id_oferta')";
             mysqli_query($conexion, $sql_pago);
         } else {

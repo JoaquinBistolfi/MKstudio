@@ -30,7 +30,7 @@ $sql = "
             WHERE id_lote = o.id_lote
         )
     GROUP BY 
-        o.id_oferta;  -- Agrupar por el ID de la oferta
+        o.id_oferta;
 ;";
 $result = mysqli_query($conexion, $sql);
 ?>
@@ -64,6 +64,7 @@ $result = mysqli_query($conexion, $sql);
                             <th>Total</th>
                             <th>Pagado</th>
                             <th>Falta</th>
+                            <th>Nota de venta</th>
                         </tr>
                     </thead>
                     <tbody>';
@@ -76,6 +77,7 @@ $result = mysqli_query($conexion, $sql);
                 echo "<td>" . $total . "</td>";
                 echo "<td>" . $row['total_pagado'] . "</td>";  
                 echo "<td>" . $falta . "</td>";
+                echo "<td><a href='pdf/pdf.php?id=" . $row['id_lote'] . "'><img src='../imagenes/ojo-abierto.png' alt='nota_de_venta' class='factura'></a></td>";
                 echo "</tr>";
             }
             echo '</tbody></table>';
