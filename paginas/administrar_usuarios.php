@@ -4,7 +4,7 @@ include "../includes/conexion.php";
 session_start();
 if($_SERVER['REQUEST_METHOD'] == 'POST' && !empty($_POST["buscar"])){
     $busqueda = $_POST['buscar'];
-    $buscar = "SELECT * FROM usuarios WHERE nombre LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%'";
+    $buscar = "SELECT * FROM usuarios WHERE nombre LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%' OR mail LIKE '%$busqueda%'";
     $resultado = mysqli_query($conexion, $buscar);
 }else{
     $consulta = "SELECT * FROM usuarios";
@@ -43,9 +43,9 @@ if (isset($_POST['id_usuario'])) {
 <body>
     <?php include '../includes/headeradmin.php'; ?>
     <h1>Administrar Usuarios</h1>
-    <form action="" method="post">
-    Buscar usuario: <input type="text" name="buscar">
-    <input type="button" value="Buscar">
+    <form class="input-group" action="" method="post">
+    <input type="text" class="input" name="buscar" placeholder="nombre, apellido, mail del usuario" autocomplete="off">
+    <input class="button--submit" value="Buscar" type="submit">
     </form>
     <table>
         <thead>

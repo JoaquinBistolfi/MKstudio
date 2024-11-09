@@ -82,7 +82,7 @@ $result = mysqli_query($conexion, $sql);
             }
             echo '</tbody></table>';
         } else {
-            echo "<div class='no-lotes'>No se encontraron lotes.</div>";
+            echo "<div class='no-lotes'>No se encontraron pagos.</div>";
         }
         ?>
     </div>
