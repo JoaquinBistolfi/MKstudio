@@ -45,7 +45,7 @@ if (isset($_POST['id_usuario'])) {
     <h1>Administrar Usuarios</h1>
     <form action="" method="post">
     Buscar usuario: <input type="text" name="buscar">
-    <input type="button" value="Busca">
+    <input type="button" value="Buscar">
     </form>
     <table>
         <thead>
