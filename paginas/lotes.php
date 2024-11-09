@@ -86,6 +86,7 @@ $result_cert = mysqli_query($conexion, $sql_cert);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Lotes</title>
     <link rel="stylesheet" href="../css/lotes.css">
+    <script src="../js/borrarlote.js"></script>
 </head>
 <?php 
     if ($rol_usuario == 'Administrador'){
@@ -182,6 +183,7 @@ $result_cert = mysqli_query($conexion, $sql_cert);
                 <th>Raza</th>
                 <th>Cantidad</th>
                 <th>Peso Promedio</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -190,11 +192,12 @@ $result_cert = mysqli_query($conexion, $sql_cert);
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td><a href='administrar_lote.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
+                        echo "<td><a href='administrar_lote.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "' class='imagen'></a></td>";  
                         echo "<td>" . $row['categoria'] . "</td>";
                         echo "<td>" . $row['raza'] . "</td>";
                         echo "<td>" . $row['cantidad'] . "</td>";
                         echo "<td>" . $row['peso_promedio'] . "</td>";
+                        echo "<td><img src='../imagenes/borrar.png' alt='" . $row['categoria'] . "' onclick='borrarlote(" . $row['id_lote'] . ")' class='borrar'></td>";
                         echo "</tr>";
                     }
                 } else {

@@ -23,6 +23,7 @@ $usuario = mysqli_fetch_assoc($result_usuarios);
             <li class="header_nav_link"><a href="../paginas/estadisticas.php">Estadísticas</a></li>
             <li class="header_nav_link"><a href="../paginas/mis_ofertas.php">Mis ofertas</a></li>
             <li class="header_nav_link"><a href="../paginas/lotesusr.php">Lotes</a></li>
+            <li class="header_nav_link"><a href="../paginas/mispagos.php">Mis pagos</a></li>
         </ul>
     </nav>
     <?php if (isset($_SESSION['user_id'])) {

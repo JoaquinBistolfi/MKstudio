@@ -1,15 +1,9 @@
 <?php
 include '../includes/conexion.php';
 
-$sql = 'SELECT * FROM pregunta, usuarios WHERE pregunta.id_usuario = usuarios.id_usuario AND estado = "pendiente";';
+$sql = "SELECT * FROM pregunta p, usuarios u WHERE p.id_usuario = u.id_usuario AND estado = 'pendiente';";
 $result = mysqli_query($conexion, $sql);
 if (!$result) {
-    die("Error en la consulta SQL: " . mysqli_error($conexion));
-}
-
-$sqlB = 'DELETE * FROM pregunta, usuarios WHERE pregunta.id_usuario = usuarios.id_usuario AND estado != "pendiente" AND fecha;';
-$resultB = mysqli_query($conexion, $sqlB);
-if (!$resultB) {
     die("Error en la consulta SQL: " . mysqli_error($conexion));
 }
 ?>
@@ -21,6 +15,7 @@ if (!$resultB) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preguntas</title>
     <link rel="stylesheet" href="../css/certificador.css">
+    <script src="../js/respondida.js"></script>
 </head>
 <body>
 <?php 
@@ -54,7 +49,9 @@ if (!$resultB) {
                         echo "<td>" . $row['contenido'] . "</td>";
                         echo "<td>" . $row['fecha'] . "</td>";
                         echo "<td>" . $row['estado'] . "</td>";
-                        echo '<td><input type="checkbox" name="marcar_respondida[]" value="' . $row['id_pregunta'] . '"></td>';
+                        echo "<td>
+                               <input type='checkbox' onclick='marcarRespondida(" . $row['id_pregunta'] . ")'>
+                             </td>";
                         echo "</tr>";
                     }
                 } else {

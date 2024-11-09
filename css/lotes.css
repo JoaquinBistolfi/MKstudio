@@ -90,10 +90,16 @@ table.listas tr:hover {
     color: white;
 }
 
-table.listas img {
+.imagen{
     width: 150px;
     height: auto;
     border-radius: 5%;
+}
+
+.borrar {
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 650px) {
