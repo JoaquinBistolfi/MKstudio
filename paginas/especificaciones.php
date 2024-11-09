@@ -1,4 +1,4 @@
-<?php
+<?php 
 include '../includes/conexion.php';
 
 session_start();
@@ -63,6 +63,7 @@ $_SESSION['lote_id'] = $lote_id;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Especificaciones del Lote</title>
     <link rel="stylesheet" href="../css/especificaciones.css">
+    <script src="../js/actualizar_oferta.js"></script>
 </head>
 <?php 
 if ($rol_usuario == 'Administrador'){
@@ -90,9 +91,9 @@ if ($rol_usuario == 'Administrador'){
                 if (mysqli_num_rows($result2) > 0) {
                     $oferta = mysqli_fetch_assoc($result2);
                     if ($oferta['id_usuario'] == $_SESSION['user_id']) {
-                        echo '<p>La mayor oferta es: ' . $oferta['monto'] . '. Fue hecha por usted.</p>';
+                        echo '<div id="oferta_actual"><p>La mayor oferta es: ' . $oferta['monto'] . '. Fue hecha por usted.</p></div>';
                     } else {
-                        echo '<p>La mayor oferta es: ' . $oferta['monto'] . '</p>';
+                        echo '<div id="oferta_actual"><p>La mayor oferta es: ' . $oferta['monto'] . '</p></div>';
                     }             
                 } else {
                     echo "<p>No hay ninguna oferta aun.</p>";
@@ -159,6 +160,9 @@ if ($rol_usuario == 'Administrador'){
     </div>
 
     <script>
+        var loteId = <?php echo $lote_id; ?>;
+        let montoUsuario = <?php echo isset($oferta['monto']) && is_numeric($oferta['monto']) ? $oferta['monto'] : 0; ?>;
+
         let tiempoRestanteInicio = <?php echo $tiempo_restante_inicio; ?>;
         let tiempoRestanteFin = <?php echo $tiempo_restante_fin; ?>;
 

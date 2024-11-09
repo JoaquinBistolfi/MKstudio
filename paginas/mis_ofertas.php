@@ -6,12 +6,26 @@ $id_usuario = @$_SESSION['user_id'];
 @$rol_usuario = $_SESSION['rol'];
 
 if(isset($_SESSION['user_id'])){
-    $sql = "SELECT l.id_lote, l.categoria, l.raza, l.cantidad, l.peso_promedio, a.ruta AS Ruta_archivo, 
+    $sql = "SELECT 
+    l.id_lote, 
+    l.categoria, 
+    l.raza, 
+    l.cantidad, 
+    l.peso_promedio, 
+    a.ruta AS Ruta_archivo, 
     o.monto AS Monto_Usuario, 
-    (SELECT MAX(monto) FROM oferta WHERE o.id_lote = l.id_lote) AS Monto_Maximo
-    FROM lotes l
-    LEFT JOIN archivo a ON l.id_lote = a.id_lote
-    LEFT JOIN oferta o ON l.id_lote = o.id_lote AND o.id_usuario = $id_usuario  WHERE fecha_fin>NOW()";  
+    (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = l.id_lote) AS Monto_Maximo
+FROM 
+    lotes l
+INNER JOIN 
+    oferta o ON l.id_lote = o.id_lote 
+LEFT JOIN 
+    archivo a ON l.id_lote = a.id_lote
+WHERE 
+    l.fecha_fin > NOW() 
+    AND o.id_usuario = $id_usuario
+    AND o.monto = (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = l.id_lote AND o.id_usuario = $id_usuario);
+";  
     $result = mysqli_query($conexion, $sql);
 }
 ?>
@@ -23,6 +37,7 @@ if(isset($_SESSION['user_id'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ofertas Lotes</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
+    <script src="../js/actualizar_oferta.js"></script>
 </head>
 <?php 
     if ($rol_usuario == 'Administrador'){
@@ -60,8 +75,8 @@ if(isset($_SESSION['user_id'])){
                     echo "<td>" . $row['categoria'] . "</td>";
                     echo "<td>" . $row['cantidad'] . "</td>";
                     echo "<td>" . $row['peso_promedio'] . "</td>";
-                    echo "<td style='color: $color_usuario;'>" . ($row['Monto_Usuario'] ?: 'N/A') . "</td>";
-                    echo "<td style='color: $color_maximo;'>" . ($row['Monto_Maximo'] ?: 'N/A') . "</td>";
+                    echo "<div id='oferta_usuario'><td>" . ($row['Monto_Usuario'] ?: 'N/A') . "</td></div>";
+                    echo "<div id='oferta_actual'><td>" . ($row['Monto_Maximo'] ?: 'N/A') . "</td></div>";
                     echo "</tr>";
                 }
                 echo '</tbody></table>';
