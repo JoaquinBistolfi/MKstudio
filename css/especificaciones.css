@@ -17,10 +17,16 @@ h1 {
 .imagenes {
     display: flex;
     justify-content: center;
+    position: relative;
+    max-width: 600px;
+    max-height: 400px; 
+    overflow: hidden;
 }
 
-.imagenes img {
-    max-width: 100%;
+.imagenes img, .imagenes video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

@@ -1,10 +1,9 @@
 <?php
 include '../includes/conexion.php';
-
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset($_FILES['archivo'])) {
-    if (!empty($_POST["categoria"]) && !empty($_POST["cantidad"]) && !empty($_POST["peso"]) && !empty($_FILES["archivo"])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset($_FILES['archivos'])) {
+    if (!empty($_POST["categoria"]) && !empty($_POST["cantidad"]) && !empty($_POST["peso"]) && !empty($_FILES["archivos"])) {
         $categoria = $_POST['categoria'];
         $raza = $_POST['raza'];
         $cantidad = $_POST['cantidad'];
@@ -23,40 +22,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
         $fecha_ini = $_POST['fecha_inicio'];
         $fecha_fin = $_POST['fecha_finalizacion'];
         $certificador = $_POST['certificador'];
-        $foto_lote = $_FILES['archivo']['name'];
-        $tmp_name = $_FILES['archivo']['tmp_name'];
 
-        if ($foto_lote != '') {
-            $nombre_carpeta = 'foto_lote/' . $categoria . '_' . $cantidad . '_' . $peso;
-            if (!file_exists($nombre_carpeta)) {
-                if (!mkdir($nombre_carpeta, 0777, true)) {
-                    die("Error al crear el directorio.");
-                }
+        $nombre_carpeta = 'foto_lote/' . $categoria . '_' . $cantidad . '_' . $peso;
+        if (!file_exists($nombre_carpeta)) {
+            if (!mkdir($nombre_carpeta, 0777, true)) {
+                die("Error al crear el directorio.");
             }
+        }
 
-            $ruta_archivo = $nombre_carpeta . '/' . basename($foto_lote);
+        $sql_lotes = "INSERT INTO lotes (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, raza, edad, clase, sanidad, tratamiento_nutricional, observaciones, conoce_miomio, zona_garrapata, fecha_inicio, fecha_fin, id_certificador) 
+                      VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$raza', '$edad', '$clase', '$sanidad', '$tratamiento_nutricional', '$observaciones', '$conoce_miomio', '$zona_garrapata', '$fecha_ini', '$fecha_fin', '$certificador')";
 
-            if (move_uploaded_file($tmp_name, $ruta_archivo)) {
-                $sql_lotes = "INSERT INTO lotes (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, raza, edad, clase, sanidad, tratamiento_nutricional, observaciones, conoce_miomio, zona_garrapata, fecha_inicio, fecha_fin, id_certificador) 
-                              VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$raza', '$edad', '$clase', '$sanidad', '$tratamiento_nutricional', '$observaciones', '$conoce_miomio', '$zona_garrapata', '$fecha_ini', '$fecha_fin', '$certificador')";
+        if (mysqli_query($conexion, $sql_lotes)) {
+            $id_lote = mysqli_insert_id($conexion);
 
-                if (mysqli_query($conexion, $sql_lotes)) {
-                    $id_lote = mysqli_insert_id($conexion);  
+            foreach ($_FILES['archivos']['tmp_name'] as $index => $tmp_name) {
+                $nombre_archivo = $_FILES['archivos']['name'][$index];
+                $ruta_archivo = $nombre_carpeta . '/' . basename($nombre_archivo);
 
-                    $sql_archivo = "INSERT INTO archivo (id_lote, ruta) VALUES ('$id_lote', '$ruta_archivo')";
-                    if (mysqli_query($conexion, $sql_archivo)) {
-                        header("Location: " . $_SERVER['PHP_SELF']);
-                        $_SESSION['mail'] = "nuevolote";
-                        exit;
-                    } else {
+                if (move_uploaded_file($tmp_name, $ruta_archivo)) {
+                    $tipo = pathinfo($ruta_archivo, PATHINFO_EXTENSION) === 'mp4' ? 'video' : 'imagen';
+
+                    $sql_archivo = "INSERT INTO archivo (id_lote, ruta, tipo) VALUES ('$id_lote', '$ruta_archivo', '$tipo')";
+                    if (!mysqli_query($conexion, $sql_archivo)) {
                         echo "Error al guardar el archivo: " . mysqli_error($conexion);
                     }
                 } else {
-                    echo "Error al guardar el lote: " . mysqli_error($conexion);
+                    echo "Error al mover el archivo: " . $nombre_archivo;
                 }
-            } else {
-                echo "Error al mover el archivo subido.";
             }
+
+            header("Location: " . $_SERVER['PHP_SELF']);
+            $_SESSION['mail'] = "nuevolote";
+            exit;
+        } else {
+            echo "Error al guardar el lote: " . mysqli_error($conexion);
         }
     } else {
         echo "Por favor, completa todos los campos.";
@@ -75,7 +75,6 @@ if (!$result) {
 @$rol_usuario = $_SESSION['rol'];
 
 $sql_cert = "SELECT * FROM certificador;";
-
 $result_cert = mysqli_query($conexion, $sql_cert);
 ?>
 
@@ -90,11 +89,11 @@ $result_cert = mysqli_query($conexion, $sql_cert);
 </head>
 <?php 
     if ($rol_usuario == 'Administrador'){
-            include '../includes/headeradmin.php';
-    }else{
-            include '../includes/header.php';
+        include '../includes/headeradmin.php';
+    } else {
+        include '../includes/header.php';
     }
-    ?>
+?>
 <body>
     <h2>Agregar nuevo lote</h2>
 
@@ -165,9 +164,10 @@ $result_cert = mysqli_query($conexion, $sql_cert);
                 </select>
             </label>
         </div>
-        <label for="foto_lote">Foto principal del lote:
-            <input type="file" name="archivo" id="foto_lote" required accept=".jpg, .png">
-        </label>
+        <label for="foto_lote">Fotos/Videos del lote:
+                <input type="file" name="archivos[]" id="foto_lote" required accept=".jpg, .png, .mp4" multiple>
+            </label>
+        </div>
         
         <div class="btn">
             <input type="submit" value="Subir">

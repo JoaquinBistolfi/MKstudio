@@ -16,9 +16,13 @@ if (isset($_GET['id'])) {
     
     if (mysqli_num_rows($result) > 0) {
         $lote = mysqli_fetch_assoc($result);
-        $archivo = mysqli_fetch_assoc($result3);
     } else {
         echo "<p>No se encontró el lote.</p>";
+    }
+
+    $archivos = [];
+    while ($fila = mysqli_fetch_assoc($result3)) {
+        $archivos[] = $fila;
     }
 
     $id_certificador = $lote['id_certificador'];
@@ -63,6 +67,7 @@ $_SESSION['lote_id'] = $lote_id;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Especificaciones del Lote</title>
     <link rel="stylesheet" href="../css/especificaciones.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/actualizar_oferta.js"></script>
 </head>
 <?php 
@@ -78,12 +83,35 @@ if ($rol_usuario == 'Administrador'){
     ?>
 
     <div class="datos">
-        <div class="imagenes">
-            <?php
-            echo "<img src='" . @$archivo['ruta'] . "' alt='" . $lote['categoria'] . "'>";
-            ?>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <?php foreach ($archivos as $index => $archivo): ?>
+                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?php echo $index; ?>" class="<?php echo $index === 0 ? 'active' : ''; ?>" aria-current="true" aria-label="Slide <?php echo $index + 1; ?>"></button>
+                <?php endforeach; ?>
+            </div>
+            <div class="carousel-inner">
+                <?php foreach ($archivos as $index => $archivo): ?>
+                    <div class="carousel-item <?php echo $index === 0 ? 'active' : ''; ?>">
+                        <?php if ($archivo['tipo'] == 'imagen'): ?>
+                            <img src="<?php echo $archivo['ruta']; ?>" class="d-block w-100" alt="Imagen del lote">
+                        <?php elseif ($archivo['tipo'] == 'video'): ?>
+                            <video class="d-block w-100" controls>
+                                <source src="<?php echo $archivo['ruta']; ?>" type="video/mp4">
+                            </video>
+                        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
         </div>
-
+        
         <div class="oferta">
             <h2>Ofertas</h2>
             <?php
@@ -194,6 +222,7 @@ if ($rol_usuario == 'Administrador'){
         let intervalo = setInterval(actualizarContador, 1000);
     </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 <?php include '../includes/footer.php'; ?>
 </html>
