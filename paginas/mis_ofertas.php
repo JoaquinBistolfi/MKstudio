@@ -6,26 +6,28 @@ $id_usuario = @$_SESSION['user_id'];
 @$rol_usuario = $_SESSION['rol'];
 
 if(isset($_SESSION['user_id'])){
-    $sql = "SELECT 
-    l.id_lote, 
-    l.categoria, 
-    l.raza, 
-    l.cantidad, 
-    l.peso_promedio, 
-    a.ruta AS Ruta_archivo, 
+    $sql = $sql = "SELECT 
+    lotes.id_lote, 
+    lotes.categoria, 
+    lotes.raza, 
+    lotes.cantidad, 
+    lotes.peso_promedio, 
+    MIN(archivo.ruta) AS ruta,
     o.monto AS Monto_Usuario, 
-    (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = l.id_lote) AS Monto_Maximo
+    (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = lotes.id_lote) AS Monto_Maximo
 FROM 
-    lotes l
+    lotes
 INNER JOIN 
-    oferta o ON l.id_lote = o.id_lote 
+    oferta o ON lotes.id_lote = o.id_lote  
 LEFT JOIN 
-    archivo a ON l.id_lote = a.id_lote
+    archivo ON lotes.id_lote = archivo.id_lote 
 WHERE 
-    l.fecha_fin > NOW() 
+    fecha_fin > NOW()
     AND o.id_usuario = $id_usuario
-    AND o.monto = (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = l.id_lote AND o.id_usuario = $id_usuario);
-";  
+    AND o.monto = (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = lotes.id_lote AND o.id_usuario = $id_usuario)
+GROUP BY 
+    lotes.id_lote";
+
     $result = mysqli_query($conexion, $sql);
 }
 ?>
@@ -71,7 +73,7 @@ WHERE
                     $color_usuario = $row['Monto_Usuario'] < $row['Monto_Maximo'] ? 'red' : 'green';
                     $color_maximo = $row['Monto_Usuario'] == $row['Monto_Maximo'] ? 'green' : 'black';
                     echo "<tr>";
-                    echo "<td><a href='especificaciones.php?id=" . $row['id_lote'] . "'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['categoria'] . "'></a></td>";  
+                    echo "<td><a href='especificaciones.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
                     echo "<td>" . $row['categoria'] . "</td>";
                     echo "<td>" . $row['cantidad'] . "</td>";
                     echo "<td>" . $row['peso_promedio'] . "</td>";
