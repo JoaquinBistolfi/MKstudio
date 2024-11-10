@@ -40,7 +40,7 @@ $result = mysqli_query($conexion, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotes</title>
+    <title>Pagos</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
 </head>
 <?php 
@@ -56,26 +56,26 @@ $result = mysqli_query($conexion, $sql);
         <h2>Lista de Lotes Disponibles</h2>
         <?php
         if (mysqli_num_rows($result) > 0) {
-            echo '<table class="listas">
+            echo "<table class='listas'>
                     <thead>
                         <tr>
                             <th>Foto</th>
                             <th>Lote</th>
-                            <th>Total</th>
-                            <th>Pagado</th>
+                            <th class='esconder'>Total</th>
+                            <th class='esconder'>Pagado</th>
                             <th>Falta</th>
                             <th>Nota de venta</th>
                         </tr>
                     </thead>
-                    <tbody>';
+                    <tbody>";
             while ($row = mysqli_fetch_assoc($result)) {
                 $total = $row['monto'] * $row['cantidad'] * $row['peso_promedio'];
                 $falta = $total - $row['total_pagado'];  
                 echo "<tr>";
                 echo "<td><a href='administrar_pagos.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
                 echo "<td>" . $row['categoria'] . ' ' . $row['raza'] . ' ' . $row['cantidad'] . "</td>";
-                echo "<td>" . $total . "</td>";
-                echo "<td>" . $row['total_pagado'] . "</td>";  
+                echo "<td class='esconder'>" . $total . "</td>";
+                echo "<td class='esconder'>" . $row['total_pagado'] . "</td>";  
                 echo "<td>" . $falta . "</td>";
                 echo "<td><a href='pdf/pdf.php?id=" . $row['id_lote'] . "'><img src='../imagenes/ojo-abierto.png' alt='nota_de_venta' class='factura'></a></td>";
                 echo "</tr>";

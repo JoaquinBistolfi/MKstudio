@@ -123,6 +123,24 @@ table.listas tr:hover {
     }
 }
 
+@media screen and (max-width: 800px) {
+    .esconder {
+        display: none;
+    }
+    .aparecer {
+        display: table-cell;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .aparecer {
+        display: none;
+    }
+    .esconder {
+        display: table-cell;
+    }
+}   
+
 label[for="vendido"] {
     display: flex;
     justify-content: center;

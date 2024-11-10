@@ -83,7 +83,7 @@ if (!$result) {
             <tr>
                 <th>Foto</th>
                 <th>Nombre</th>
-                <th>Apellido</th>
+                <th class='esconder'>Apellido</th>
                 <th>Profesion</th>
             </tr>
         </thead>
@@ -94,8 +94,9 @@ if (!$result) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
                         echo "<td><img src='" . $row['ruta_archivo'] . "' alt='" . $row['nombre'] . "'></td>";  
-                        echo "<td>" . $row['nombre'] . "</td>";
-                        echo "<td>" . $row['apellido'] . "</td>";
+                        echo "<td class='esconder'>" . $row['nombre'] . "</td>";
+                        echo "<td class='esconder'>" . $row['apellido'] . "</td>";
+                        echo "<td class='aparecer'>" . $row['nombre'] . ' ' . $row['apellido'] . "</td>";
                         echo "<td>" . $row['profesion'] . "</td>";
                         echo "</tr>";
                     }

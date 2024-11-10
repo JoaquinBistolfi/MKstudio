@@ -1,5 +1,5 @@
 function borrarlote(idlote) {
-    console.log("ID de lote para borrar:", idlote); // Depuración
+    console.log("ID de lote para borrar:", idlote); 
     fetch('borrar_lote.php?id=' + idlote)
         .then(response => response.text())
         .then(data => {

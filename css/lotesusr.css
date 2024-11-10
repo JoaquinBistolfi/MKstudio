@@ -49,6 +49,12 @@ table.listas img {
     border-radius: 5%;
 }
 
+@media screen and (max-width: 650px) {
+    table.listas img {
+        width: 100px;
+    }
+}
+
 td a img.factura {
     width: auto;
     height: 30px;
@@ -99,6 +105,24 @@ td a img.factura {
     }
 }
 
+@media screen and (max-width: 800px) {
+    .esconder {
+        display: none;
+    }
+    .aparecer {
+        display: table-cell;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .aparecer {
+        display: none;
+    }
+    .esconder {
+        display: table-cell;
+    }
+}
+
 @media screen and (max-width: 650px) {
     form {
         padding: 15px;
@@ -110,4 +134,17 @@ td a img.factura {
     button {
         padding: 8px;
     }
+
+    table.listas th, table.listas td {
+        font-size: 16px;
+        padding: 5px;
+    }
+}
+.fila-enlace {
+    cursor: pointer;
+}
+
+.fila-enlace:hover {
+    background-color: rgba(121, 158, 133, 0.667);
+    color: white;
 }

@@ -27,9 +27,8 @@ if (!$result) {
             <tr>
                 <th>Usuario</th>
                 <th>Contenido</th>
-                <th>Fecha</th>
-                <th>Estado</th>
-                <th>Marcar como respondida</th>
+                <th class='esconder'>Fecha</th>
+                <th>Respondida</th>
             </tr>
         </thead>
         <tbody>
@@ -47,8 +46,7 @@ if (!$result) {
                         echo "</details>";
                         echo "</td>";
                         echo "<td>" . $row['contenido'] . "</td>";
-                        echo "<td>" . $row['fecha'] . "</td>";
-                        echo "<td>" . $row['estado'] . "</td>";
+                        echo "<td class='esconder'>" . $row['fecha'] . "</td>";
                         echo "<td>
                                <input type='checkbox' onclick='marcarRespondida(" . $row['id_pregunta'] . ")'>
                              </td>";

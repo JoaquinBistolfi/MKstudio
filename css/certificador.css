@@ -80,7 +80,7 @@ table.listas thead {
 table.listas th,
 table.listas td {
     padding: 10px;
-    text-align: left;
+    text-align: center;
     border-bottom: 1px solid #ddd;
 }
 
@@ -107,8 +107,23 @@ form input[type="datetime-local"] {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+@media screen and (min-width: 650px) {
+    .aparecer {
+        display: none;
+    }
+    .esconder {
+        display: table-cell;
+    }
+}
 
 @media screen and (max-width: 650px) {
+    .aparecer {
+        display: table-cell;
+    }
+    .esconder {
+        display: none;
+    }
+
     form {
         padding: 15px;
     }
