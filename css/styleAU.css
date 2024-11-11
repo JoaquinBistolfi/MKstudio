@@ -45,6 +45,7 @@ header h1 {
 .about-us .content {
     max-width: 800px;
     text-align: left;
+    margin: 50px;
 }
 
 .about-us img {
@@ -77,10 +78,13 @@ header h1 {
     display: flex;
     justify-content: space-around;
     margin: 2rem 0;
+    flex-wrap: wrap;
 }
 
 .integrante {
     text-align: center;
+    width: 30%;
+    margin-bottom: 1rem;
 }
 
 .integrante img {
@@ -106,4 +110,55 @@ footer {
 
 .lang.active {
     display: block;
+}
+
+@media screen and (max-width: 768px) {
+    header .logo {
+        width: 50px;
+    }
+
+    .about-us {
+        padding: 1rem;
+    }
+
+    .about-us .content {
+        max-width: 100%;
+        padding: 1rem;
+    }
+
+    .integrantes {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .integrante {
+        width: 80%;
+        margin: 1rem 0;
+    }
+
+    .language-switcher {
+        position: static;
+        margin-bottom: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .about-us h2 {
+        font-size: 1.2rem;
+    }
+
+    .integrante img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .language-switcher {
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    footer {
+        position: static;
+        padding: 0.5rem 0;
+    }
 }
