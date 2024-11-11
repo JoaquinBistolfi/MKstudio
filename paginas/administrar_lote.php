@@ -2,7 +2,6 @@
 include '../includes/conexion.php';
 
 session_start();
-
 @$rol_usuario = $_SESSION['rol'];
 
 if (isset($_GET['id'])) {
@@ -13,6 +12,8 @@ if (isset($_GET['id'])) {
     
     if (mysqli_num_rows($result) > 0) {
         $lote = mysqli_fetch_assoc($result);
+        $fecha_fin = new DateTime($lote['fecha_fin']);
+        $fecha_actual = new DateTime();
     } else {
         echo "<p>No se encontró el lote.</p>";
         exit;
@@ -59,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     vendido='$vendido'
     WHERE id_lote='$lote_id'";
 
-
     if (mysqli_query($conexion, $update_sql)) {
         echo "<p>Lote actualizado correctamente.</p>";
     } else {
@@ -79,96 +79,98 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 <?php
-    if ($rol_usuario == 'Administrador'){
-            include '../includes/headeradmin.php';
-    }else{
-            include '../includes/header.php';
+    if ($rol_usuario == 'Administrador') {
+        include '../includes/headeradmin.php';
+    } else {
+        include '../includes/header.php';
     }
-    ?>
+?>
 
-    <h2>Editar Lote de <?php echo $lote['cantidad'] . " " . $lote['categoria']; ?></h2>
+<h2>Editar Lote de <?php echo $lote['cantidad'] . " " . $lote['categoria']; ?></h2>
 
-    <form action="administrar_lote.php?id=<?php echo $lote_id; ?>" method="post">
-        <div class="info">
-            <label for="categoria">Categoría:
-            <input type="text" name="categoria" value="<?php echo $lote['categoria']; ?>" required>
-            </label>
+<form action="administrar_lote.php?id=<?php echo $lote_id; ?>" method="post">
+    <div class="info">
+        <label for="categoria">Categoría:
+        <input type="text" name="categoria" value="<?php echo $lote['categoria']; ?>" required>
+        </label>
 
-            <label for="cantidad">Cantidad:
-            <input type="number" name="cantidad" value="<?php echo $lote['cantidad']; ?>" required>
-            </label>
+        <label for="cantidad">Cantidad:
+        <input type="number" name="cantidad" value="<?php echo $lote['cantidad']; ?>" required>
+        </label>
 
-            <label for="peso_promedio">Peso promedio:
-            <input type="number" name="peso_promedio" value="<?php echo $lote['peso_promedio']; ?>" required>
-            </label>
+        <label for="peso_promedio">Peso promedio:
+        <input type="number" name="peso_promedio" value="<?php echo $lote['peso_promedio']; ?>" required>
+        </label>
 
-            <label for="peso_maximo">Peso máximo:
-            <input type="number" name="peso_maximo" value="<?php echo $lote['peso_maximo']; ?>" required>
-            </label>
+        <label for="peso_maximo">Peso máximo:
+        <input type="number" name="peso_maximo" value="<?php echo $lote['peso_maximo']; ?>" required>
+        </label>
 
-            <label for="peso_minimo">Peso mínimo:
-            <input type="number" name="peso_minimo" value="<?php echo $lote['peso_minimo']; ?>" required>
-            </label>
+        <label for="peso_minimo">Peso mínimo:
+        <input type="number" name="peso_minimo" value="<?php echo $lote['peso_minimo']; ?>" required>
+        </label>
 
-            <label for="cant_pesada">Porcentaje pesado:
-            <input type="number" name="cant_pesada" value="<?php echo $lote['cant_pesada']; ?>" required>
-            </label>
+        <label for="cant_pesada">Porcentaje pesado:
+        <input type="number" name="cant_pesada" value="<?php echo $lote['cant_pesada']; ?>" required>
+        </label>
 
-            <label for="estado">Estado:
-            <input type="text" name="estado" value="<?php echo $lote['estado']; ?>" required>
-            </label>
+        <label for="estado">Estado:
+        <input type="text" name="estado" value="<?php echo $lote['estado']; ?>" required>
+        </label>
 
-            <label for="raza">Raza:
-            <input type="text" name="raza" value="<?php echo $lote['raza']; ?>" required>
-            </label>
+        <label for="raza">Raza:
+        <input type="text" name="raza" value="<?php echo $lote['raza']; ?>" required>
+        </label>
 
-            <label for="edad">Edad (meses):
-            <input type="number" name="edad" value="<?php echo $lote['edad']; ?>" required>
-            </label>
+        <label for="edad">Edad (meses):
+        <input type="number" name="edad" value="<?php echo $lote['edad']; ?>" required>
+        </label>
 
-            <label for="sanidad">Sanidad:
-            <input type="text" name="sanidad" value="<?php echo $lote['sanidad']; ?>" required>
-            </label>
+        <label for="sanidad">Sanidad:
+        <input type="text" name="sanidad" value="<?php echo $lote['sanidad']; ?>" required>
+        </label>
 
-            <label for="tratamiento_nutricional">Tratamiento nutricional:
-            <input type="text" name="tratamiento_nutricional" value="<?php echo $lote['tratamiento_nutricional']; ?>" required>
-            </label>
+        <label for="tratamiento_nutricional">Tratamiento nutricional:
+        <input type="text" name="tratamiento_nutricional" value="<?php echo $lote['tratamiento_nutricional']; ?>" required>
+        </label>
 
-            <label for="conoce_miomio">Conoce Mio Mio:
-            <input type="text" name="conoce_miomio" value="<?php echo $lote['conoce_miomio']; ?>" required>
-            </label>
+        <label for="conoce_miomio">Conoce Mio Mio:
+        <input type="text" name="conoce_miomio" value="<?php echo $lote['conoce_miomio']; ?>" required>
+        </label>
 
-            <label for="zona_garrapata">Zona garrapata:
-            <input type="text" name="zona_garrapata" value="<?php echo $lote['zona_garrapata']; ?>" required>
-            </label>
+        <label for="zona_garrapata">Zona garrapata:
+        <input type="text" name="zona_garrapata" value="<?php echo $lote['zona_garrapata']; ?>" required>
+        </label>
 
-            <label for="observaciones">Observaciones:
-            <textarea name="observaciones" required><?php echo $lote['observaciones']; ?></textarea>
-            </label>
+        <label for="observaciones">Observaciones:
+        <textarea name="observaciones" required><?php echo $lote['observaciones']; ?></textarea>
+        </label>
 
-            <label for="certificador">Certificador:
-            <select name="certificador" required>
-                    <?php
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo '<option value="' . $row['id_certificador'] . '">' . $row['nombre'] . " " . $row['apellido'] .'</option>';
-                            }
-                        } else {
-                            echo '<option value="">No hay datos disponibles</option>';
+        <label for="certificador">Certificador:
+        <select name="certificador" required>
+                <?php
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<option value="' . $row['id_certificador'] . '">' . $row['nombre'] . " " . $row['apellido'] .'</option>';
                         }
-                    ?>
-            </select>
-            </label>
+                    } else {
+                        echo '<option value="">No hay datos disponibles</option>';
+                    }
+                ?>
+        </select>
+        </label>
+        
+        <?php if ($fecha_actual > $fecha_fin): ?>
             <label for="vendido">Marcar como vendido:
                 <input type="checkbox" name="vendido" <?php echo ($lote['vendido'] == 1) ? 'checked' : ''; ?>>
             </label>
+        <?php endif; ?>
+    </div>
+    <div class="btn">
+        <input type="submit" value="Actualizar">
+    </div>
+</form>
 
-        </div>
-        <div class="btn">
-            <input type="submit" value="Actualizar">
-        </div>
-    </form>
-
-    <?php include '../includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
 </body>
 </html>

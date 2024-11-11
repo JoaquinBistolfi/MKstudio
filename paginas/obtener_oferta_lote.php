@@ -1,5 +1,6 @@
 <?php
 include '../includes/conexion.php';
+session_start();
 
 if (isset($_GET['id'])) {
     $lote_id = $_GET['id'];
@@ -9,10 +10,16 @@ if (isset($_GET['id'])) {
 
     if (mysqli_num_rows($result) > 0) {
         $oferta = mysqli_fetch_assoc($result);
-        echo json_encode($oferta);
+        $es_usuario = ($oferta['id_usuario'] == $_SESSION['user_id']);
+        echo json_encode([
+            'monto' => $oferta['monto'],
+            'es_usuario' => $es_usuario
+        ]);
     } else {
-        echo json_encode(["monto" => "No hay ofertas"]);
+        echo json_encode([
+            'monto' => "No hay ofertas",
+            'es_usuario' => false
+        ]);
     }
-} else {
-    echo json_encode(["error" => "Lote no encontrado"]);
 }
+?>

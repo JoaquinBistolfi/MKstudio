@@ -7,28 +7,29 @@ $id_usuario = @$_SESSION['user_id'];
 
 if(isset($_SESSION['user_id'])){
     $sql = "SELECT 
-    l.id_lote, 
-    l.categoria, 
-    l.raza, 
-    l.cantidad, 
-    l.peso_promedio, 
-    a.ruta AS Ruta_archivo, 
-    o.monto AS Monto_Usuario, 
-    (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = l.id_lote) AS Monto_Maximo
-FROM 
-    lotes l
-INNER JOIN 
-    oferta o ON l.id_lote = o.id_lote 
-LEFT JOIN 
-    archivo a ON l.id_lote = a.id_lote
-WHERE 
-    l.fecha_fin > NOW() 
-    AND o.id_usuario = $id_usuario
-    AND o.monto = (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = l.id_lote AND o.id_usuario = $id_usuario);
-";  
+                l.id_lote, 
+                l.categoria, 
+                l.raza, 
+                l.cantidad, 
+                l.peso_promedio, 
+                (SELECT a.ruta FROM archivo a WHERE a.id_lote = l.id_lote LIMIT 1) AS Ruta_archivo, 
+                o.monto AS Monto_Usuario, 
+                (SELECT MAX(o2.monto) FROM oferta o2 WHERE o2.id_lote = l.id_lote) AS Monto_Maximo
+            FROM 
+                lotes l
+            INNER JOIN 
+                oferta o ON l.id_lote = o.id_lote 
+            WHERE 
+                l.fecha_fin > NOW() 
+                AND o.id_usuario = $id_usuario
+                AND o.monto = (SELECT MAX(o3.monto) FROM oferta o3 WHERE o3.id_lote = l.id_lote AND o3.id_usuario = $id_usuario)
+            GROUP BY 
+                l.id_lote;
+    ";  
     $result = mysqli_query($conexion, $sql);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -37,7 +38,7 @@ WHERE
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ofertas Lotes</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
-    <script src="../js/actualizar_oferta.js"></script>
+    <script src="../js/misofertas.js"></script>
 </head>
 <?php 
     if ($rol_usuario == 'Administrador'){
@@ -67,18 +68,21 @@ WHERE
                             </tr>
                         </thead>
                         <tbody>';
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $color_usuario = $row['Monto_Usuario'] < $row['Monto_Maximo'] ? 'red' : 'green';
-                    $color_maximo = $row['Monto_Usuario'] == $row['Monto_Maximo'] ? 'green' : 'black';
-                    echo "<tr>";
-                    echo "<td><a href='especificaciones.php?id=" . $row['id_lote'] . "'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['categoria'] . "'></a></td>";  
-                    echo "<td>" . $row['categoria'] . "</td>";
-                    echo "<td>" . $row['cantidad'] . "</td>";
-                    echo "<td>" . $row['peso_promedio'] . "</td>";
-                    echo "<div id='oferta_usuario'><td>" . ($row['Monto_Usuario'] ?: 'N/A') . "</td></div>";
-                    echo "<div id='oferta_actual'><td>" . ($row['Monto_Maximo'] ?: 'N/A') . "</td></div>";
-                    echo "</tr>";
-                }
+    while ($row = mysqli_fetch_assoc($result)) {
+        $id_lote = $row['id_lote'];
+        $color_usuario = $row['Monto_Usuario'] < $row['Monto_Maximo'] ? 'red' : 'green';
+        $color_maximo = $row['Monto_Usuario'] == $row['Monto_Maximo'] ? 'green' : 'black';
+        echo "<tr data-lote-id='$id_lote' data-monto-usuario='{$row['Monto_Usuario']}'>";
+        echo "<td><a href='especificaciones.php?id=$id_lote'><img src='" . $row['Ruta_archivo'] . "' alt='" . $row['categoria'] . "'></a></td>";
+        echo "<td>" . $row['categoria'] . "</td>";
+        echo "<td>" . $row['cantidad'] . "</td>";
+        echo "<td>" . $row['peso_promedio'] . "</td>";
+        echo "<td class='oferta_usuario' id='oferta_usuario_$id_lote' style='color: $color_usuario;'>" . ($row['Monto_Usuario'] ?: 'N/A') . "</td>";
+        echo "<td class='oferta_actual' id='oferta_actual_$id_lote' style='color: $color_maximo;'>" . ($row['Monto_Maximo'] ?: 'N/A') . "</td>";
+        echo "</tr>";
+    }
+
+
                 echo '</tbody></table>';
             } else {
                 echo "<div class='no-lotes'>Todavía no has hecho ninguna oferta.</div>";
