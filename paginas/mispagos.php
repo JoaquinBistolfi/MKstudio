@@ -8,32 +8,37 @@ $id_usuario = @$_SESSION['user_id'];
 
 $sql = "
     SELECT 
-        p.*, 
-        o.*, 
-        u.*, 
-        l.*, 
-        a.ruta, 
-        COALESCE(SUM(p.monto_pago), 0) AS total_pagado 
-    FROM 
-        oferta o 
-    JOIN 
-        lotes l ON o.id_lote = l.id_lote 
-    JOIN 
-        usuarios u ON o.id_usuario = u.id_usuario 
-    JOIN 
-        archivo a ON a.id_lote = l.id_lote 
-    LEFT JOIN 
-        pago p ON p.id_oferta = o.id_oferta 
-    WHERE 
-        o.monto = (
-            SELECT MAX(monto) 
-            FROM oferta 
-            WHERE id_lote = o.id_lote
-            AND id_usuario = $id_usuario
-        )
-    GROUP BY 
-        o.id_oferta;
-;";
+    p.*, 
+    o.*, 
+    u.id_usuario,
+    l.cantidad, 
+    l.id_lote, 
+    l.peso_promedio, 
+    l.categoria, 
+    l.raza,
+    a.ruta, 
+    COALESCE(SUM(p.monto_pago), 0) AS total_pagado 
+FROM 
+    oferta o 
+JOIN 
+    lotes l ON o.id_lote = l.id_lote 
+JOIN 
+    usuarios u ON o.id_usuario = u.id_usuario 
+JOIN 
+    archivo a ON a.id_lote = l.id_lote 
+LEFT JOIN 
+    pago p ON p.id_oferta = o.id_oferta 
+WHERE 
+    o.monto = (
+        SELECT MAX(monto) 
+        FROM oferta 
+        WHERE id_lote = o.id_lote
+        AND id_usuario = $id_usuario
+    )
+    AND l.vendido = 1
+GROUP BY 
+    o.id_oferta, u.id_usuario, l.id_lote, a.ruta;
+";
 $result = mysqli_query($conexion, $sql);
 ?>
 
@@ -55,9 +60,12 @@ $result = mysqli_query($conexion, $sql);
 <body>
 
     <div class="content">
-        <h2>Lista de Lotes Disponibles</h2>
+        <h2>Lista de pagos pendientes</h2>
         <?php
-        if (mysqli_num_rows($result) > 0) {
+        if(!isset($_SESSION['user_id'])){
+            echo "<div class='no-lotes'>Debe iniciar sesión para ver los pagos pendiente.</div>";
+        } else {
+            if (mysqli_num_rows($result) > 0) {
             echo '<table class="listas">
                     <thead>
                         <tr>
@@ -91,6 +99,7 @@ $result = mysqli_query($conexion, $sql);
         } else {
             echo "<div class='no-lotes'>Usted no ha realizado ninguna compra.</div>";
         }
+    }
         ?>
     </div>
 

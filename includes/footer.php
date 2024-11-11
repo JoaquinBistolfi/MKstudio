@@ -4,7 +4,7 @@
             <div class="logo-footer">
                 <img src="../imagenes/darosa.png" alt="Logo de la empresa">
             </div>
-            <div class="datos">
+            <div class="datttos">
                 <h3>Ubicacion</h3>
                 <p>Ex Ruta 3</p>
                 <p>Espinillar, Salto</p>

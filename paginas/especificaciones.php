@@ -54,10 +54,6 @@ if (isset($_GET['id'])) {
     echo "<p>No se ha seleccionado ningún lote.</p>";
 }
 
-if(isset($_SESSION['oferta']) && $_SESSION['oferta'] == "echo") {
-    echo "<script>alert('Oferta hecha correctamente');</script>";
-    $_SESSION['oferta'] = "no";
-}
 $_SESSION['lote_id'] = $lote_id;
 ?>
 <!DOCTYPE html>
@@ -69,6 +65,8 @@ $_SESSION['lote_id'] = $lote_id;
     <link rel="stylesheet" href="../css/especificaciones.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/actualizar_oferta.js"></script>
+    <script src="../libreria/sweetalert2.min.js"></script>
+    <link href="../libreria/sweetalert2.css" rel="stylesheet">
 </head>
 <?php 
 if ($rol_usuario == 'Administrador'){
@@ -232,5 +230,14 @@ if ($rol_usuario == 'Administrador'){
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<?php include '../includes/footer.php'; ?>
+<?php include '../includes/footer.php';
+if(isset($_SESSION['oferta']) && $_SESSION['oferta'] == "echo") {
+    echo "<script>Swal.fire({
+  icon: 'success',
+  title: 'Oferta hecha correctamente',
+  showConfirmButton: false,
+  timer: 1500
+});</script>";
+    $_SESSION['oferta'] = "no";
+} ?>
 </html>

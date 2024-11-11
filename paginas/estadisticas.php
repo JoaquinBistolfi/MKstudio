@@ -30,6 +30,16 @@ if ($h3s->length > 0) {
         5 => ["label" => "Vaca invernada", "img" => "../imagenes/invernada.png"],
     ];
 
+    $gordoData = [];
+    $reposicionData = [];
+
+    for ($i = 0; $i < 3; $i++) {
+        $gordoData[] = (float) str_replace(',', '.', trim($h3s[$i]->nodeValue));
+    }
+    for ($i = 3; $i < 6; $i++) {
+        $reposicionData[] = (float) str_replace(',', '.', trim($h3s[$i]->nodeValue));
+    }
+
     @$rol_usuario = $_SESSION['rol'];
 
     ?>
@@ -40,6 +50,7 @@ if ($h3s->length > 0) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Precios de Ganado</title>
         <link rel="stylesheet" href="../css/estadisticas.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <?php 
     if ($rol_usuario == 'Administrador') {
@@ -81,8 +92,70 @@ if ($h3s->length > 0) {
                 }
                 ?>
             </div>
+            <div class='graficas'>
+            <canvas id="gordo"></canvas>
+            <canvas id="reposicion"></canvas>
         </div>
+        </div>
+        
         <?php include '../includes/footer.php'; ?>
+        
+        <script>
+            var gordoData = <?php echo json_encode($gordoData); ?>;
+            var reposicionData = <?php echo json_encode($reposicionData); ?>;
+            console.log("Datos Gordo:", gordoData);
+            console.log("Datos Reposición:", reposicionData);
+
+            var ctxGordo = document.querySelector('#gordo').getContext('2d');
+            var graficaGordo = new Chart(ctxGordo, {
+                type: 'bar',
+                data: {
+                    labels: ['Novillo', 'Vaca', 'Vaquillona'],
+                    datasets: [{
+                        label: 'Precios Gordo (USD por kg)',
+                        backgroundColor: 'rgb(75, 192, 192)',
+                        borderColor: 'rgb(75, 192, 192)',
+                        data: gordoData
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            min: 2,
+                            max: 5,
+                            ticks: {
+                                stepSize: 0.2
+                            }
+                        }
+                    }
+                }
+            });
+
+            var ctxReposicion = document.querySelector('#reposicion').getContext('2d');
+            var graficaReposicion = new Chart(ctxReposicion, {
+                type: 'bar',
+                data: {
+                    labels: ['Ternero', 'Ternera', 'Vaca invernada'],
+                    datasets: [{
+                        label: 'Precios Reposicion (USD por kg)',
+                        backgroundColor: 'rgb(255, 159, 64)',
+                        borderColor: 'rgb(255, 159, 64)',
+                        data: reposicionData
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            min: 2,
+                            max: 5,
+                            ticks: {
+                                stepSize: 0.2
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
     </body>
     </html>
     <?php
