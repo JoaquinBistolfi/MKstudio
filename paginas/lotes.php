@@ -33,31 +33,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
         $sql_lotes = "INSERT INTO lotes (categoria, cantidad, peso_promedio, peso_maximo, peso_minimo, cant_pesada, estado, raza, edad, clase, sanidad, tratamiento_nutricional, observaciones, conoce_miomio, zona_garrapata, fecha_inicio, fecha_fin, id_certificador) 
                       VALUES ('$categoria', '$cantidad', '$peso', '$peso_maximo', '$peso_minimo', '$cant_pesada', '$estado', '$raza', '$edad', '$clase', '$sanidad', '$tratamiento_nutricional', '$observaciones', '$conoce_miomio', '$zona_garrapata', '$fecha_ini', '$fecha_fin', '$certificador')";
 
-        if (mysqli_query($conexion, $sql_lotes)) {
-            $id_lote = mysqli_insert_id($conexion);
+    if (mysqli_query($conexion, $sql_lotes)) {
+    $id_lote = mysqli_insert_id($conexion);
 
-            foreach ($_FILES['archivos']['tmp_name'] as $index => $tmp_name) {
-                $nombre_archivo = $_FILES['archivos']['name'][$index];
-                $ruta_archivo = $nombre_carpeta . '/' . basename($nombre_archivo);
+    foreach ($_FILES['archivos']['tmp_name'] as $index => $tmp_name) {
+        $nombre_archivo = $_FILES['archivos']['name'][$index];
+        $ruta_archivo = $nombre_carpeta . '/' . basename($nombre_archivo);
 
-                if (move_uploaded_file($tmp_name, $ruta_archivo)) {
-                    $tipo = pathinfo($ruta_archivo, PATHINFO_EXTENSION) === 'mp4' ? 'video' : 'imagen';
+        if (move_uploaded_file($tmp_name, $ruta_archivo)) {
+            $tipo = pathinfo($ruta_archivo, PATHINFO_EXTENSION) === 'mp4' ? 'video' : 'imagen';
 
-                    $sql_archivo = "INSERT INTO archivo (id_lote, ruta, tipo) VALUES ('$id_lote', '$ruta_archivo', '$tipo')";
-                    if (!mysqli_query($conexion, $sql_archivo)) {
-                        echo "Error al guardar el archivo: " . mysqli_error($conexion);
-                    }
-                } else {
-                    echo "Error al mover el archivo: " . $nombre_archivo;
-                }
+            $sql_archivo = "INSERT INTO archivo (id_lote, ruta, tipo) VALUES ('$id_lote', '$ruta_archivo', '$tipo')";
+            if (!mysqli_query($conexion, $sql_archivo)) {
+                echo "Error al guardar el archivo: " . mysqli_error($conexion);
             }
-
-            header("Location: " . $_SERVER['PHP_SELF']);
-            $_SESSION['mail'] = "nuevolote";
-            exit;
         } else {
-            echo "Error al guardar el lote: " . mysqli_error($conexion);
+            echo "Error al mover el archivo: " . $nombre_archivo;
         }
+    }
+
+    include 'mail.php';
+
+    header("Location: " . $_SERVER['PHP_SELF']);
+    $_SESSION['mail'] = "nuevolote";
+    exit;
+} else {
+    echo "Error al guardar el lote: " . mysqli_error($conexion);
+}
     } else {
         echo "Por favor, completa todos los campos.";
     }
