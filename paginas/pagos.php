@@ -70,15 +70,20 @@ $result = mysqli_query($conexion, $sql);
                     <tbody>";
             while ($row = mysqli_fetch_assoc($result)) {
                 $total = $row['monto'] * $row['cantidad'] * $row['peso_promedio'];
-                $falta = $total - $row['total_pagado'];  
-                echo "<tr>";
-                echo "<td><a href='administrar_pagos.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
-                echo "<td>" . $row['categoria'] . ' ' . $row['raza'] . ' ' . $row['cantidad'] . "</td>";
-                echo "<td class='esconder'>" . $total . "</td>";
-                echo "<td class='esconder'>" . $row['total_pagado'] . "</td>";  
-                echo "<td>" . $falta . "</td>";
-                echo "<td><a href='pdf/pdf.php?id=" . $row['id_lote'] . "'><img src='../imagenes/ojo-abierto.png' alt='nota_de_venta' class='factura'></a></td>";
-                echo "</tr>";
+                $falta = $total - $row['total_pagado'];
+
+                if ($falta > 0) {
+                    echo "<tr>";
+                    echo "<td><a href='administrar_pagos.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
+                    echo "<td>" . $row['categoria'] . ' ' . $row['raza'] . ' ' . $row['cantidad'] . "</td>";
+                    echo "<td class='esconder'>" . $total . "</td>";
+                    echo "<td class='esconder'>" . $row['total_pagado'] . "</td>";  
+                    echo "<td>" . $falta . "</td>";
+                    echo "<td><a href='pdf/pdf.php?id=" . $row['id_lote'] . "'><img src='../imagenes/ojo-abierto.png' alt='nota_de_venta' class='factura'></a></td>";
+                    echo "</tr>";
+                } else {
+                    echo "<tr><td colspan='6'>No tiene clientes con deudas.</td></tr>";
+                }
             }
             echo '</tbody></table>';
         } else {

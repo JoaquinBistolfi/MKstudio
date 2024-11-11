@@ -18,6 +18,7 @@ $sql = "SELECT
             archivo ON lotes.id_lote = archivo.id_lote 
         WHERE 
             fecha_fin > NOW() 
+            AND lotes.vendido = 0
         GROUP BY 
             lotes.id_lote";
 

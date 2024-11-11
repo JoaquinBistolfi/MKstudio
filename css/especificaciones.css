@@ -29,6 +29,7 @@ h1 {
 
 .carousel-item img,
 .carousel-item video {
+    object-fit: cover;
     width: auto; 
     height: 600px;
     border-radius: 10px;

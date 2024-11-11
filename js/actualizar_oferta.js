@@ -1,23 +1,34 @@
 function actualizarOferta() {
-    fetch('obtener_oferta_lote.php?id=' + loteId)
-        .then(response => response.json())
-        .then(data => {
-            let montoMaximo = data.monto;
-            if (montoMaximo !== "No hay ofertas") {
-                document.getElementById("oferta_actual").innerHTML = `${montoMaximo}`;
-            } 
 
-            if (montoUsuario < montoMaximo) {
-                document.getElementById("oferta_usuario").style.color = "red";
-            } else if (montoUsuario == montoMaximo) {
-                document.getElementById("oferta_usuario").style.color = "green";
-            }
+    const ofertaActual = document.getElementById("oferta_actual");
+    const ofertaUsuario = document.getElementById("oferta_usuario");
 
-            document.getElementById("oferta_usuario").innerHTML = `Tu oferta: ${montoUsuario || 'N/A'}`;
-        })
-        .catch(error => console.log('Error al obtener la oferta:', error));
+    if (ofertaActual && ofertaUsuario) {
+        fetch('obtener_oferta_lote.php?id=' + loteId)
+            .then(response => response.json())
+            .then(data => {
+                let montoMaximo = data.monto;
+                let esUsuario = data.es_usuario;
+
+                if (montoMaximo !== "No hay ofertas") {
+                    ofertaActual.innerHTML = `La mayor oferta es: ${montoMaximo}`;
+                } else {
+                    ofertaActual.innerHTML = "No hay ofertas aún.";
+                }
+
+                ofertaUsuario.innerHTML = `Tu oferta: ${montoUsuario || 'N/A'}`;
+
+                if (esUsuario) {
+                    ofertaActual.innerHTML += " (Fue hecha por usted)";
+                }
+            })
+            .catch(error => console.log('Error al obtener la oferta:', error));
+    } else {
+        console.log('Los elementos no existen en el DOM');
+    }
 }
 
-setInterval(actualizarOferta, 5000);
-
-actualizarOferta();
+window.onload = function() {
+    setInterval(actualizarOferta, 5000); 
+    actualizarOferta(); 
+};

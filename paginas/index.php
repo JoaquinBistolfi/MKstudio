@@ -75,16 +75,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="card">
                         <img src="../imagenes/loteangus.webp" class="img" alt="Lote Angus">
                         <div class="details">
-                            <h2>Novillos negros</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum autem culpa consequatur! Eaque beatae, minus eum maxime quos assumenda ad officiis quam maiores eveniet dignissimos repudiandae quibusdam quia, cum consequuntur.</p>
+                            <h2>Información sobre el ganado</h2>
+                            <p>En nuestro remate de ganado, ofrecemos una amplia variedad de lotes, adaptados a las necesidades de nuestros clientes. Cada lote tiene información detallada sobre su peso, edad y características, lo que permite a los compradores tomar decisiones informadas.</p>
                         </div>
                     </div>
 
                     <div class="card">
                         <img src="../imagenes/novillonegro.jpg" class="img" alt="Novillo Negro">
                         <div class="details">
-                            <h2>Novillos Angus</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat eaque itaque blanditiis ea facilis accusamus nesciunt, eum facere sapiente nulla vitae tempora eius illum minima possimus reprehenderit laudantium voluptas sunt.</p>
+                            <h2>Información sobre la empresa:</h2>
+                            <p>Contamos con un equipo profesional altamente capacitado y comprometido con la excelencia en el servicio.Además, nos enorgullece colaborar con productores locales y nacionales, promoviendo el desarrollo del sector ganadero. Nuestro objetivo es ofrecer una plataforma moderna y accesible, facilitando el acceso a precios competitivos y un mercado en constante crecimiento.</p>
                         </div>
                     </div>
                 </div>

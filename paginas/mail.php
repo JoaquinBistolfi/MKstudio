@@ -1,43 +1,42 @@
 <?php
 include '../includes/conexion.php';
 
-session_start();
+function enviarCorreo($to, $subject, $message) {
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers .= "From: no-reply@tudominio.com" . "\r\n";
 
-if ($_SESSION['mail'] == "nuevolote") {
-    $sql = "SELECT Email FROM usuarios";
-    $result = $conexion->query($sql);
-
-    $sql2 = "SELECT * FROM lotes ORDER BY ID_Lote DESC LIMIT 1";
-    $result2 = $conexion->query($sql2);
-
-    if ($result2 && mysqli_num_rows($result2) > 0) {
-        $lote = $result2->fetch_assoc();
-    } else {
-        echo "No hay lotes disponibles.";
-        exit;  
-    }
-
-    if (mysqli_num_rows($result) > 0) {
-        while($row = $result->fetch_assoc()) {
-            $email = $row['Email'];
-            enviarCorreo($email, $lote); 
-        }
-    } else {
-        echo "No hay usuarios registrados.";
-    }
+    return mail($to, $subject, $message, $headers);
 }
 
-function enviarCorreo($para, $lote) {
-    $asunto = "Nuevo lote publicado.";
-    $mensaje = "Categoría: " . $lote['Categoria'] . "<br> Cantidad: " . $lote['Cantidad'] . "<br> Peso: " . $lote['Peso_Prom'] . "<br> Descripción: " . $lote['Observaciones'];
-    $cabeceras = "From: mkstudio3be@gmail.com\r\n";
-    $cabeceras .= "Reply-To: mkstudio3be@gmail.com\r\n";
-    $cabeceras .= "Content-Type: text/html; charset=UTF-8\r\n";
+$sql_usuarios = "SELECT mail FROM usuarios";
+$result_usuarios = mysqli_query($conexion, $sql_usuarios);
 
-    if (mail($para, $asunto, $mensaje, $cabeceras)) {
-        echo "Correo enviado a: $para<br>";
-    } else {
-        echo "No se pudo enviar el correo a: $para<br>";
+if ($result_usuarios && mysqli_num_rows($result_usuarios) > 0) {
+    while ($row = mysqli_fetch_assoc($result_usuarios)) {
+        $email = $row['mail'];
+
+        $subject = "Nuevo Lote Publicado";
+        $message = "
+        <html>
+        <head>
+        <title>Nuevo Lote</title>
+        </head>
+        <body>
+        <h2>¡Nuevo lote disponible!</h2>
+        <p>Un nuevo lote ha sido publicado en nuestra plataforma.</p>
+        <p><strong>Categoría:</strong> {$_POST['categoria']}</p>
+        <p><strong>Cantidad:</strong> {$_POST['cantidad']}</p>
+        <p><strong>Peso Promedio:</strong> {$_POST['peso']}</p>
+        <p><strong>Raza:</strong> {$_POST['raza']}</p>
+        <p><a href='http://.com/lotes.php'>Ver el lote completo</a></p> 
+        </body>
+        </html>
+        ";// falta poner la url de nueswtra pagina cuando quede subida
+
+        enviarCorreo($email, $subject, $message);
     }
+} else {
+    echo "No se encontraron usuarios para enviar el correo.";
 }
 ?>

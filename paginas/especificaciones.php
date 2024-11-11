@@ -54,10 +54,6 @@ if (isset($_GET['id'])) {
     echo "<p>No se ha seleccionado ningún lote.</p>";
 }
 
-if(isset($_SESSION['oferta']) && $_SESSION['oferta'] == "echo") {
-    echo "<script>alert('Oferta hecha correctamente');</script>";
-    $_SESSION['oferta'] = "no";
-}
 $_SESSION['lote_id'] = $lote_id;
 ?>
 <!DOCTYPE html>
@@ -69,6 +65,8 @@ $_SESSION['lote_id'] = $lote_id;
     <link rel="stylesheet" href="../css/especificaciones.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/actualizar_oferta.js"></script>
+    <script src="../libreria/sweetalert2.min.js"></script>
+    <link href="../libreria/sweetalert2.css" rel="stylesheet">
 </head>
 <?php 
 if ($rol_usuario == 'Administrador'){
@@ -113,44 +111,49 @@ if ($rol_usuario == 'Administrador'){
         </div>
         
         <div class="oferta">
-            <h2>Ofertas</h2>
-            <?php
-            if (isset($_SESSION['user_id'])) {
-                if (mysqli_num_rows($result2) > 0) {
-                    $oferta = mysqli_fetch_assoc($result2);
-                    if ($oferta['id_usuario'] == $_SESSION['user_id']) {
-                        echo '<div id="oferta_actual"><p>La mayor oferta es: ' . $oferta['monto'] . '. Fue hecha por usted.</p></div>';
-                    } else {
-                        echo '<div id="oferta_actual"><p>La mayor oferta es: ' . $oferta['monto'] . '</p></div>';
-                    }             
-                } else {
-                    echo "<p>No hay ninguna oferta aun.</p>";
-                }
-                
-                if($rol_usuario != 'Administrador'){
-                    echo 
-                    '
-                        <p>Precio en dólares por kilo</p>
-                    <form action="procesar_oferta.php" method="post">
-                        <input type="hidden" name="lote_id" value="' . $lote['id_lote'] . '">
-                        <label for="oferta">Ingrese su oferta:</label>
-                        <input type="number" name="oferta" step=0.01 min=' . @$oferta['monto'] + 0.01 .' id="oferta" required>
-                        <button type="submit">Enviar oferta</button>
-                    </form>';
-                }
-                echo'
-                <div class="cronometro">
-                    <h2>Tiempo restante:</h2>
-                    <div id="contador"></div>
-                </div>';
-            
+    <h2>Ofertas</h2>
+    <?php
+    if (isset($_SESSION['user_id'])) {
+        if (mysqli_num_rows($result2) > 0) {
+            $oferta = mysqli_fetch_assoc($result2);
+            if ($oferta['id_usuario'] == $_SESSION['user_id']) {
+                echo "<div id='oferta_usuario'></div>
+                <div id='oferta_actual'><p>La mayor oferta es:" . $oferta['monto'] . "Fue hecha por usted.</p></div>";
             } else {
+                echo "<div id='oferta_usuario'></div>
+                <div id='oferta_actual'><p>La mayor oferta es:" . $oferta['monto'] . "</p></div>";
+            }             
+        } else {
+            echo "<p>No hay ninguna oferta aún.</p>";
+        }
+        
+        if ($tiempo_restante_inicio <= 0 && $tiempo_restante_fin > 0) {
+            if($rol_usuario != 'Administrador') {
                 echo '
-                <p>Debes iniciar sesión para hacer una oferta.</p>
-                <a href="inicio_sesion.php"><button>Iniciar sesión</button></a>';
+                <p>Precio en dólares por kilo</p>
+                <form action="procesar_oferta.php" method="post">
+                    <input type="hidden" name="lote_id" value="' . $lote['id_lote'] . '">
+                    <label for="oferta">Ingrese su oferta:</label>
+                    <input type="number" name="oferta" step=0.01 min=' . @$oferta['monto'] + 0.01 .' id="oferta" required>
+                    <button type="submit">Enviar oferta</button>
+                </form>';
             }
-            ?>
-        </div>
+        } else {
+            echo "<p>La subasta no está en curso. No se pueden realizar ofertas.</p>";
+        }
+    
+        echo '
+        <div class="cronometro">
+            <h2>Tiempo restante:</h2>
+            <div id="contador"></div>
+        </div>';
+    } else {
+        echo '
+        <p>Debes iniciar sesión para hacer una oferta.</p>
+        <a href="inicio_sesion.php"><button>Iniciar sesión</button></a>';
+    }
+    ?>
+</div>
 
         <div class="informacion">
             <h2>Información</h2>
@@ -188,41 +191,53 @@ if ($rol_usuario == 'Administrador'){
     </div>
 
     <script>
-        var loteId = <?php echo $lote_id; ?>;
-        let montoUsuario = <?php echo isset($oferta['monto']) && is_numeric($oferta['monto']) ? $oferta['monto'] : 0; ?>;
+    var loteId = <?php echo $lote_id; ?>;
+    let montoUsuario = <?php echo isset($oferta['monto']) && is_numeric($oferta['monto']) ? $oferta['monto'] : 0; ?>;
 
-        let tiempoRestanteInicio = <?php echo $tiempo_restante_inicio; ?>;
-        let tiempoRestanteFin = <?php echo $tiempo_restante_fin; ?>;
+    let tiempoRestanteInicio = <?php echo $tiempo_restante_inicio; ?>;
+    let tiempoRestanteFin = <?php echo $tiempo_restante_fin; ?>;
 
-        function formatoTiempo(segundos) {
-            let horas = Math.floor(segundos / 3600);
-            let minutos = Math.floor((segundos % 3600) / 60);
-            let segundos_restantes = segundos % 60;
+    function formatoTiempo(segundos) {
+        let horas = Math.floor(segundos / 3600);
+        let minutos = Math.floor((segundos % 3600) / 60);
+        let segundos_restantes = segundos % 60;
 
-            horas = horas < 10 ? '0' + horas : horas;
-            minutos = minutos < 10 ? '0' + minutos : minutos;
-            segundos_restantes = segundos_restantes < 10 ? '0' + segundos_restantes : segundos_restantes;
+        horas = horas < 10 ? '0' + horas : horas;
+        minutos = minutos < 10 ? '0' + minutos : minutos;
+        segundos_restantes = segundos_restantes < 10 ? '0' + segundos_restantes : segundos_restantes;
 
-            return horas + 'hr ' + minutos + 'min ' + segundos_restantes + 'seg';
+        return horas + 'hr ' + minutos + 'min ' + segundos_restantes + 'seg';
+    }
+
+    function actualizarContador() {
+        if (tiempoRestanteInicio > 0) {
+            document.getElementById('contador').innerHTML = "Faltan: " + formatoTiempo(tiempoRestanteInicio) + " para que empiece";
+            tiempoRestanteInicio--;
+        } else if (tiempoRestanteFin > 0) {
+            document.getElementById('contador').innerHTML = "Tiempo restante: " + formatoTiempo(tiempoRestanteFin);
+            tiempoRestanteFin--;
+        } else {
+            clearInterval(intervalo);
+            document.getElementById('contador').innerHTML = "¡Subasta finalizada!";
         }
+    }
 
-        function actualizarContador() {
-            if (tiempoRestanteInicio > 0) {
-                document.getElementById('contador').innerHTML = "Faltan: " + formatoTiempo(tiempoRestanteInicio) + " para que empiece";
-                tiempoRestanteInicio--;
-            } else if (tiempoRestanteFin > 0) {
-                document.getElementById('contador').innerHTML = "Tiempo restante: " + formatoTiempo(tiempoRestanteFin);
-                tiempoRestanteFin--;
-            } else {
-                clearInterval(intervalo);
-                document.getElementById('contador').innerHTML = "¡Subasta finalizada!";
-            }
-        }
+    let intervalo = setInterval(actualizarContador, 1000);
+</script>
 
-        let intervalo = setInterval(actualizarContador, 1000);
-    </script>
+<script src="../js/actualizar_oferta.js"></script>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<?php include '../includes/footer.php'; ?>
+<?php include '../includes/footer.php';
+if(isset($_SESSION['oferta']) && $_SESSION['oferta'] == "echo") {
+    echo "<script>Swal.fire({
+  icon: 'success',
+  title: 'Oferta hecha correctamente',
+  showConfirmButton: false,
+  timer: 1500
+});</script>";
+    $_SESSION['oferta'] = "no";
+} ?>
 </html>
