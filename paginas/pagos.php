@@ -55,14 +55,14 @@ $result = mysqli_query($conexion, $sql);
 <body>
 
     <div class="content">
-        <h2>Lista de Lotes Disponibles</h2>
+        <h2>Lista de pagos</h2>
         <?php
         if (mysqli_num_rows($result) > 0) {
             echo "<table class='listas'>
                     <thead>
                         <tr>
                             <th>Foto</th>
-                            <th>Lote</th>
+                            <th class='esconder'>Lote</th>
                             <th class='esconder'>Total</th>
                             <th class='esconder'>Pagado</th>
                             <th>Falta</th>
@@ -77,7 +77,7 @@ $result = mysqli_query($conexion, $sql);
                 if ($falta > 0) {
                     echo "<tr>";
                     echo "<td><a href='administrar_pagos.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
-                    echo "<td>" . $row['categoria'] . ' ' . $row['raza'] . ' ' . $row['cantidad'] . "</td>";
+                    echo "<td class='esconder'>" . $row['categoria'] . ' ' . $row['raza'] . ' ' . $row['cantidad'] . "</td>";
                     echo "<td class='esconder'>" . $total . "</td>";
                     echo "<td class='esconder'>" . $row['total_pagado'] . "</td>";  
                     echo "<td>" . $falta . "</td>";

@@ -57,26 +57,26 @@ GROUP BY
             echo "<div class='no-lotes'>Debe iniciar sesión para ver sus ofertas.</div>";
         } else {
             if(mysqli_num_rows($result) > 0) {
-                echo '<table class="listas">
+                echo "<table class='listas'>
                         <thead>
                             <tr>
                                 <th>Foto</th>
-                                <th>Categoría</th>
-                                <th>Cantidad</th>
-                                <th>Peso Promedio</th>
+                                <th class='esconder'>Categoría</th>
+                                <th class='esconder'>Cantidad</th>
+                                <th class='esconder'>Peso Promedio</th>
                                 <th>Tu Oferta</th>
                                 <th>Oferta Más Alta</th>
                             </tr>
                         </thead>
-                        <tbody>';
+                        <tbody>";
                 while ($row = mysqli_fetch_assoc($result)) {
                     $color_usuario = $row['Monto_Usuario'] < $row['Monto_Maximo'] ? 'red' : 'green';
                     $color_maximo = $row['Monto_Usuario'] == $row['Monto_Maximo'] ? 'green' : 'black';
                     echo "<tr>";
                     echo "<td><a href='especificaciones.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
-                    echo "<td>" . $row['categoria'] . "</td>";
-                    echo "<td>" . $row['cantidad'] . "</td>";
-                    echo "<td>" . $row['peso_promedio'] . "</td>";
+                    echo "<td class='esconder'>" . $row['categoria'] . "</td>";
+                    echo "<td class='esconder'>" . $row['cantidad'] . "</td>";
+                    echo "<td class='esconder'>" . $row['peso_promedio'] . "</td>";
                     echo "<div id='oferta_usuario'><td>" . ($row['Monto_Usuario'] ?: 'N/A') . "</td></div>";
                     echo "<div id='oferta_actual'><td>" . ($row['Monto_Maximo'] ?: 'N/A') . "</td></div>";
                     echo "</tr>";

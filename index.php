@@ -190,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 } else {
                     echo '
                     <p>Debes iniciar sesión para hacer una pregunta.</p>
-                    <a href="inicio_sesion.php"><button class="btn-login">Iniciar sesión</button></a>';
+                    <a href="paginas/inicio_sesion.php"><button class="btn-login">Iniciar sesión</button></a>';
                 }
                 ?>
             </div>
@@ -226,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php else: ?>
                         <div class="centro">
                             <p>Debes iniciar sesión para dejar una valoración.</p>
-                            <a href="inicio_sesion.php"><button class="btn-login">Iniciar sesión</button></a>
+                            <a href="paginas/inicio_sesion.php"><button class="btn-login">Iniciar sesión</button></a>
                         </div>
                     <?php endif;
                     if (@$valoracion_existente): ?>
@@ -269,8 +269,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div class="contactos-footer">
                 <h3>Contacto</h3>
-                <p>Teléfono: +598 XXX XXX XXX</p>
-                <p>Correo electrónico: info@empresa.com</p>
+                <p>Teléfono: +598 91 033 443</p>
+                <p>Correo electrónico: bdarosa12@gmail.com</p>
             </div>
             <div class="links-footer">
                 <h3>Enlaces</h3>

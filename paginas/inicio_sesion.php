@@ -52,7 +52,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
             <label>Contraseña</label>
             <input type="password" name='password' required>
             <div class="recordar">
-                <a href="#">¿Olvidó su contraseña?</a>
+                <a href="olvidecontra.php">¿Olvidó su contraseña?</a>
             </div>
             <input type="submit" value="Iniciar Sesión">
             <div>

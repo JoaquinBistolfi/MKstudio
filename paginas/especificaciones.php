@@ -128,7 +128,7 @@ if ($rol_usuario == 'Administrador'){
             echo "<p>No hay ninguna oferta aún.</p>";
         }
         
-        if ($tiempo_restante_inicio <= 0 && $tiempo_restante_fin > 0) {
+        if ($tiempo_restante_inicio < 0 && $tiempo_restante_fin >= 0) {
             if($rol_usuario != 'Administrador') {
                 echo '
                 <p>Precio en dólares por kilo</p>
@@ -185,8 +185,8 @@ if ($rol_usuario == 'Administrador'){
         <div class="certificador">
             <h2>Certificador</h2>
             <?php
-            echo "<p>Certificado por: " . $certificador['profesion'] . " " . $certificador['nombre'] . " " .  $certificador['apellido'] ."</p>";
-            echo "<img src='" . $certificador['ruta_archivo'] . "' alt='" . $certificador['nombre'] . "'>";
+            echo "<p>Certificado por: " . @$certificador['profesion'] . " " . @$certificador['nombre'] . " " .  @$certificador['apellido'] ."</p>";
+            echo "<img src='" . @$certificador['ruta_archivo'] . "' alt='" . @$certificador['nombre'] . "'>";
             ?>
         </div>
     </div>

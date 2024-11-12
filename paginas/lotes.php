@@ -194,7 +194,7 @@ $result_cert = mysqli_query($conexion, $sql_cert);
     <table class="listas">
         <thead>
             <tr>
-                <th class='esconder'>Foto</th>
+                <th>Foto</th>
                 <th class='esconder'>Categoría</th>
                 <th class='esconder'>Raza</th>
                 <th class='esconder'>Cantidad</th>
@@ -208,7 +208,7 @@ $result_cert = mysqli_query($conexion, $sql_cert);
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td class='esconder'><a href='administrar_lote.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "' class='imagen'></a></td>";  
+                        echo "<td><a href='administrar_lote.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "' class='imagen'></a></td>";  
                         echo "<td class='esconder'>" . $row['categoria'] . "</td>";
                         echo "<td class='esconder'>" . $row['raza'] . "</td>";
                         echo "<td class='esconder'>" . $row['cantidad'] . "</td>";
