@@ -47,8 +47,10 @@ $result = mysqli_query($conexion, $sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lotes</title>
+    <title>Mis pagos</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
+    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
+
 </head>
 <?php 
     if ($rol_usuario == 'Administrador'){

@@ -48,6 +48,7 @@ if (!$result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar nuevo certificador</title>
     <link rel="stylesheet" href="../css/certificador.css">
+    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
 </head>
     <?php 
     if ($rol_usuario == 'Administrador'){

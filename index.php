@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-include '../includes/conexion.php';
+include 'includes/conexion.php';
 
 @$rol_usuario = $_SESSION['rol'];
 @$id_usuario = @$_SESSION['user_id'];
@@ -37,6 +37,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ORDER BY v.fecha DESC";
     $resultV = $conexion->query($sqlV);
 
+    
+    @$id_usuario = @$_SESSION['user_id'];
+
+    $sql_usuarios = "SELECT * FROM usuarios WHERE id_usuario = '$id_usuario';";
+    $result_usuarios = mysqli_query($conexion, $sql_usuarios);
+    if (!$result_usuarios) {
+        die("Error en la consulta SQL: " . mysqli_error($conexion));
+    }
+    $usuarioH = mysqli_fetch_assoc($result_usuarios);
 
 ?>
 <!DOCTYPE html>
@@ -45,27 +54,99 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da Rosa</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
+    <link rel="stylesheet" href="main.css">
+    <link rel="shortcut icon" href="imagenes/logoico.ico" type="image/x-icon">
 </head>
 <body>
     <?php 
     if ($rol_usuario == 'Administrador'){
-        include '../includes/headeradmin.php';
+        ?>
+        <header>
+            <link rel="stylesheet" href="headeradmin.css">
+
+            <input type="checkbox" id="activar" class="header_checkbox"> 
+            <label for="activar" class="abrir_menu" role="button">=</label>
+
+            <a href="index.php"><img class="header_logo" src="imagenes/darosa.png" alt="logo de la empresa"></a>
+
+            <nav class="header_nav">
+                <ul class="header_nav_lista">
+                    <li class="header_nav_link"><a href="paginas/estadisticas.php">Estadísticas</a></li>
+                    <li class="header_nav_link submenu">
+                        <a href="#">Administración</a>
+                        <ul class="header_submenu">
+                            <li><a href="paginas/certificador.php">Certificador</a></li>
+                            <li><a href="paginas/lotes.php">Administrar Lotes</a></li>
+                            <li><a href="paginas/administrar_usuarios.php">Administrar Usuarios</a></li>
+                            <li><a href="paginas/administrar_preguntas.php">Preguntas</a></li>
+                            <li><a href="paginas/pagos.php">Administrar pagos</a></li>
+                        </ul>
+                    </li>
+                    <li class="header_nav_link"><a href="paginas/lotesusr.php">Lotes</a></li>
+                </ul>
+            </nav>
+            <div class="perfil-usr">
+                <input type="checkbox" id="user-menu-btn" class="user-checkbox">
+                <label for="user-menu-btn">
+                    <img src="imagenes/avatar.png" alt="Usuario" class="user-icon">
+                </label>
+                <div class="user-menu">
+                    <p><strong>Nombre:</strong><?php echo $usuarioH['usuario'];?></p>
+                    <p><strong>Email:</strong> <?php echo $usuarioH['mail']; ?></p>
+                    <a href="paginas/sessiondestroy.php">Cerrar sesión</a>
+                </div>
+            </div>
+        </header>
+        <?php
     }else{
-        include '../includes/header.php';
+        ?>
+        <header>
+    <link rel="stylesheet" href="css/header.css">
+    
+    <input type="checkbox" id="activar" class="header_checkbox"> 
+    <label for="activar" class="abrir_menu" role="button">=</label>
+    <a href="index.php"><img class="header_logo" src="imagenes/darosa.png" alt="logo de la empresa"></a>
+    
+    <nav class="header_nav">
+        <ul class="header_nav_lista">
+            <li class="header_nav_link"><a href="paginas/estadisticas.php">Estadísticas</a></li>
+            <li class="header_nav_link"><a href="paginas/mis_ofertas.php">Mis ofertas</a></li>
+            <li class="header_nav_link"><a href="paginas/lotesusr.php">Lotes</a></li>
+            <li class="header_nav_link"><a href="paginas/mispagos.php">Mis pagos</a></li>
+        </ul>
+    </nav>
+    <?php if (isset($_SESSION['user_id'])) {
+        echo'
+    <div class="perfil-usr">
+        <input type="checkbox" id="user-menu-btn" class="user-checkbox">
+        <label for="user-menu-btn">
+            <img src="imagenes/avatar.png" alt="Usuario" class="user-icon">
+        </label>
+        <div class="user-menu">
+            <p><strong>Nombre:</strong>' . @$usuarioH['nombre'] . ' </p>
+            <p><strong>Email:</strong>' . @$usuarioH['mail'] . '</p>
+            <a href="paginas/sessiondestroy.php">Cerrar sesión</a>
+        </div>
+    </div>';
+    }else{
+        echo'
+        <a href="paginas/inicio_sesion.php"><img src="imagenes/avatar.png" alt="Usuario" class="user-icon"></a>
+        ';
+    }?>
+    </header>
+    <?php
     }
-    ?>
+?>
 
     <main>
         <section class="info_vaca">
             <div class="img_vaca">
                 <ul>
-                    <li><img src="../imagenes/loteangus.webp" alt="Imagen del lote Angus"></li>
-                    <li><img src="../imagenes/lotebraford.jpg" alt="Imagen del lote Braford"></li>
-                    <li><img src="../imagenes/lotepampa.jpeg" alt="Imagen del lote Pampa"></li>
-                    <li><img src="../imagenes/novillonegro.jpg" alt="Imagen del lote Novillo Negro"></li>
-                    <li><img src="../imagenes/gandado.jpg" alt="Imagen del ganado"></li>
+                    <li><img src="imagenes/loteangus.webp" alt="Imagen del lote Angus"></li>
+                    <li><img src="imagenes/lotebraford.jpg" alt="Imagen del lote Braford"></li>
+                    <li><img src="imagenes/lotepampa.jpeg" alt="Imagen del lote Pampa"></li>
+                    <li><img src="imagenes/novillonegro.jpg" alt="Imagen del lote Novillo Negro"></li>
+                    <li><img src="imagenes/gandado.jpg" alt="Imagen del ganado"></li>
                 </ul>
             </div>
 
@@ -73,7 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <h1>Características de los Lotes</h1>
                 <div class="cartas">
                     <div class="card">
-                        <img src="../imagenes/loteangus.webp" class="img" alt="Lote Angus">
+                        <img src="imagenes/loteangus.webp" class="img" alt="Lote Angus">
                         <div class="details">
                             <h2>Información sobre el ganado</h2>
                             <p>En nuestro remate de ganado, ofrecemos una amplia variedad de lotes, adaptados a las necesidades de nuestros clientes. Cada lote tiene información detallada sobre su peso, edad y características, lo que permite a los compradores tomar decisiones informadas.</p>
@@ -81,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="card">
-                        <img src="../imagenes/novillonegro.jpg" class="img" alt="Novillo Negro">
+                        <img src="imagenes/novillonegro.jpg" class="img" alt="Novillo Negro">
                         <div class="details">
                             <h2>Información sobre la empresa:</h2>
                             <p>Contamos con un equipo profesional altamente capacitado y comprometido con la excelencia en el servicio.Además, nos enorgullece colaborar con productores locales y nacionales, promoviendo el desarrollo del sector ganadero. Nuestro objetivo es ofrecer una plataforma moderna y accesible, facilitando el acceso a precios competitivos y un mercado en constante crecimiento.</p>
@@ -175,7 +256,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </main>
-    <?php include '../includes/footer.php'; ?>
-<script src="../js/funciones.js"></script>
+    <footer>
+    <link rel="stylesheet" href="css/footer.css">
+        <div class="footer">
+            <div class="logo-footer">
+                <img src="imagenes/darosa.png" alt="Logo de la empresa">
+            </div>
+            <div class="datttos">
+                <h3>Ubicacion</h3>
+                <p>Ex Ruta 3</p>
+                <p>Espinillar, Salto</p>
+            </div>
+            <div class="contactos-footer">
+                <h3>Contacto</h3>
+                <p>Teléfono: +598 XXX XXX XXX</p>
+                <p>Correo electrónico: info@empresa.com</p>
+            </div>
+            <div class="links-footer">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="paginas/about-us.php">About Us\Sobre Nosotros</a></li>
+                </ul>
+            </div>
+        </div>
+</footer>
+<script src="js/funciones.js"></script>
 </body>
 </html>

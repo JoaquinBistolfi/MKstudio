@@ -5,7 +5,7 @@
 
 body {
     margin: 0;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Arial';
     background-color: rgba(143, 186, 157, 0.667);
 }
 
@@ -361,6 +361,16 @@ input[type=submit]:hover {
 
 /* ------------------------ MEDIA QUERIES ------------------------ */
 @media screen and (max-width: 900px) {
+    .valoraciones-container{
+        display: flex;
+        margin: 10px;
+        flex-direction: column;
+    }
+
+    .valoraciones-container div{
+        width: 100%;
+    }
+
     .uc {
         flex-direction: column;
         align-items: center;
@@ -380,12 +390,6 @@ input[type=submit]:hover {
 
     .valoracion {
         width: 90%;
-        margin-left: 5%;
-    }
-
-    .valoracion div{
-        width: 90%;
-        margin-left: 5%;
     }
 
     .cartas {

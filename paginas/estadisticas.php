@@ -50,6 +50,7 @@ if ($h3s->length > 0) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Precios de Ganado</title>
         <link rel="stylesheet" href="../css/estadisticas.css">
+        <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
     <?php 

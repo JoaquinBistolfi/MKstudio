@@ -32,6 +32,7 @@ $result = mysqli_query($conexion, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lotes</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
+    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
     <script src="../js/linkfila.js"></script>
 </head>
 

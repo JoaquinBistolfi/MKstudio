@@ -63,6 +63,7 @@ $_SESSION['lote_id'] = $lote_id;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Especificaciones del Lote</title>
     <link rel="stylesheet" href="../css/especificaciones.css">
+    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="../js/actualizar_oferta.js"></script>
     <script src="../libreria/sweetalert2.min.js"></script>

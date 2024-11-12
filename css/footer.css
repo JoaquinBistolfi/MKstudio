@@ -4,10 +4,10 @@
 }
 
 .footer {
+    margin-top: auto;
     display: flex;
     justify-content: space-between; 
     background-color: rgb(58, 91, 63);
-    padding: 20px;
     color: white;
     gap: 10px; 
     text-align: center;
