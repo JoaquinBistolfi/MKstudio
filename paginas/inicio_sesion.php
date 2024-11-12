@@ -19,7 +19,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
             $_SESSION['user_id'] = $user['id_usuario'];
             $_SESSION['username'] = $user['usuario'];
             $_SESSION['rol'] = $user['rol'];
-            header("Location: index.php");
+            header("Location: ../index.php");
             exit();
         } else {
             echo '<p>Nombre de usuario o contraseña incorrectos.</p>';
@@ -42,7 +42,7 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
 </head>
 <body>
     <header>
-        <a href="index.php"><img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa"></a>
+        <a href="../index.php"><img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa"></a>
     </header>
     <div class="registro">
         <h1>Iniciar sesión</h1>
