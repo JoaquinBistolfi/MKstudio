@@ -16,6 +16,7 @@ header {
     justify-content: space-between;
     padding: 0px 20px;
     padding-top: 15px;
+    width: 100%;
 }
 
 .header_logo {
@@ -81,4 +82,10 @@ a:hover {
 
 .recordar {
     margin-bottom: 20px;
+}
+
+@media screen and (max-width: 900px) {
+    .registro{
+        margin-top: 120px;
+    }
 }

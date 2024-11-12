@@ -36,8 +36,9 @@ if(isset($_SESSION['user_id'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ofertas Lotes</title>
+    <title>Mis ofertas</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
+    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
     <script src="../js/misofertas.js"></script>
 </head>
 <?php 

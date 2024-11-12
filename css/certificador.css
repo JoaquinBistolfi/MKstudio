@@ -5,6 +5,10 @@ body {
     padding: 0;
 }
 
+.tabla{
+    min-height: 67vh;
+}
+
 h1 {
     text-align: center;
     color: #2c3e50;

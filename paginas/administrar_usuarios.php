@@ -39,9 +39,10 @@ if (isset($_POST['id_usuario'])) {
     <meta charset="UTF-8">
     <title>Administrar Usuarios</title>
     <link rel="stylesheet" href="../css/administrar_usuarios.css">
-    <?php include '../includes/headeradmin.php'; ?>
+    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
 </head>
 <body>
+<?php include '../includes/headeradmin.php'; ?>
     <h1>Administrar Usuarios</h1>
     <form class="input-group" action="" method="post">
     <input type="text" class="input" name="buscar" placeholder="nombre, apellido, mail del usuario" autocomplete="off">
@@ -58,7 +59,7 @@ if (isset($_POST['id_usuario'])) {
                     <th class="esconder">Correo</th>
                     <th class="esconder">Teléfono</th>
                     <th class="esconder">Rol</th>
-                    <th class="esconder">Estado</th>
+                    <th class="">Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>

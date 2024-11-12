@@ -13,7 +13,9 @@ if (isset($_GET['id'])) {
     if (mysqli_num_rows($result) > 0) {
         $lote = mysqli_fetch_assoc($result);
         $fecha_fin = new DateTime($lote['fecha_fin']);
+        $fecha_fin_formateada = $fecha_fin->format('Y-m-d H:i');
         $fecha_actual = new DateTime();
+        $fecha_actual_formateada = $fecha_actual->format('Y-m-d H:i');
     } else {
         echo "<p>No se encontró el lote.</p>";
         exit;

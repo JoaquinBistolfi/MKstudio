@@ -123,8 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <img src="imagenes/avatar.png" alt="Usuario" class="user-icon">
         </label>
         <div class="user-menu">
-            <p><strong>Nombre:</strong>' . @$usuario['nombre'] . ' </p>
-            <p><strong>Email:</strong>' . @$usuario['mail'] . '</p>
+            <p><strong>Nombre:</strong>' . @$usuarioH['nombre'] . ' </p>
+            <p><strong>Email:</strong>' . @$usuarioH['mail'] . '</p>
             <a href="paginas/sessiondestroy.php">Cerrar sesión</a>
         </div>
     </div>';

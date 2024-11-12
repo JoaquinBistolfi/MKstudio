@@ -15,12 +15,14 @@ if (!$result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preguntas</title>
     <link rel="stylesheet" href="../css/certificador.css">
+    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
     <script src="../js/respondida.js"></script>
 </head>
 <body>
 <?php 
     include '../includes/headeradmin.php';
-?>
+?>  
+<div class="tabla">
     <h1>Preguntas</h1>
     <table class="listas">
         <thead>
@@ -58,6 +60,7 @@ if (!$result) {
             ?>
         </tbody>
     </table>
-    <?php include '../includes/footer.php'; ?>
+    </div>
 </body>
+<?php include '../includes/footer.php'; ?>
 </html>

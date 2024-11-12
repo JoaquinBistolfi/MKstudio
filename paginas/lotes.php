@@ -100,6 +100,7 @@ $result_cert = mysqli_query($conexion, $sql_cert);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subir Lotes</title>
     <link rel="stylesheet" href="../css/lotes.css">
+    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
     <script src="../js/borrarlote.js"></script>
 </head>
 <?php 
