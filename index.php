@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Da Rosa</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="css/main.css">
     <link rel="shortcut icon" href="imagenes/logoico.ico" type="image/x-icon">
 </head>
 <body>
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($rol_usuario == 'Administrador'){
         ?>
         <header>
-            <link rel="stylesheet" href="headeradmin.css">
+            <link rel="stylesheet" href="css/headeradmin.css">
 
             <input type="checkbox" id="activar" class="header_checkbox"> 
             <label for="activar" class="abrir_menu" role="button">=</label>
