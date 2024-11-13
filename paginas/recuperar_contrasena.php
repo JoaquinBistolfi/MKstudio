@@ -17,6 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
         }
 
         $codigo = generarCadenaAleatoria();
+        $codigoHash = password_hash($codigo, PASSWORD_BCRYPT);
+        $sqlUpdate = "UPDATE usuarios SET contrasena = '$codigoHash' WHERE mail = '$email'";
+        mysqli_query($conexion, $sqlUpdate);
 
         $link = "http://darosa.site/paginas/restablecer_contrasena.php?email=" . urlencode($email) . "&code=" . urlencode($codigo);
 
