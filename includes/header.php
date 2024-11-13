@@ -34,7 +34,7 @@ $usuario = mysqli_fetch_assoc($result_usuarios);
             <img src="../imagenes/avatar.png" alt="Usuario" class="user-icon">
         </label>
         <div class="user-menu">
-            <p><strong>Nombre:</strong>' . @$usuario['nombre'] . ' </p>
+            <p><strong>Usuario:</strong>' . @$usuario['usuario'] . ' </p>
             <p><strong>Email:</strong>' . @$usuario['mail'] . '</p>
             <a href="../paginas/sessiondestroy.php">Cerrar sesión</a>
         </div>

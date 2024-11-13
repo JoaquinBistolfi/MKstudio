@@ -6,10 +6,13 @@ if (isset($_GET['id'])) {
     
     $sql_archivo = "SELECT ruta FROM archivo WHERE id_lote = $idlote";
     $result_archivo = mysqli_query($conexion, $sql_archivo);
-    $archivo = mysqli_fetch_assoc($result_archivo);
 
-    if ($archivo && file_exists($archivo['ruta'])) {
-        unlink($archivo['ruta']);
+    while ($archivo = mysqli_fetch_assoc($result_archivo)) {
+        $ruta_archivo = $archivo['ruta'];
+
+        if (file_exists($ruta_archivo)) {
+            unlink($ruta_archivo);
+        }
     }
 
     $sql_delete_archivo = "DELETE FROM archivo WHERE id_lote = $idlote";

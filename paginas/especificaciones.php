@@ -220,6 +220,10 @@ if ($rol_usuario == 'Administrador'){
         } else {
             clearInterval(intervalo);
             document.getElementById('contador').innerHTML = "¡Subasta finalizada!";
+            if (!recargada) {
+            recargada = true;  
+            window.location.reload();
+        }
         }
     }
 

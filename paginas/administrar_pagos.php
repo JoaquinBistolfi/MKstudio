@@ -64,7 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['fecha']) && isset($_PO
         
         $sql_pago = "INSERT INTO pago (monto_pago, fecha, metodo_pago, id_oferta) VALUES ('$monto', '$fecha', '$metodo', '$id_oferta')";
         if (mysqli_query($conexion, $sql_pago)) {
-            echo "<p>Pago agregado exitosamente.</p>";
+            header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $lote_id); 
+            exit();
         } else {
             echo "<p>Error al ingresar el pago: " . mysqli_error($conexion) . "</p>";
         }
@@ -73,7 +74,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['fecha']) && isset($_PO
     }
 }
 
-// Consultar pagos existentes
 $sql_lotes = "SELECT * FROM pago WHERE id_oferta = '$id_oferta'";
 $result_lotes = mysqli_query($conexion, $sql_lotes);
 ?>
