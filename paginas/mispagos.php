@@ -29,7 +29,7 @@ WHERE
         SELECT MAX(monto) 
         FROM oferta 
         WHERE id_lote = o.id_lote
-        AND id_usuario = $id_usuario
+        AND id_usuario = '$id_usuario'
     )
     AND l.vendido = 1
 GROUP BY 
