@@ -17,9 +17,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
         }
 
         $codigo = generarCadenaAleatoria();
-        $codigoHash = password_hash($codigo, PASSWORD_BCRYPT);
-        $sqlUpdate = "UPDATE usuarios SET contrasena = '$codigoHash' WHERE mail = '$email'";
-        mysqli_query($conexion, $sqlUpdate);
 
         $link = "http://darosa.site/paginas/restablecer_contrasena.php?email=" . urlencode($email) . "&code=" . urlencode($codigo);
 
@@ -28,12 +25,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
         $headers = "From: no-reply@darosa.site\r\n";
 
         if (mail($email, $asunto, $mensaje, $headers)) {
-            echo "Te hemos enviado un enlace para restablecer tu contraseña a tu correo electrónico.";
+            echo "<div class='message success'>Te hemos enviado un enlace para restablecer tu contraseña a tu correo electrónico.</div>";
         } else {
-            echo "Hubo un error al enviar el correo.";
+            echo "<div class='message error'>Hubo un error al enviar el correo.</div>";
         }
     } else {
-        echo "El correo electrónico no se encuentra registrado.";
+        echo "<div class='message error'>El correo electrónico no se encuentra registrado.</div>";
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandar mail</title>
+    <link rel="stylesheet" href="../css/contra.css">
+</head>
+<body>
+    
+</body>
+</html>
