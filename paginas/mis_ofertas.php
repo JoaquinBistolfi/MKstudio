@@ -6,27 +6,28 @@ $id_usuario = @$_SESSION['user_id'];
 @$rol_usuario = $_SESSION['rol'];
 
 if(isset($_SESSION['user_id'])){
-    $sql = $sql = "SELECT 
-    lotes.id_lote, 
-    lotes.categoria, 
-    lotes.raza, 
-    lotes.cantidad, 
-    lotes.peso_promedio, 
-    MIN(archivo.ruta) AS ruta,
-    o.monto AS Monto_Usuario, 
-    (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = lotes.id_lote) AS Monto_Maximo
-FROM 
-    lotes
-INNER JOIN 
-    oferta o ON lotes.id_lote = o.id_lote  
-LEFT JOIN 
-    archivo ON lotes.id_lote = archivo.id_lote 
-WHERE 
-    fecha_fin > NOW()
-    AND o.id_usuario = $id_usuario
-    AND o.monto = (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = lotes.id_lote AND o.id_usuario = $id_usuario)
-GROUP BY 
-    lotes.id_lote";
+    $sql = "
+    SELECT 
+        lotes.id_lote, 
+        lotes.categoria, 
+        lotes.raza, 
+        lotes.cantidad, 
+        lotes.peso_promedio, 
+        MIN(archivo.ruta) AS ruta,
+        o.monto AS Monto_Usuario, 
+        (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = lotes.id_lote) AS Monto_Maximo
+    FROM 
+        lotes
+    INNER JOIN 
+        oferta o ON lotes.id_lote = o.id_lote  
+    LEFT JOIN 
+        archivo ON lotes.id_lote = archivo.id_lote 
+    WHERE 
+        fecha_fin > NOW()
+        AND o.id_usuario = $id_usuario
+        AND o.monto = (SELECT MAX(o.monto) FROM oferta o WHERE o.id_lote = lotes.id_lote AND o.id_usuario = $id_usuario)
+    GROUP BY 
+        lotes.id_lote";
 
     $result = mysqli_query($conexion, $sql);
 }
@@ -78,8 +79,8 @@ GROUP BY
                     echo "<td class='esconder'>" . $row['categoria'] . "</td>";
                     echo "<td class='esconder'>" . $row['cantidad'] . "</td>";
                     echo "<td class='esconder'>" . $row['peso_promedio'] . "</td>";
-                    echo "<div id='oferta_usuario'><td>" . ($row['Monto_Usuario'] ?: 'N/A') . "</td></div>";
-                    echo "<div id='oferta_actual'><td>" . ($row['Monto_Maximo'] ?: 'N/A') . "</td></div>";
+                    echo "<td style='color: $color_usuario'>" . ($row['Monto_Usuario'] ?: 'N/A') . "</td>"; 
+                    echo "<td style='color: $color_maximo'>" . ($row['Monto_Maximo'] ?: 'N/A') . "</td>"; 
                     echo "</tr>";
                 }
                 echo '</tbody></table>';

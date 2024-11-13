@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <a href="index.php"><img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa"></a>
+        <a href="../index.php"><img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa"></a>
     </header>
     <div class="registro">
         <h1>Restablecer tu Contraseña</h1>
@@ -19,6 +19,9 @@
             <label for="contrasena">Nueva Contraseña:</label>
             <input type="password" name="contrasena" required placeholder="Introduce tu nueva contraseña">
             <input type="submit" value="Restablecer Contraseña">
+            <div>
+                <a href="inicio_sesion.php">Iniciar sesión</a>
+            </div>
         </form>
     </div>
 </body>

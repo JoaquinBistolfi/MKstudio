@@ -9,7 +9,7 @@
 </head>
 <body>
     <header>
-        <a href="index.php"><img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa"></a>
+        <a href="../index.php"><img class="header_logo" src="../imagenes/darosa.png" alt="logo de la empresa"></a>
     </header>
     <div class="registro">
         <form action="recuperar_contrasena.php" method="POST">
