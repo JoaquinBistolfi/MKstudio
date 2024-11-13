@@ -21,11 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['email'])) {
         $sqlUpdate = "UPDATE usuarios SET contrasena = '$codigoHash' WHERE mail = '$email'";
         mysqli_query($conexion, $sqlUpdate);
 
-        $link = "http://tusitio.com/restablecer_contrasena.php?email=" . urlencode($email) . "&code=" . urlencode($codigo);
+        $link = "http://darosa.site/paginas/restablecer_contrasena.php?email=" . urlencode($email) . "&code=" . urlencode($codigo);
 
         $asunto = "Restablecer tu contraseña";
         $mensaje = "Tu código temporal es $codigo. Haz clic en el siguiente enlace para restablecer tu contraseña: $link";
-        $headers = "From: no-reply@tusitio.com\r\n";
+        $headers = "From: no-reply@darosa.site\r\n";
 
         if (mail($email, $asunto, $mensaje, $headers)) {
             echo "Te hemos enviado un enlace para restablecer tu contraseña a tu correo electrónico.";

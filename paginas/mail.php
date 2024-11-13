@@ -29,7 +29,7 @@ if ($result_usuarios && mysqli_num_rows($result_usuarios) > 0) {
         <p><strong>Cantidad:</strong> {$_POST['cantidad']}</p>
         <p><strong>Peso Promedio:</strong> {$_POST['peso']}</p>
         <p><strong>Raza:</strong> {$_POST['raza']}</p>
-        <p><a href='http://.com/lotes.php'>Ver el lote completo</a></p> 
+        <p><a href='http://darosa.site/paginas/lotesusr.php'>Ver el lote completo</a></p> 
         </body>
         </html>
         ";// falta poner la url de nueswtra pagina cuando quede subida
