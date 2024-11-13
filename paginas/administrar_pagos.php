@@ -5,6 +5,7 @@ include '../includes/conexion.php';
 @$rol_usuario = $_SESSION['rol'];
 $lote_id = $_GET['id'];
 
+// Obtener información del lote
 $sql = "SELECT * FROM lotes WHERE id_lote = '$lote_id'";
 $result = mysqli_query($conexion, $sql);
 if (mysqli_num_rows($result) > 0) {
@@ -13,19 +14,23 @@ if (mysqli_num_rows($result) > 0) {
     echo "<p>No se encontró el lote.</p>";
 }
 
-$sql2 = "SELECT id_oferta, u.usuario, u.apellido FROM oferta o, usuarios u WHERE o.id_usuario = u.id_usuario
-         AND monto = ( SELECT MAX(monto) FROM oferta WHERE id_lote = '$lote_id' );;";
-        $result2 = mysqli_query($conexion, $sql2);
-        
-        if (mysqli_num_rows($result2) > 0) {
-            $oferta = mysqli_fetch_assoc($result2);
-            $id_oferta = $oferta['id_oferta'];
-            $nombre = $oferta['usuario'];
-            $apellido = $oferta['apellido'];
-        } else {
-            echo "<p>No se encontró la oferta.</p>";
+// Obtener la oferta más alta para el lote
+$sql2 = "SELECT id_oferta, u.usuario, u.apellido FROM oferta o
+         JOIN usuarios u ON o.id_usuario = u.id_usuario
+         WHERE o.monto = (SELECT MAX(monto) FROM oferta WHERE id_lote = '$lote_id') 
+         AND o.id_lote = '$lote_id'";
+$result2 = mysqli_query($conexion, $sql2);
+
+if (mysqli_num_rows($result2) > 0) {
+    $oferta = mysqli_fetch_assoc($result2);
+    $id_oferta = $oferta['id_oferta'];
+    $nombre = $oferta['usuario'];
+    $apellido = $oferta['apellido'];
+} else {
+    echo "<p>No se encontró la oferta.</p>";
 }
 
+// Calcular monto total y pendiente
 $sql = "
     SELECT 
         o.monto, 
@@ -54,23 +59,26 @@ $cuentas = mysqli_fetch_assoc($result);
 $total = $cuentas['monto'] * $cuentas['cantidad'] * $cuentas['peso_promedio'];
 $falta = $total - $cuentas['total_pagado']; 
         
-
+// Insertar nuevo pago
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['fecha']) && isset($_POST['metodo'])) {
-    if (!empty($_POST["monto"]) && !empty($_POST["fecha"]) && !empty($_POST["metodo"])) {
+    if (!empty($_POST["monto"]) && !empty($_POST["fecha"]) && !empty($_POST["metodo"]) && !empty($id_oferta)) {
         $monto = $_POST['monto'];
         $fecha = $_POST['fecha'];
         $metodo = $_POST['metodo'];
         
-            $sql_pago = "INSERT INTO pago (monto_pago, fecha, metodo_pago, id_oferta) VALUES ('$monto', '$fecha', '$metodo', '$id_oferta')";
-            mysqli_query($conexion, $sql_pago);
+        $sql_pago = "INSERT INTO pago (monto_pago, fecha, metodo_pago, id_oferta) VALUES ('$monto', '$fecha', '$metodo', '$id_oferta')";
+        if (mysqli_query($conexion, $sql_pago)) {
+            echo "<p>Pago agregado exitosamente.</p>";
         } else {
-            echo "<p>No se encontró la oferta.</p>";
+            echo "<p>Error al ingresar el pago: " . mysqli_error($conexion) . "</p>";
         }
+    } else {
+        echo "<p>Faltan datos del pago o id_oferta no es válido.</p>";
     }
+}
 
-$sql_lotes = "SELECT * FROM pago WHERE id_oferta IN (
-    SELECT id_oferta FROM oferta WHERE id_lote = '$lote_id'
-)";
+// Consultar pagos existentes
+$sql_lotes = "SELECT * FROM pago WHERE id_oferta = '$id_oferta'";
 $result_lotes = mysqli_query($conexion, $sql_lotes);
 ?>
 
@@ -95,7 +103,7 @@ $result_lotes = mysqli_query($conexion, $sql_lotes);
 
 <form action="" method="post">
     <label for="Monto">Monto:
-        <input type="number" name="monto" min="1"max="<?php echo $falta; ?>" required >
+        <input type="number" name="monto" min="1" max="<?php echo $falta; ?>" required >
     </label>
     <br>
     <label for="fecha">Fecha del pago:

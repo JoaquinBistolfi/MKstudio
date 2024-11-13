@@ -52,9 +52,9 @@ if (!$result) {
 </head>
     <?php 
     if ($rol_usuario == 'Administrador'){
-            include '../includes/headeradmin.php';
+        include '../includes/headeradmin.php';
     }else{
-            include '../includes/header.php';
+        header("Location: ../index.php");
     }
     ?>
     <body>

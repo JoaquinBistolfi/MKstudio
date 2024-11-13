@@ -47,9 +47,9 @@ $result = mysqli_query($conexion, $sql);
 </head>
 <?php 
     if ($rol_usuario == 'Administrador'){
-            include '../includes/headeradmin.php';
-    } else {
-            include '../includes/header.php';
+        include '../includes/headeradmin.php';
+    }else{
+        header("Location: ../index.php");
     }
 ?>
 <body>

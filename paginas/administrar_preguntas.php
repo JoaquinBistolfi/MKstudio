@@ -1,6 +1,10 @@
 <?php
 include '../includes/conexion.php';
 
+session_start();
+
+@$rol_usuario = $_SESSION['rol'];
+
 $sql = "SELECT * FROM pregunta p, usuarios u WHERE p.id_usuario = u.id_usuario AND estado = 'pendiente';";
 $result = mysqli_query($conexion, $sql);
 if (!$result) {
@@ -20,7 +24,11 @@ if (!$result) {
 </head>
 <body>
 <?php 
-    include '../includes/headeradmin.php';
+    if ($rol_usuario == 'Administrador'){
+        include '../includes/headeradmin.php';
+    }else{
+        header("Location: ../index.php");
+    }
 ?>  
 <div class="tabla">
     <h1>Preguntas</h1>

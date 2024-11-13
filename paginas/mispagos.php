@@ -11,11 +11,7 @@ $sql = "
     p.*, 
     o.*, 
     u.id_usuario,
-    l.cantidad, 
-    l.id_lote, 
-    l.peso_promedio, 
-    l.categoria, 
-    l.raza,
+    l.*,
     a.ruta, 
     COALESCE(SUM(p.monto_pago), 0) AS total_pagado 
 FROM 
@@ -68,28 +64,28 @@ $result = mysqli_query($conexion, $sql);
             echo "<div class='no-lotes'>Debe iniciar sesión para ver los pagos pendiente.</div>";
         } else {
             if (mysqli_num_rows($result) > 0) {
-            echo '<table class="listas">
+            echo "<table class='listas'>
                     <thead>
                         <tr>
                             <th>Foto</th>
-                            <th>Lote</th>
-                            <th>Total</th>
-                            <th>Pagado</th>
+                            <th class='esconder'>Lote</th>
+                            <th class='esconder'>Total</th>
+                            <th class='esconder'>Pagado</th>
                             <th>Falta</th>
                             <th>Nota de venta</th>
                         </tr>
                     </thead>
-                    <tbody>';
+                    <tbody>";
             while ($row = mysqli_fetch_assoc($result)) {
                 $total = $row['monto'] * $row['cantidad'] * $row['peso_promedio'];
                 $falta = $total - $row['total_pagado']; 
 
                 if ($falta > 0) {
                     echo "<tr>";
-                    echo "<td><a href='administrar_pagos.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></a></td>";  
-                    echo "<td>" . $row['categoria'] . ' ' . $row['raza'] . ' ' . $row['cantidad'] . "</td>";
-                    echo "<td>" . $total . "</td>";
-                    echo "<td>" . $row['total_pagado'] . "</td>";  
+                    echo "<td><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "'></td>";  
+                    echo "<td class='esconder'>" . $row['categoria'] . ' ' . $row['raza'] . ' ' . $row['cantidad'] . "</td>";
+                    echo "<td class='esconder'>" . $total . "</td>";
+                    echo "<td class='esconder'>" . $row['total_pagado'] . "</td>";  
                     echo "<td>" . $falta . "</td>";
                     echo "<td><a href='pdf/pdf.php?id=" . $row['id_lote'] . "'><img src='../imagenes/ojo-abierto.png' alt='nota_de_venta' class='factura'></a></td>";
                     echo "</tr>";

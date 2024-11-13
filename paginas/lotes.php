@@ -107,7 +107,7 @@ $result_cert = mysqli_query($conexion, $sql_cert);
     if ($rol_usuario == 'Administrador'){
         include '../includes/headeradmin.php';
     } else {
-        include '../includes/header.php';
+        header("Location: ../index.php");
     }
 ?>
 <body>
