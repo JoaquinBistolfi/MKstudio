@@ -42,7 +42,7 @@ $result = mysqli_query($conexion, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagos</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
-    <link rel="shortcut icon" href="imagenes/logoico.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../imagenes/logoico.ico" type="image/x-icon">
 
 </head>
 <?php 
