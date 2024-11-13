@@ -1,17 +1,15 @@
 <?php
 session_start();
-
 include '../includes/conexion.php';
 
 @$rol_usuario = $_SESSION['rol'];
 
 $sql = "
     SELECT 
-        p.*, 
         o.*, 
         u.*, 
         l.*, 
-        a.ruta, 
+        (SELECT MIN(ruta) FROM archivo WHERE id_lote = l.id_lote) AS ruta, 
         COALESCE(SUM(p.monto_pago), 0) AS total_pagado 
     FROM 
         oferta o 
@@ -19,8 +17,6 @@ $sql = "
         lotes l ON o.id_lote = l.id_lote 
     JOIN 
         usuarios u ON o.id_usuario = u.id_usuario 
-    JOIN 
-        archivo a ON a.id_lote = l.id_lote 
     LEFT JOIN 
         pago p ON p.id_oferta = o.id_oferta 
     WHERE 
@@ -31,8 +27,9 @@ $sql = "
         )
         AND l.vendido = 1
     GROUP BY 
-        o.id_oferta;
-;";
+        o.id_oferta, l.id_lote, u.id_usuario;
+";
+
 $result = mysqli_query($conexion, $sql);
 ?>
 
