@@ -36,8 +36,7 @@ if (isset($_POST['id_usuario'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Administracion Usuarios</title>
     <link rel="stylesheet" href="../css/lotesusr.css">
 </head>
 <body>
@@ -89,7 +88,7 @@ if (isset($_POST['id_usuario'])) {
                     }
             echo '</tbody></table>';
         } else {
-            echo "<div class='no-lotes'>No se encontraron lotes.</div>";
+            echo "<div class='no-lotes'>No se encontraron usuarios.</div>";
         }
         ?>
     </div>
