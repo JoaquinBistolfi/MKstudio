@@ -51,7 +51,7 @@ if (isset($_POST['id_usuario'])) {
 <body>
 
     <div class="content">
-        <h2>Lista de Lotes Disponibles</h2> 
+        <h2>Lista de usuarios registrados</h2> 
         <form class="input-group" action="" method="post">
         <input type="text" class="input" name="buscar" placeholder="nombre, apellido, mail del usuario" autocomplete="off">
         <input class="button--submit" value="Buscar" type="submit">
