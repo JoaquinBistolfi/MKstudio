@@ -13,18 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $pass = $_POST['password'];
             $confirmar_pass = $_POST['confirmar_password'];
 
-            if ($pass !== $confirmar_pass) {
-                echo '<script>alert("Las contraseñas no coinciden.")</script>';
+            if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+                echo '<p>Por favor ingrese un correo electrónico válido.</p>';
+            }elseif ($pass !== $confirmar_pass) {
+                echo '<p>Las contraseñas no coinciden.</p>';
             } else {
                 $pass = password_hash($_POST['password'], PASSWORD_BCRYPT);
                 $query = "INSERT INTO `usuarios` (`usuario`, `nombre`, `apellido`, `telefono`, `mail`, `contrasena`) VALUES ('$usuario', '$nombre', '$apellido', '$telefono', '$mail', '$pass')";
                 if (mysqli_query($conexion, $query)) {
-                    echo '<script>alert("Se ha registrado correctamente.")</script>';
                     header("Location: inicio_sesion.php");
                     exit();
                 } else {
                     if (mysqli_errno($conexion) == 1062) {
-                        echo '<script>alert("El nombre de usuario ya existe, por favor elija otro.")</script>';
+                        echo '<p>El nombre de usuario o mail ya existe, por favor elija otro.</p>';
                     } else {
                         echo '<script>alert("Error en el registro: ' . mysqli_error($conexion) . '")</script>';
                     }

@@ -11,8 +11,8 @@
             </div>
             <div class="contactos-footer">
                 <h3>Contacto</h3>
-                <p>Teléfono: +598 XXX XXX XXX</p>
-                <p>Correo electrónico: info@empresa.com</p>
+                <p>Teléfono: +598 91 033 443</p>
+                <p>Correo electrónico: bdarosa12@gmail.com</p>
             </div>
             <div class="links-footer">
                 <h3>Enlaces</h3>

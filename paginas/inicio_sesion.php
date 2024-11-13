@@ -14,8 +14,8 @@ if (isset($_POST['usuario']) && isset($_POST['password'])) {
         $result = $stmt->get_result();
         $user = $result->fetch_assoc();
 
-        if($user['bloqueado']==0){
-        if (password_verify($pass, $user['contrasena'])) {
+        if(@$user['bloqueado']==0){
+        if (password_verify($pass, @$user['contrasena'])) {
             $_SESSION['user_id'] = $user['id_usuario'];
             $_SESSION['username'] = $user['usuario'];
             $_SESSION['rol'] = $user['rol'];
