@@ -12,7 +12,7 @@ $sql = "
     o.*, 
     u.id_usuario,
     l.*,
-    a.ruta, 
+    MIN(a.ruta) AS ruta, 
     COALESCE(SUM(p.monto_pago), 0) AS total_pagado 
 FROM 
     oferta o 
@@ -33,7 +33,7 @@ WHERE
     )
     AND l.vendido = 1
 GROUP BY 
-    o.id_oferta, u.id_usuario, l.id_lote, a.ruta;
+    l.id_lote, u.id_usuario; 
 ";
 $result = mysqli_query($conexion, $sql);
 ?>

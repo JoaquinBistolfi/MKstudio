@@ -79,7 +79,8 @@ if (!$result) {
         <input type="submit" value="Subir">
     </form>
     <h1>Certificadores registrados</h1>
-    <table class="listas">
+    <?php if (mysqli_num_rows($result) > 0) {
+    echo "<table class='listas'>
         <thead>
             <tr>
                 <th>Foto</th>
@@ -89,9 +90,8 @@ if (!$result) {
             </tr>
         </thead>
         <tbody>
-            <div class="fila_tabla">
+            <div class='fila_tabla'>" ?>
             <?php
-                if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
                         echo "<td><img src='" . $row['ruta_archivo'] . "' alt='" . $row['nombre'] . "'></td>";  
@@ -102,7 +102,7 @@ if (!$result) {
                         echo "</tr>";
                     }
                 } else {
-                    echo "No se encontraron lotes.";
+                    echo "<div class='no-lotes'>No se encontraron lotes.</div>";
                 }
             ?>
             </div>

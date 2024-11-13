@@ -29,6 +29,7 @@ $sql = "
             FROM oferta 
             WHERE id_lote = o.id_lote
         )
+        AND l.vendido = 1
     GROUP BY 
         o.id_oferta;
 ;";

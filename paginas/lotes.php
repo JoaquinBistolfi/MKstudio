@@ -46,6 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['categoria']) && isset(
             $sql_archivo = "INSERT INTO archivo (id_lote, ruta, tipo) VALUES ('$id_lote', '$ruta_archivo', '$tipo')";
             if (!mysqli_query($conexion, $sql_archivo)) {
                 echo "Error al guardar el archivo: " . mysqli_error($conexion);
+            }else{
+                echo "<p>Subido correctamente</p>";
             }
         } else {
             echo "Error al mover el archivo: " . $nombre_archivo;
@@ -77,8 +79,7 @@ $sql = "SELECT
         LEFT JOIN 
             archivo ON lotes.id_lote = archivo.id_lote 
         WHERE 
-            fecha_fin > NOW()
-            AND lotes.vendido = 0
+            lotes.vendido = 0
         GROUP BY 
             lotes.id_lote";
 
@@ -191,7 +192,9 @@ $result_cert = mysqli_query($conexion, $sql_cert);
     </form>
 
     <h2>Lista de lotes subidos</h2>
-    <table class="listas">
+    <?php
+    if (mysqli_num_rows($result) > 0) {
+    echo "<table class='listas'>
         <thead>
             <tr>
                 <th>Foto</th>
@@ -203,12 +206,12 @@ $result_cert = mysqli_query($conexion, $sql_cert);
             </tr>
         </thead>
         <tbody>
-            <div class="fila_tabla">
-            <?php
-                if (mysqli_num_rows($result) > 0) {
+            <div class='fila_tabla'>"
+            ?>
+                <?php
                     while ($row = mysqli_fetch_assoc($result)) {
                         echo "<tr>";
-                        echo "<td><a href='administrar_lote.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . $row['categoria'] . "' class='imagen'></a></td>";  
+                        echo "<td><a href='administrar_lote.php?id=" . $row['id_lote'] . "'><img src='" . $row['ruta'] . "' alt='" . 'Foto de ' . $row['categoria'] . "' class='imagen'></a></td>";  
                         echo "<td class='esconder'>" . $row['categoria'] . "</td>";
                         echo "<td class='esconder'>" . $row['raza'] . "</td>";
                         echo "<td class='esconder'>" . $row['cantidad'] . "</td>";
@@ -218,7 +221,7 @@ $result_cert = mysqli_query($conexion, $sql_cert);
                         echo "</tr>";
                     }
                 } else {
-                    echo "No se encontraron lotes.";
+                    echo "<div class='no-lotes'>No se encontraron lotes.</div>";
                 }
             ?>
             </div>

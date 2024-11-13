@@ -5,7 +5,6 @@ include '../includes/conexion.php';
 @$rol_usuario = $_SESSION['rol'];
 $lote_id = $_GET['id'];
 
-// Obtener información del lote
 $sql = "SELECT * FROM lotes WHERE id_lote = '$lote_id'";
 $result = mysqli_query($conexion, $sql);
 if (mysqli_num_rows($result) > 0) {
@@ -14,8 +13,7 @@ if (mysqli_num_rows($result) > 0) {
     echo "<p>No se encontró el lote.</p>";
 }
 
-// Obtener la oferta más alta para el lote
-$sql2 = "SELECT id_oferta, u.usuario, u.apellido FROM oferta o
+$sql2 = "SELECT id_oferta, u.nombre, u.apellido FROM oferta o
          JOIN usuarios u ON o.id_usuario = u.id_usuario
          WHERE o.monto = (SELECT MAX(monto) FROM oferta WHERE id_lote = '$lote_id') 
          AND o.id_lote = '$lote_id'";
@@ -24,13 +22,12 @@ $result2 = mysqli_query($conexion, $sql2);
 if (mysqli_num_rows($result2) > 0) {
     $oferta = mysqli_fetch_assoc($result2);
     $id_oferta = $oferta['id_oferta'];
-    $nombre = $oferta['usuario'];
+    $nombre = $oferta['nombre'];
     $apellido = $oferta['apellido'];
 } else {
     echo "<p>No se encontró la oferta.</p>";
 }
 
-// Calcular monto total y pendiente
 $sql = "
     SELECT 
         o.monto, 
@@ -59,7 +56,6 @@ $cuentas = mysqli_fetch_assoc($result);
 $total = $cuentas['monto'] * $cuentas['cantidad'] * $cuentas['peso_promedio'];
 $falta = $total - $cuentas['total_pagado']; 
         
-// Insertar nuevo pago
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['fecha']) && isset($_POST['metodo'])) {
     if (!empty($_POST["monto"]) && !empty($_POST["fecha"]) && !empty($_POST["metodo"]) && !empty($id_oferta)) {
         $monto = $_POST['monto'];

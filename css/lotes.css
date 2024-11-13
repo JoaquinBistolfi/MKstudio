@@ -102,6 +102,13 @@ table.listas tr:hover {
     cursor: pointer;
 }
 
+.no-lotes {
+    font-size: 1.2em;
+    color: #ff0000;
+    text-align: center;
+    margin-top: 20px;
+}
+
 @media screen and (min-width: 650px) {
     .info {
         display: flex;
