@@ -16,8 +16,6 @@ function actualizarOferta() {
                     ofertaActual.innerHTML = "No hay ofertas aún.";
                 }
 
-                ofertaUsuario.innerHTML = `Tu oferta: ${montoUsuario || 'N/A'}`;
-
                 if (esUsuario) {
                     ofertaActual.innerHTML += " (Fue hecha por usted)";
                 }
